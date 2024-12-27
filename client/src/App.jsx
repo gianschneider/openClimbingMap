@@ -1,5 +1,4 @@
 import "./App.css";
-import React from "react";
 import { useState } from "react";
 import MapWrapper from "./components/MapWrapper.jsx";
 import FeatureTable from "./components/FeatureTable.jsx";
