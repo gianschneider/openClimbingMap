@@ -41,7 +41,12 @@ function MapWrapper({ features, setFeatures, selectedFeatureID, setSelectedFeatu
     mapRef.current = new Map({
       target: "map",
       layers: [initFeatureLayer],
-      view: new View({ projection: "EPSG:3857", center: [0, 0], zoom: 4 }),
+      view: new View({
+        projection: "EPSG:3857",
+        center: [0, 0],
+        zoom: 4,
+        extent: [600_000, 5_650_000, 1_200_000, 6_150_000],
+      }),
     });
     // zoom to data
     mapRef.current.getView().fit(initFeatureLayer.getSource().getExtent(), {
