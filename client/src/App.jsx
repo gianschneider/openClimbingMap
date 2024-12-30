@@ -27,7 +27,6 @@ function App() {
         />
         <FeatureTable
           features={features}
-          setFeatures={setFeatures}
           selectedFeatureID={selectedFeatureID}
           setSelectedFeatureID={setSelectedFeatureID}
         />
