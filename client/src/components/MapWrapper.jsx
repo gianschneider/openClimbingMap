@@ -7,6 +7,21 @@ import Select from "ol/interaction/Select";
 import { click } from "ol/events/condition";
 import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
+import Style from "ol/style/Style";
+import Fill from "ol/style/Fill";
+import Stroke from "ol/style/Stroke";
+import chroma from "chroma-js";
+
+// load data and add styles for features
+const kantoneRaw = await fetch("/kantone.geojson").then((res) => res.json());
+const geoJsonFormat = new GeoJSON();
+const kantone = geoJsonFormat.readFeatures(kantoneRaw, { featureProjection: "EPSG:3857" });
+const maxFlaeche = Math.max(...kantone.map((f) => f.values_.kantonsflaeche));
+const minFlaeche = Math.min(...kantone.map((f) => f.values_.kantonsflaeche));
+const colourScale = chroma.scale("Blues").domain([minFlaeche, maxFlaeche]);
+kantone.forEach((f) => {
+  f.setStyle(new Style({ fill: new Fill({ color: colourScale(f.values_.kantonsflaeche).hex() }), stroke: new Stroke({ color: "lightgrey", width: 0.2 }) }));
+});
 
 function MapWrapper({ features, setFeatures, selectedFeatureID, setSelectedFeatureID }) {
   // set intial state
@@ -20,48 +35,48 @@ function MapWrapper({ features, setFeatures, selectedFeatureID, setSelectedFeatu
   useEffect(() => {
     // if map already initialised, exit function
     if (mapRef.current) return;
-    let initFeatureLayer = new VectorLayer({
-      source: new VectorSource({
-        format: new GeoJSON(),
-        url: "/countries.geojson",
-      }),
-    });
+    let initFeatureLayer = new VectorLayer({ source: new VectorSource({ features: kantone }) });
     setFeatureLayer(initFeatureLayer);
+    setFeatures(kantone);
     mapRef.current = new Map({
       target: "map",
       layers: [initFeatureLayer],
       view: new View({ projection: "EPSG:3857", center: [0, 0], zoom: 4 }),
     });
-    initFeatureLayer.getSource().on("featuresloadend", (evt) => {
-      setFeatures(evt.target.getFeatures());
+    // zoom to data
+    mapRef.current.getView().fit(initFeatureLayer.getSource().getExtent(), {
+      padding: [20, 20, 20, 20],
+      duration: 1000,
     });
     // add interaction, specify "click" instead of default "singleclick" because
     // the latter introduces 250ms delay to check for doubleclick
-    const select = new Select({ condition: click });
-    select.on("select", function (e) {
+    const selectInteraction = new Select({
+      condition: click,
+      style: (feature) => {
+        return new Style({
+          fill: new Fill({
+            color: colourScale(feature.values_.kantonsflaeche).hex(),
+          }),
+          stroke: new Stroke({ color: "cornflowerblue", width: 3 }),
+        });
+      },
+    });
+    selectInteraction.on("select", function (e) {
       if (e.selected.length) {
+        console.log(`Selected feature: ${e.selected[0].getId()}, ${e.selected[0].get("name")}`);
         setSelectedFeatureID(e.selected[0].getId());
       } else setSelectedFeatureID();
     });
-    mapRef.current.addInteraction(select);
-    setSelectInteraction(select);
-  }, [setFeatures, setSelectedFeatureID]);
-
-  // update featureLayer if features prop changes
-  useEffect(() => {
-    // featureLayer may not be initialised yet
-    if (featureLayer && features?.length) {
-      // fit map to feature extent (with 100px of padding)
-      mapRef.current.getView().fit(featureLayer.getSource().getExtent(), {
-        padding: [100, 100, 100, 100],
-      });
-    }
-  }, [features, featureLayer]);
+    mapRef.current.addInteraction(selectInteraction);
+    setSelectInteraction(selectInteraction);
+  }, [setFeatures, selectedFeatureID, setSelectedFeatureID]);
 
   // set selected feature on map
   useEffect(() => {
     // check for initialisation
     if (selectInteraction && featureLayer) {
+      // clear selected features, otherwise it will add selected feature to existing ones
+      // this should not be necessary since the "multi" property of the select interaction is false by default...
       selectInteraction.getFeatures().clear();
       // get selected feature
       const selectedFeature = featureLayer
@@ -72,11 +87,18 @@ function MapWrapper({ features, setFeatures, selectedFeatureID, setSelectedFeatu
         selectInteraction.getFeatures().push(selectedFeature);
         mapRef.current.getView().fit(selectedFeature.getGeometry(), {
           padding: [100, 100, 100, 100],
-          duration: 1000,
+          duration: 200,
+        });
+      } else if (features.length) {
+        // preferably we would test this with featureLayer.getSource().state_ === "ready",
+        // but this marks the source as ready before the features are fully loaded :S
+        mapRef.current.getView().fit(featureLayer.getSource().getExtent(), {
+          padding: [100, 100, 100, 100],
+          duration: 200,
         });
       }
     }
-  }, [selectInteraction, selectedFeatureID, featureLayer]);
+  }, [selectInteraction, selectedFeatureID, featureLayer, features]);
 
   return (
     <div

@@ -6,7 +6,6 @@ import FeatureTable from "./components/FeatureTable.jsx";
 function App() {
   const [features, setFeatures] = useState([]);
   const [selectedFeatureID, setSelectedFeatureID] = useState();
-  console.log(selectedFeatureID);
   return (
     <>
       <h1>
