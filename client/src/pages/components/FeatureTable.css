@@ -1,0 +1,6 @@
+#featuretable {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  margin: 1em;
+}
