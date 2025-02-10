@@ -31,7 +31,7 @@ function Header() {
           OpenLayers
         </NavButton>
         <NavButton path="maplibre">MapLibre</NavButton>
-        <NavButton path="analysis">Spatial Analysis</NavButton>
+        <NavButton path="spatialanalysis">Spatial Analysis</NavButton>
         <NavButton path="cloudnative">Cloud-native</NavButton>
       </h2>
     </>

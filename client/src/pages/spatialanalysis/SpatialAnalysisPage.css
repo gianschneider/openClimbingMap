@@ -1,0 +1,13 @@
+#spatialanalysis-content {
+  margin-top: 2em;
+  display: flex;
+  justify-content: center;
+  flex-flow: row wrap;
+}
+
+#spatialanalysis-container {
+  width: 100vw;
+  max-width: 700px;
+  aspect-ratio: 1.7; /* aspect ratio of data bbox */
+  margin: 1em;
+}
