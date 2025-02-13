@@ -1,7 +1,7 @@
 #featuretable {
   display: flex;
   flex-flow: column wrap;
-  flex: 0 1 560px;
+  flex: 0 1 600px;
   margin: 1em;
   overflow: auto;
 }
