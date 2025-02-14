@@ -9,30 +9,14 @@ function SpatialAnalysisMap({ bufferDistance }) {
   // create reference for event handler so we can setup the event listener once in the
   // initial useEffet and update it later
   const updateRoadBuffers = useRef();
-  const bufferCache = useRef(new Set());
   // callback to update road buffers
   updateRoadBuffers.current = useCallback(() => {
     if (!bufferDistance || bufferDistance === 0) return;
     console.log("Updating road buffers:", bufferDistance);
-    // TODO: This function recalculates the buffers every time the viewport changes
-    // This leads to many duplicate calculations. We could save a lot of effort by implementing some basic caching based on feature ID.
+    // TODO: This function recalculates all buffers every time the viewport changes.
+    //       This leads to duplicate calculations. We could save effort by implementing basic caching.
     let roads = mapRef.current.queryRenderedFeatures({ layers: ["road_fill"] });
-    // filter roads that are not in cache
-    // roads = roads.filter(
-    //   (r) =>
-    //     !bufferCache.current.has(
-    //       r.geometry.coordinates.reduce((prev, curr) => prev + curr[0] + curr[1], 0)
-    //     )
-    // );
-    // add new roads to cache
-    // roads.forEach((r) =>
-    //   // since feature have no ID, we use the sum of coordinates as a simple ID
-    //   bufferCache.current.add(
-    //     r.geometry.coordinates.reduce((prev, curr) => prev + curr[0] + curr[1], 0)
-    //   )
-    // );
     const roadsBuffers = roads.map((r) => buffer(r, bufferDistance, { units: "meters" }));
-    // const oldRoadsBuffers = mapRef.current.querySourceFeatures("roadbuffers");
     mapRef.current.getSource("roadbuffers").setData({
       type: "FeatureCollection",
       features: roadsBuffers,
@@ -83,3 +67,21 @@ function SpatialAnalysisMap({ bufferDistance }) {
 }
 
 export default SpatialAnalysisMap;
+
+// sample code for caching, SLOW, needs profiling
+// const bufferCache = useRef(new Set());
+// filter roads that are not in cache
+// roads = roads.filter(
+//   (r) =>
+//     !bufferCache.current.has(
+//       // use coordinates as a simple ID, this is slow for long roads
+//       r.geometry.coordinates.reduce((prev, curr) => prev + curr[0] + curr[1], 0)
+//     )
+// );
+// add new roads to cache
+// roads.forEach((r) =>
+//   // since feature have no ID, we use the sum of coordinates as a simple ID
+//   bufferCache.current.add(
+//     r.geometry.coordinates.reduce((prev, curr) => prev + curr[0] + curr[1], 0)
+//   )
+// );
