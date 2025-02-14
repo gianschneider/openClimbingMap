@@ -1,7 +1,7 @@
 import "./OpenlayersPage.css";
 import { useState } from "react";
 import OpenlayersMap from "./OpenlayersMap.jsx";
-import FeatureTable from "../components/FeatureTable.jsx";
+import FeatureTable from "../shared_components/FeatureTable.jsx";
 
 // load data
 const kantone = await fetch("/kantone.geojson").then((res) => res.json());

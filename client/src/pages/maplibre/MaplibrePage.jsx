@@ -1,7 +1,7 @@
 import "./MaplibrePage.css";
 import { useState } from "react";
 import MaplibreMap from "./MaplibreMap.jsx";
-import FeatureTable from "../components/FeatureTable.jsx";
+import FeatureTable from "../shared_components/FeatureTable.jsx";
 
 // load data
 const kantone = await fetch("/kantone.geojson").then((res) => res.json());
