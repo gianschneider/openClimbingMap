@@ -6,6 +6,7 @@ import { HashRouter, Navigate, Route, Routes } from "react-router";
 import Header from "./Header.jsx";
 import MaplibrePage from "./pages/maplibre/MaplibrePage.jsx";
 import SpatialAnalysisPage from "./pages/spatialanalysis/SpatialAnalysisPage.jsx";
+import GeoTIFFPage from "./pages/geotiff/GeoTIFFPage.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -16,7 +17,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="openlayers" element={<OpenlayersPage />} />
         <Route path="maplibre" element={<MaplibrePage />} />
         <Route path="spatialanalysis" element={<SpatialAnalysisPage />} />
-        <Route path="cloudnative" element={<OpenlayersPage />} />
+        <Route path="geotiff" element={<GeoTIFFPage />} />
       </Routes>
     </HashRouter>
   </StrictMode>

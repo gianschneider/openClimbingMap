@@ -1,0 +1,17 @@
+#geotiff-content {
+  margin-top: 2em;
+  display: flex;
+  justify-content: center;
+  flex-flow: row wrap;
+  label > input {
+    margin: 0 1em;
+    width: 10em;
+  }
+}
+
+#geotiff-map-container {
+  width: 100vw;
+  max-width: 1440px;
+  aspect-ratio: 1.7;
+  margin: 1em;
+}

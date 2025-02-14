@@ -32,7 +32,7 @@ function Header() {
         </NavButton>
         <NavButton path="maplibre">MapLibre</NavButton>
         <NavButton path="spatialanalysis">Spatial Analysis</NavButton>
-        <NavButton path="cloudnative">Cloud-native</NavButton>
+        <NavButton path="geotiff">Cloud-optimized GeoTIFF</NavButton>
       </h2>
     </>
   );
