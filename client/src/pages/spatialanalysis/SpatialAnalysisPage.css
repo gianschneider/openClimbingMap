@@ -3,11 +3,15 @@
   display: flex;
   justify-content: center;
   flex-flow: row wrap;
+  label > input {
+    margin: 0 1em;
+    width: 3em;
+  }
 }
 
-#spatialanalysis-container {
+#spatialanalysis-map-container {
   width: 100vw;
-  max-width: 700px;
+  max-width: 1440px;
   aspect-ratio: 1.7; /* aspect ratio of data bbox */
   margin: 1em;
 }

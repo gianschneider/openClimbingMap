@@ -1,127 +1,85 @@
 import { useCallback, useEffect, useRef } from "react";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
+import buffer from "@turf/buffer";
 
-import bbox from "@turf/bbox";
-
-function SpatialAnalysisMap({ featureCollection, selectedFeatureID, setSelectedFeatureID }) {
+function SpatialAnalysisMap({ bufferDistance }) {
   // create state ref that can be accessed in callbacks
   const mapRef = useRef();
-  const prevSelectedFeatureID = useRef();
-  const kantoneBbox = useRef();
-
-  const handleSelectionChange = useCallback(
-    (clickedFeature) => {
-      // side effects: relies on module scoped refs
-      // deselect previous feature
-      if (prevSelectedFeatureID.current !== undefined) {
-        mapRef.current.setFeatureState(
-          { source: "kantone", id: prevSelectedFeatureID.current },
-          { selected: false }
-        );
-      }
-      if (clickedFeature) {
-        // select feature
-        setSelectedFeatureID(clickedFeature.id);
-        prevSelectedFeatureID.current = clickedFeature.id;
-        mapRef.current.setFeatureState(
-          { source: "kantone", id: clickedFeature.id },
-          { selected: true }
-        );
-        mapRef.current.fitBounds(bbox(clickedFeature), { essential: true, padding: 20 });
-      } else {
-        // no feature selected, zoom to data bounds
-        prevSelectedFeatureID.current = undefined;
-        setSelectedFeatureID(undefined);
-        mapRef.current.fitBounds(kantoneBbox.current);
-      }
-    },
-    [setSelectedFeatureID]
-  );
+  // create reference for event handler so we can setup the event listener once in the
+  // initial useEffet and update it later
+  const updateRoadBuffers = useRef();
+  const bufferCache = useRef(new Set());
+  // callback to update road buffers
+  updateRoadBuffers.current = useCallback(() => {
+    if (!bufferDistance || bufferDistance === 0) return;
+    console.log("Updating road buffers:", bufferDistance);
+    // TODO: This function recalculates the buffers every time the viewport changes
+    // This leads to many duplicate calculations. We could save a lot of effort by implementing some basic caching based on feature ID.
+    let roads = mapRef.current.queryRenderedFeatures({ layers: ["road_fill"] });
+    // filter roads that are not in cache
+    // roads = roads.filter(
+    //   (r) =>
+    //     !bufferCache.current.has(
+    //       r.geometry.coordinates.reduce((prev, curr) => prev + curr[0] + curr[1], 0)
+    //     )
+    // );
+    // add new roads to cache
+    // roads.forEach((r) =>
+    //   // since feature have no ID, we use the sum of coordinates as a simple ID
+    //   bufferCache.current.add(
+    //     r.geometry.coordinates.reduce((prev, curr) => prev + curr[0] + curr[1], 0)
+    //   )
+    // );
+    const roadsBuffers = roads.map((r) => buffer(r, bufferDistance, { units: "meters" }));
+    // const oldRoadsBuffers = mapRef.current.querySourceFeatures("roadbuffers");
+    mapRef.current.getSource("roadbuffers").setData({
+      type: "FeatureCollection",
+      features: roadsBuffers,
+    });
+  }, [bufferDistance]);
 
   // initialize map on first render
   useEffect(() => {
     // if map already initialised, exit function
     if (mapRef.current) return;
     mapRef.current = new maplibregl.Map({
-      container: "spatialanalysis-container", // html container id
-      center: [0, 0], // starting position [lng, lat]. we'll zoom to data later
-      zoom: 1, // starting zoom
+      container: "spatialanalysis-map-container", // html container id
+      style: "https://vectortiles.geo.admin.ch/styles/ch.swisstopo.lightbasemap.vt/style.json", //stylesheet location
+      center: [7.642323, 47.534655], // starting position
+      zoom: 15.5, // starting zoom
       maxBounds: [
         [4, 43],
         [13, 50],
       ],
     });
-    // add kantone
-    const maxFlaeche = Math.max(
-      ...featureCollection.features.map((f) => f.properties.kantonsflaeche)
-    );
-    const minFlaeche = Math.min(
-      ...featureCollection.features.map((f) => f.properties.kantonsflaeche)
-    );
-    mapRef.current.addSource("kantone", { type: "geojson", data: featureCollection });
-    mapRef.current.addLayer({
-      id: "kantone",
-      type: "fill",
-      source: "kantone",
-      paint: {
-        "fill-color": [
-          "interpolate-lab",
-          ["linear"],
-          ["get", "kantonsflaeche"],
-          minFlaeche,
-          "rgb(239,243,255)",
-          maxFlaeche - minFlaeche,
-          "#2171b5",
-          maxFlaeche,
-          "#08306B",
-        ],
-      },
+    // buffer roads on load and navigation
+    mapRef.current.once("load", () => {
+      mapRef.current.addSource("roadbuffers", {
+        type: "geojson",
+        data: { type: "FeatureCollection", features: [] },
+      });
+      mapRef.current.addLayer({
+        id: "roadbuffers",
+        // fill-extrusion because opacity is then rendered on a per layer, not per feature
+        // basis, making it much faster and visually more appealing without us having to
+        // merge the buffers
+        type: "fill-extrusion",
+        source: "roadbuffers",
+        paint: { "fill-extrusion-color": "#08306B", "fill-extrusion-opacity": 0.5 },
+      });
+      updateRoadBuffers.current();
+      // update buffers when viewport changes
+      mapRef.current.on("moveend", () => updateRoadBuffers.current());
     });
-    mapRef.current.addLayer({
-      id: "kantone-highlight",
-      type: "line",
-      source: "kantone",
-      paint: {
-        "line-color": "#2171b5",
-        "line-width": 3,
-        "line-opacity": ["case", ["boolean", ["feature-state", "selected"], false], 1, 0],
-      },
-    });
-    // zoom to data
-    kantoneBbox.current = bbox(featureCollection);
-    mapRef.current.fitBounds(kantoneBbox.current);
-    // add interaction, specify "click" instead of default "singleclick" because
-    // the latter introduces 250ms delay to check for doubleclick
-    mapRef.current.on("click", (e) => {
-      console.log(e.lngLat);
-      const clickedFeature = e.target.queryRenderedFeatures(e.point, { layer: "kantone" })[0];
-      setSelectedFeatureID(clickedFeature?.id);
-    });
-    // Change the cursor to a pointer when the mouse is over the states layer.
-    mapRef.current.on("mouseenter", "kantone", () => {
-      mapRef.current.getCanvas().style.cursor = "pointer";
-    });
+  }, []);
 
-    // Change it back to a pointer when it leaves.
-    mapRef.current.on("mouseleave", "kantone", () => {
-      mapRef.current.getCanvas().style.cursor = "";
-    });
-  }, [handleSelectionChange, featureCollection, selectedFeatureID]);
-
-  // handle feature selection if selectedFeatureID changes
+  // update road buffers when buffer distance changes
   useEffect(() => {
-    // check for initialisation
-    if (mapRef.current && featureCollection) {
-      // get selected feature
-      const selectedFeature = featureCollection.features.filter(
-        (f) => f.id === selectedFeatureID
-      )[0];
-      handleSelectionChange(selectedFeature);
-    }
-  }, [handleSelectionChange, selectedFeatureID, featureCollection]);
+    if (mapRef.current && mapRef.current.getSource("roadbuffers")) updateRoadBuffers.current();
+  }, [bufferDistance]);
 
-  return <div id="spatialanalysis-container" />;
+  return <div id="spatialanalysis-map-container" />;
 }
 
 export default SpatialAnalysisMap;
