@@ -11,7 +11,7 @@
 
 #spatialanalysis-map-container {
   width: 100vw;
-  max-width: 1440px;
+  max-width: 1024px;
   aspect-ratio: 1.7; /* aspect ratio of data bbox */
   margin: 1em;
 }
