@@ -1,18 +1,27 @@
-import { useCallback, useEffect, useRef } from "react";
-import maplibregl from "maplibre-gl";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import "maplibre-gl/dist/maplibre-gl.css";
-
 import bbox from "@turf/bbox";
+import Map, { Layer } from "react-map-gl/maplibre";
+import { Source } from "react-map-gl/maplibre";
 
 function MaplibreMap({ featureCollection, selectedFeatureID, setSelectedFeatureID }) {
   // create state ref that can be accessed in callbacks
   const mapRef = useRef();
   const prevSelectedFeatureID = useRef();
-  const kantoneBbox = useRef();
+  // cache min and max values for style calculation
+  const maxFlaeche = useMemo(
+    () => Math.max(...featureCollection.features.map((f) => f.properties.kantonsflaeche)),
+    [featureCollection.features]
+  );
+  const minFlaeche = useMemo(
+    () => Math.min(...featureCollection.features.map((f) => f.properties.kantonsflaeche)),
+    [featureCollection.features]
+  );
+  const kantoneBbox = useMemo(() => bbox(featureCollection), [featureCollection]);
 
   const handleSelectionChange = useCallback(
     (clickedFeature) => {
-      // side effects: relies on module scoped refs
+      // side effects: relies on component scoped refs
       // deselect previous feature
       if (prevSelectedFeatureID.current !== undefined) {
         mapRef.current.setFeatureState(
@@ -33,82 +42,11 @@ function MaplibreMap({ featureCollection, selectedFeatureID, setSelectedFeatureI
         // no feature selected, zoom to data bounds
         prevSelectedFeatureID.current = undefined;
         setSelectedFeatureID(undefined);
-        mapRef.current.fitBounds(kantoneBbox.current);
+        mapRef.current.fitBounds(kantoneBbox);
       }
     },
-    [setSelectedFeatureID]
+    [kantoneBbox, setSelectedFeatureID]
   );
-
-  // initialize map on first render
-  useEffect(() => {
-    // if map already initialised, exit function
-    if (mapRef.current) return;
-    mapRef.current = new maplibregl.Map({
-      container: "maplibre-container", // html container id
-      center: [0, 0], // starting position [lng, lat]. we'll zoom to data later
-      zoom: 1, // starting zoom
-      maxBounds: [
-        [4, 43],
-        [13, 50],
-      ],
-    });
-    // add kantone
-    const maxFlaeche = Math.max(
-      ...featureCollection.features.map((f) => f.properties.kantonsflaeche)
-    );
-    const minFlaeche = Math.min(
-      ...featureCollection.features.map((f) => f.properties.kantonsflaeche)
-    );
-    mapRef.current.addSource("kantone", { type: "geojson", data: featureCollection });
-    mapRef.current.addLayer({
-      id: "kantone",
-      type: "fill",
-      source: "kantone",
-      paint: {
-        "fill-color": [
-          "interpolate-lab",
-          ["linear"],
-          ["get", "kantonsflaeche"],
-          minFlaeche,
-          "rgb(239,243,255)",
-          maxFlaeche - minFlaeche,
-          "#2171b5",
-          maxFlaeche,
-          "#08306B",
-        ],
-      },
-    });
-    mapRef.current.addLayer({
-      id: "kantone-highlight",
-      type: "line",
-      source: "kantone",
-      paint: {
-        "line-color": "#2171b5",
-        "line-width": 3,
-        "line-opacity": ["case", ["boolean", ["feature-state", "selected"], false], 1, 0],
-      },
-    });
-    // zoom to data
-    kantoneBbox.current = bbox(featureCollection);
-    mapRef.current.fitBounds(kantoneBbox.current);
-    // add interaction, specify "click" instead of default "singleclick" because
-    // the latter introduces 250ms delay to check for doubleclick
-    mapRef.current.on("click", (e) => {
-      console.log(e.lngLat);
-      const clickedFeature = e.target.queryRenderedFeatures(e.point, { layer: "kantone" })[0];
-      setSelectedFeatureID(clickedFeature?.id);
-    });
-    // Change the cursor to a pointer when the mouse is over the states layer.
-    mapRef.current.on("mouseenter", "kantone", () => {
-      mapRef.current.getCanvas().style.cursor = "pointer";
-    });
-
-    // Change it back to a pointer when it leaves.
-    mapRef.current.on("mouseleave", "kantone", () => {
-      mapRef.current.getCanvas().style.cursor = "";
-    });
-  }, [handleSelectionChange, featureCollection, selectedFeatureID]);
-
   // handle feature selection if selectedFeatureID changes
   useEffect(() => {
     // check for initialisation
@@ -121,7 +59,61 @@ function MaplibreMap({ featureCollection, selectedFeatureID, setSelectedFeatureI
     }
   }, [handleSelectionChange, selectedFeatureID, featureCollection]);
 
-  return <div id="maplibre-container" />;
+  return (
+    <Map
+      id="maplibre-container"
+      ref={mapRef}
+      initialViewState={{
+        center: [0, 0], // starting position [lng, lat]. we'll zoom to data later
+        zoom: 1, // starting zoom
+        maxBounds: [
+          [4, 44],
+          [13, 49],
+        ],
+      }}
+      interactiveLayerIds={["kantone"]}
+      // Change the cursor to a pointer when the mouse is over the states layer.
+      onMouseEnter={() => (mapRef.current.getCanvas().style.cursor = "pointer")}
+      // Change it back to a pointer when it leaves.
+      onMouseLeave={() => (mapRef.current.getCanvas().style.cursor = "")}
+      // add interaction, specify "click" instead of default "singleclick" because
+      // the latter introduces 250ms delay to check for doubleclick
+      onClick={(e) => setSelectedFeatureID(e.features[0]?.id)}
+      // zoom to data
+      onLoad={(e) => e.target.fitBounds(kantoneBbox)}
+    >
+      <Source id="kantone" type="geojson" data={featureCollection}>
+        <Layer
+          id="kantone"
+          type="fill"
+          source="kantone"
+          paint={{
+            "fill-color": [
+              "interpolate-lab",
+              ["linear"],
+              ["get", "kantonsflaeche"],
+              minFlaeche,
+              "rgb(239,243,255)",
+              maxFlaeche - minFlaeche,
+              "#2171b5",
+              maxFlaeche,
+              "#08306B",
+            ],
+          }}
+        />
+        <Layer
+          id="kantone-highlight"
+          type="line"
+          source="kantone"
+          paint={{
+            "line-color": "#2171b5",
+            "line-width": 3,
+            "line-opacity": ["case", ["boolean", ["feature-state", "selected"], false], 1, 0],
+          }}
+        />
+      </Source>
+    </Map>
+  );
 }
 
 export default MaplibreMap;
