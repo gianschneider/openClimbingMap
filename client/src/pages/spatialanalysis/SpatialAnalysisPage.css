@@ -1,17 +1,16 @@
 #spatialanalysis-content {
-  margin-top: 2em;
+  width: 100%;
+  max-width: 1024px;
   display: flex;
-  justify-content: center;
-  flex-flow: row wrap;
+  flex-flow: column wrap;
   label > input {
     margin: 0 1em;
-    width: 3em;
+    width: 5em;
   }
 }
 
 #spatialanalysis-map-container {
-  width: 100vw;
+  width: 100%;
   max-width: 1024px;
   aspect-ratio: 1.7; /* aspect ratio of data bbox */
-  margin: 1em;
 }

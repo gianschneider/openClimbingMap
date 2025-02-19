@@ -6,6 +6,7 @@ function GeoTIFFPage() {
   const [opacity, setOpacity] = useState(0.5);
   return (
     <div id="geotiff-content">
+        <p>
       <label>
         Cloud-optimized GeoTIFF Opacity:
         <input
@@ -16,7 +17,7 @@ function GeoTIFFPage() {
           step="0.01"
           value={String(opacity)}
         />
-      </label>
+      </label></p>
       <GeoTIFFMap opacity={opacity} />
     </div>
   );

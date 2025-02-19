@@ -1,5 +1,5 @@
 #geotiff-content {
-  margin-top: 2em;
+  width: 100%;
   display: flex;
   justify-content: center;
   flex-flow: row wrap;
@@ -10,8 +10,7 @@
 }
 
 #geotiff-map-container {
-  width: 100vw;
+  width: 100%;
   max-width: 1024px;
   aspect-ratio: 1.7;
-  margin: 1em;
 }
