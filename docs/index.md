@@ -1,9 +1,10 @@
 # GDI Projekt
 
-Das ist die Projekt Website des *GDI Projekts*. Das GDI enthält eine Server und eine Client Umgebung.
+Das ist die Projekt Website von openClimbingMap. Die GDI enthält eine Server und eine Client Umgebung.
+
 - Server: FastAPI
 - Client: React + OpenLayers
 
-GitHub Repository: [https://github.com/314a/GDI_Project](https://github.com/314a/GDI_Project)
+GitHub Repository: [https://github.com/gianschneider/openClimbingMap](https://github.com/gianschneider/openClimbingMap)
 
 ![GDI Projekt Screenshot](screenshot.png)
