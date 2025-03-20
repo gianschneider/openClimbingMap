@@ -1,6 +1,6 @@
 OpenClimbingMap
 
-Das ist die Projekt Website von openClimbingMap. Die GDI enthält eine Server und eine Client Umgebung.
+Das ist die Projekt Website von openClimbingMap. Die Geodateninfrastruktur enthält eine Server und eine Client Umgebung.
 
 - Server: FastAPI
 - Client: React + OpenLayers
