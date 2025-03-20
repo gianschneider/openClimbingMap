@@ -1,4 +1,4 @@
-# GDI Projekt
+OpenClimbingMap
 
 Das ist die Projekt Website von openClimbingMap. Die GDI enthält eine Server und eine Client Umgebung.
 
