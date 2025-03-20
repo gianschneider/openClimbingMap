@@ -21,9 +21,7 @@ code {
 
 /* Animated logo from header */
 .logo {
-  animation: logo-spin infinite 20s linear;
-  height: 0.8em;
-  margin: 0 0.5em;
+  height: 2em;
   will-change: filter;
   transition: filter 300ms;
 }

@@ -18,22 +18,15 @@ function NavButton({ path, children }) {
 function Header() {
   return (
     <>
-      <h1>
-        4230 Webmapping Beispiele mit
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src="./react.svg" className="logo" alt="React logo" />
-        </a>
-        React
-      </h1>
+      <h1>openClimbingMap</h1>
       <h2>
-        <NavButton path="openlayers">
-          <img src="./OpenLayers_logo.svg" className="logo" alt="OpenLayers logo" />
-          OpenLayers
+        <NavButton path="basemap">
+          <img src="./sportclimbing-pictogramm2.png" className="logo" alt="OpenLayers logo" />
+          BaseMap
         </NavButton>
-        <NavButton path="maplibre">
-          <img src="./Maplibre-logo.png" className="logo" alt="MapLibre logo" />
-          MapLibre (Reactive)
-        </NavButton>
+
+        <NavButton path="openlayers">Open Layers</NavButton>
+        <NavButton path="maplibre">MapLibre (Reactive)</NavButton>
         <NavButton path="spatialanalysis">Spatial Analysis</NavButton>
         <NavButton path="geotiff">Cloud-optimized GeoTIFF</NavButton>
       </h2>
