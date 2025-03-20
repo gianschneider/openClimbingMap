@@ -1,14 +1,17 @@
 from fastapi import FastAPI, HTTPException, status
 from fastapi.responses import HTMLResponse
 from fastapi.responses import ORJSONResponse
+
 # CORS aktivieren für FastAPI Backend
 from fastapi.middleware.cors import CORSMiddleware
+
 # Datenbank Verbindung
 from psycopg2 import pool
-#from psycopg2.extras import RealDictCursor
+
+# from psycopg2.extras import RealDictCursor
 from pydantic import BaseModel
 
-app = FastAPI() 
+app = FastAPI()
 
 # CORS Einstellungen
 # siehe: https://fastapi.tiangolo.com/tutorial/cors/#use-corsmiddleware
@@ -26,18 +29,19 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 # Simple Hello World example
-@app.get("/") 
-async def root(): 
-	return {"message": "Hello GDI Project"}
-	
-    
-# Erstellt eine About Seite mit HTML Output 
+@app.get("/")
+async def root():
+    return {"message": "Hello GDI Project edit gian schneider"}
+
+
+# Erstellt eine About Seite mit HTML Output
 # import HTMLResponse benötigt
 @app.get("/about/")
 def about():
     return HTMLResponse(
-    """
+        """
     <html>
       <head>
         <title>FAST API Service</title>
@@ -52,65 +56,53 @@ def about():
     """
     )
 
-# Simple static JSON Response 
+
+# Simple static JSON Response
 # (requires package "orjson" https://github.com/ijl/orjson https://anaconda.org/conda-forge/orjson conda install -c conda-forge orjson)
 # source: https://fastapi.tiangolo.com/advanced/custom-response/
 @app.get("/points/", response_class=ORJSONResponse)
 async def read_points():
-    return ORJSONResponse({
-  "type": "FeatureCollection",
-  "features": [
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "FHNW"
-      },
-      "geometry": {
-        "coordinates": [
-          7.642053725874888,
-          47.53482543914882
-        ],
-        "type": "Point"
-      },
-      "id": 0
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Bern"
-      },
-      "geometry": {
-        "coordinates": [
-          7.4469686824532175,
-          46.95873550880529
-        ],
-        "type": "Point"
-      },
-      "id": 1
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Zurich"
-      },
-      "geometry": {
-        "coordinates": [
-          8.54175132796243,
-          47.37668053625666
-        ],
-        "type": "Point"
-      },
-      "id": 2
-    }
-  ]
-})
+    return ORJSONResponse(
+        {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "properties": {"name": "FHNW"},
+                    "geometry": {
+                        "coordinates": [7.642053725874888, 47.53482543914882],
+                        "type": "Point",
+                    },
+                    "id": 0,
+                },
+                {
+                    "type": "Feature",
+                    "properties": {"name": "Bern"},
+                    "geometry": {
+                        "coordinates": [7.4469686824532175, 46.95873550880529],
+                        "type": "Point",
+                    },
+                    "id": 1,
+                },
+                {
+                    "type": "Feature",
+                    "properties": {"name": "Zurich"},
+                    "geometry": {
+                        "coordinates": [8.54175132796243, 47.37668053625666],
+                        "type": "Point",
+                    },
+                    "id": 2,
+                },
+            ],
+        }
+    )
 
-   
+
 # Post Query - test on the OPENAPI Docs Page
 @app.post("/square")
 def square(some_number: int) -> dict:
-	square = some_number**2
-	return {f"{some_number} squared is: ": square}
+    square = some_number**2
+    return {f"{some_number} squared is: ": square}
 
 
 # Simple Database query
@@ -123,8 +115,15 @@ DB_POOL_MIN_CONN = 1
 DB_POOL_MAX_CONN = 10
 
 db_pool = pool.SimpleConnectionPool(
-  DB_POOL_MIN_CONN, DB_POOL_MAX_CONN, host=DB_HOST, port=DB_PORT, database=DB_NAME, user=DB_USER, password=DB_PASSWORD
+    DB_POOL_MIN_CONN,
+    DB_POOL_MAX_CONN,
+    host=DB_HOST,
+    port=DB_PORT,
+    database=DB_NAME,
+    user=DB_USER,
+    password=DB_PASSWORD,
 )
+
 
 # Definition für das Antwortschema (response schema) für den Endpunkt getPoints
 class PunkteResponse(BaseModel):
@@ -133,10 +132,11 @@ class PunkteResponse(BaseModel):
     x: float
     y: float
     geom: str
-    
+
+
 # Funktion für den getPoints-Endpunkt
-# Test: curl http://localhost:8000/getPoints   
-@app.get("/getPoints" , response_model=list[PunkteResponse])
+# Test: curl http://localhost:8000/getPoints
+@app.get("/getPoints", response_model=list[PunkteResponse])
 async def get_punkte():
     conn = None
     try:
@@ -149,17 +149,23 @@ async def get_punkte():
         # Ergebnisse in Pydantic-Modelle umwandeln und zurückgeben
         punkte = []
         for row in results:
-        # Prüfen, ob die Ergebnisse ausreichend Spalten enthalten
-             if len(row) > 4:
-                  punkte.append(PunkteResponse(id=row[0], name=row[1], x=row[2], y=row[3], geom=row[4]))   
-        #print(punkte)
+            # Prüfen, ob die Ergebnisse ausreichend Spalten enthalten
+            if len(row) > 4:
+                punkte.append(
+                    PunkteResponse(
+                        id=row[0], name=row[1], x=row[2], y=row[3], geom=row[4]
+                    )
+                )
+        # print(punkte)
         return punkte
     except Exception as e:
         print(e)
         # Eine HTTPException mit Statuscode 500 (Interner Serverfehler) auslösen und den ausgelösten Fehler als Detail übergeben
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal server error: "+str(e))
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Internal server error: " + str(e),
+        )
     finally:
         if conn:
             # Die Verbindung zur Datenbank beenden
             db_pool.putconn(conn)
-
