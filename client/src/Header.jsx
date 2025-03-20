@@ -21,7 +21,7 @@ function Header() {
       <h1>openClimbingMap</h1>
       <h2>
         <NavButton path="basemap">
-          <img src="./sportclimbing-pictogramm2.png" className="logo" alt="OpenLayers logo" />
+          <img src="./sportclimbing-pictogramm.png" className="logo" alt="OpenLayers logo" />
           BaseMap
         </NavButton>
 
