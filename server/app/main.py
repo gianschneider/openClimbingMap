@@ -107,10 +107,10 @@ def square(some_number: int) -> dict:
 
 # Simple Database query
 DB_HOST = "localhost"
-DB_PORT = 4269
+DB_PORT = 5432
 DB_NAME = "geoserver"
 DB_USER = "postgres"
-DB_PASSWORD = "Admiral2321998"
+DB_PASSWORD = "postgres"
 DB_POOL_MIN_CONN = 1
 DB_POOL_MAX_CONN = 10
 
