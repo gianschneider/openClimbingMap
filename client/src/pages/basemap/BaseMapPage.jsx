@@ -5,14 +5,11 @@ function BasemapPage() {
   return (
     <div>
       <header>
-        <h1>Basemap Seite</h1>
+        <h1>Basemap Page</h1>
       </header>
       <main>
         <BasemapMap />
       </main>
-      <footer>
-        <p>© 2025 OpenClimbingMap</p>
-      </footer>
     </div>
   );
 }
