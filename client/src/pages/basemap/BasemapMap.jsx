@@ -21,7 +21,7 @@ function BasemapMap() {
           '© <a href="http://www.geo.admin.ch/internet/geoportal/en/home.html">geo.admin.ch</a>',
         projection: "EPSG:2056",
         params: {
-          LAYERS: "ch.swisstopo.pixelkarte-grau-pk1000.noscale",
+          LAYERS: "ch.swisstopo.pixelkarte-farbe",
           FORMAT: "image/jpeg",
         },
         serverType: "mapserver",
