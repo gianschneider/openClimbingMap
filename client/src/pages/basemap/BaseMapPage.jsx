@@ -1,12 +1,20 @@
 import React from "react";
+import BasemapMap from "./BasemapMap";
 
-function BaseMap() {
+function BasemapPage() {
   return (
     <div>
-      <h1>BaseMap</h1>
-      <p>Hier wird die neue Karte angezeigt.</p>
+      <header>
+        <h1>Basemap Seite</h1>
+      </header>
+      <main>
+        <BasemapMap />
+      </main>
+      <footer>
+        <p>© 2025 OpenClimbingMap</p>
+      </footer>
     </div>
   );
 }
 
-export default BaseMap;
+export default BasemapPage;

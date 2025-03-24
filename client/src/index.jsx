@@ -7,7 +7,7 @@ import Header from "./Header.jsx";
 import MaplibrePage from "./pages/maplibre/MaplibrePage.jsx";
 import SpatialAnalysisPage from "./pages/spatialanalysis/SpatialAnalysisPage.jsx";
 import GeoTIFFPage from "./pages/geotiff/GeoTIFFPage.jsx";
-import BaseMapPage from "./pages/basemap/BaseMapPage.jsx";
+import BasemapPage from "./pages/basemap/BasemapPage.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -19,7 +19,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="maplibre" element={<MaplibrePage />} />
         <Route path="spatialanalysis" element={<SpatialAnalysisPage />} />
         <Route path="geotiff" element={<GeoTIFFPage />} />
-        <Route path="basemap" element={<BaseMapPage />} />
+        <Route path="basemap" element={<BasemapPage />} />
       </Routes>
     </HashRouter>
   </StrictMode>
