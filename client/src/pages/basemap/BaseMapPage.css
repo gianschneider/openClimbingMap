@@ -1,8 +1,10 @@
 #map {
   width: 100%;
-  height: 50;
+  height: 70vh;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  cursor: grab;
 }
 
 /* Anpassung für Handybildschirme */
@@ -18,3 +20,126 @@
   left: 10px;
   z-index: 1000;
 }
+
+
+/* Styling for the popup */
+.ol-popup {
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #cccccc;
+  bottom: 12px;
+  left: -50px;
+  min-width: 120px;
+  z-index: 1000;
+  text-align: left; /* Text linksbündig ausrichten */
+  font-size: 10px; /* Textgröße anpassen */
+}
+
+.ol-popup:after,
+.ol-popup:before {
+  top: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.ol-popup:after {
+  border-top-color: white;
+  border-width: 10px;
+  left: 48px;
+  margin-left: -10px;
+}
+
+.ol-popup:before {
+  border-top-color: #cccccc;
+  border-width: 11px;
+  left: 48px;
+  margin-left: -11px;
+}
+
+/* Styling for the popup closer button */
+.ol-popup-closer {
+  text-decoration: none;
+  position: absolute;
+  top: 2px;
+  right: 8px;
+  font-size: 10px;
+  color: #333;
+  cursor: pointer;
+}
+
+.ol-popup-closer:after {
+  content: "✖";
+}
+
+/* Styling für Icons */
+.icon-container {
+  position: absolute;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.icon-container:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.1);
+}
+
+/* Layer-Switch-Button */
+.layer-switch-icon {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.layer-menu {
+  position: absolute;
+  bottom: 80px;
+  right: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.layer-menu button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.layer-menu button.active {
+  font-weight: bold;
+  background: #ddd;
+}
+
+
+
+
+
