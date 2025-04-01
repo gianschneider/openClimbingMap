@@ -162,18 +162,81 @@ function BasemapMap() {
           width: "40px",
           height: "40px",
           cursor: "pointer",
+          backgroundColor: "white",
+          borderRadius: "50%",
+          padding: "10px",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+          opacity: 0.95,
+          transition: "transform 0.3s ease, opacity 0.3s ease",
+        }}
+        onMouseEnter={(e) => {
+          e.target.style.transform = "scale(1.1)";
+          e.target.style.opacity = "1.1";
+        }}
+        onMouseLeave={(e) => {
+          e.target.style.transform = "scale(0.9)";
+          e.target.style.opacity = "0.9";
         }}
       />
-      {/* 3 Icons oben rechts */}
-      {["🔍", "⚙️", "ℹ️"].map((icon, index) => (
-        <div
-          key={index}
-          className="icon-container"
-          style={{ top: `${10 + index * 50}px`, right: "10px" }}
-        >
-          {icon}
-        </div>
-      ))}
+      {/* Button für Filtermenu */}
+      <img
+        src="/public/Filter.svg"
+        alt="Standort"
+        onClick={() => {
+          // Hier wird die Funktion aufgerufen, wenn der Button geklickt wird
+          console.log("button clicked");
+        }}
+        style={{
+          position: "absolute",
+          backgroundColor: "white",
+          top: "20px",
+          right: "10px",
+          zIndex: 1000,
+          width: "40px",
+          height: "40px",
+          cursor: "pointer",
+        }}
+      />
+
+      {/* Button für Suchmenu */}
+      <img
+        src="/public/Suche.svg"
+        alt="Standort"
+        onClick={() => {
+          // Hier wird die Funktion aufgerufen, wenn der Button geklickt wird
+          console.log("button clicked");
+        }}
+        style={{
+          position: "absolute",
+          backgroundColor: "white",
+          bottom: "10px",
+          right: "200px",
+          zIndex: 1000,
+          width: "40px",
+          height: "40px",
+          cursor: "pointer",
+        }}
+      />
+
+      {/* Button für Information */}
+      <img
+        src="/public/info.svg"
+        alt="Standort"
+        onClick={() => {
+          // Hier wird die Funktion aufgerufen, wenn der Button geklickt wird
+          console.log("button clicked");
+        }}
+        style={{
+          position: "absolute",
+          backgroundColor: "white",
+          top: "10px",
+          right: "200px",
+          zIndex: 1000,
+          width: "40px",
+          height: "40px",
+          cursor: "pointer",
+        }}
+      />
 
       {/* Button für Layer-Wechsel */}
       <div className="layer-switch-icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
