@@ -95,7 +95,7 @@ function BasemapMap() {
       map.setTarget(null);
     };
   }, []);
-  //
+  ////
   //Funktion zum Zoomen auf Benutzerstandort
   const zoomToUserLocation = () => {
     if (!mapRef.current) return;
