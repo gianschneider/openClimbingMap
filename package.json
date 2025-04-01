@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "lucide-react": "^0.486.0"
+    "lucide-react": "^0.486.0",
+    "proj4": "^2.15.0"
   }
 }
