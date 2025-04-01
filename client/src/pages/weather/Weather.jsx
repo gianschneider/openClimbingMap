@@ -3,42 +3,57 @@ import { Sun, CloudRain, Cloud, CloudSun, CloudSnow, Wind, CloudLightning, Snowf
 import "./weather.css";
 
 // Funktion zur Zuordnung der Icons basierend auf dem Pictocode
-const getWeatherIcon = (pictocode) => {
+export const getWeatherIcon = (pictocode) => {
   switch (pictocode) {
     case 1:
     case 2:
+      return "☀️"; // Sonnig
     case 3:
-      return <Sun className="icon sun" />; // Klar, sonnig
     case 4:
     case 5:
+      return "⛅"; // Teilweise bewölkt
     case 6:
     case 7:
-      return <CloudSun className="icon cloud-sun" />; // Wechselnd bewölkt
     case 8:
-    case 9:
-    case 19:
-    case 20:
-    case 21:
-      return <Cloud className="icon cloud" />; // Überwiegend bewölkt
-    case 22:
-      return <Cloud className="icon overcast" />; // Bedeckt
+      return "☁️"; // Bewölkt
     case 23:
     case 25:
-    case 33:
-      return <CloudRain className="icon rain" />; // Regen
-    case 24:
+      return "🌧️"; // Regen
     case 26:
     case 34:
-    case 35:
-      return <CloudSnow className="icon snow" />; // Schneefall
+      return "❄️"; // Schnee
     case 27:
     case 28:
-    case 30:
-      return <CloudLightning className="icon thunderstorm" />; // Gewitter
-    case 29:
-      return <Snowflake className="icon blizzard" />; // Schneesturm
+      return "⛈️"; // Gewitter
     default:
-      return <Wind className="icon wind" />; // Windig
+      return "🌫️"; // Nebel oder unbekannt
+  }
+};
+
+export const getWeatherDataForTwoDays = async () => {
+  try {
+    // JSON-Datei laden
+    const response = await fetch("/src/pages/weather/Testabfrage_1d.json");
+    if (!response.ok) {
+      throw new Error("Fehler beim Laden der Wetterdaten");
+    }
+    const data = await response.json();
+
+    // Wetterdaten für die ersten beiden Tage extrahieren
+    const days = data.data_day.time.slice(0, 2); // Heute und Morgen
+    const temperatures = data.data_day.temperature_mean.slice(0, 2);
+    const precipitations = data.data_day.precipitation.slice(0, 2);
+    const pictocodes = data.data_day.pictocode.slice(0, 2);
+
+    return days.map((day, index) => ({
+      date: day,
+      temperature: temperatures[index],
+      precipitation: precipitations[index],
+      pictocode: pictocodes[index],
+    }));
+  } catch (error) {
+    console.error("Fehler beim Abrufen der Wetterdaten:", error);
+    return null;
   }
 };
 

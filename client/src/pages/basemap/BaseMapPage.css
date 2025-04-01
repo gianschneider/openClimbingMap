@@ -139,6 +139,15 @@
   background: #ddd;
 }
 
+.weather-section {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.weather-icon {
+  font-size: 24px;
+}
+
 
 
 

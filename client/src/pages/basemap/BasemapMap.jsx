@@ -81,17 +81,27 @@ function BasemapMap() {
               .map(
                 (day, index) => `
                 <div class="weather-section">
-                  <strong>${index === 0 ? "Heute" : "Morgen"} </strong><br>
+                  <strong>${index === 0 ? "Heute" : "Morgen"}:</strong><br>
                   <span class="weather-icon">${getWeatherIcon(day.pictocode)}</span><br>
                   Temperatur: ${Math.round(day.temperature)}°C<br>
                   Niederschlag: ${Math.round(day.precipitation)} mm
                 </div>`
               )
-              .join("")
+              .join("") +
+            `<br><a href="#" id="detailed-weather-link" style="color: dodgerblue; text-decoration: underline;">Mehr Wetterdaten</a>`
           : "<br><strong>Wetter:</strong> Daten nicht verfügbar";
 
         popupContentRef.current.innerHTML = content + weatherContent;
         overlay.setPosition(coordinates);
+
+        // Event-Listener für den Link hinzufügen
+        const detailedWeatherLink = document.getElementById("detailed-weather-link");
+        if (detailedWeatherLink) {
+          detailedWeatherLink.onclick = (e) => {
+            e.preventDefault();
+            openDetailedWeatherPopup(weatherData);
+          };
+        }
       } else {
         overlay.setPosition(undefined);
       }
@@ -128,6 +138,48 @@ function BasemapMap() {
       map.setTarget(null);
     };
   }, []);
+
+  const openDetailedWeatherPopup = (weatherData) => {
+    const detailedWindow = window.open("", "_blank", "width=600,height=400");
+    if (detailedWindow) {
+      detailedWindow.document.write(`
+        <html>
+          <head>
+            <title>Detaillierte Wetterdaten</title>
+            <style>
+              body {
+                font-family: Arial, sans-serif;
+                padding: 20px;
+                line-height: 1.6;
+              }
+              .weather-detail {
+                margin-bottom: 20px;
+              }
+            </style>
+          </head>
+          <body>
+            <h1>Detaillierte Wetterdaten</h1>
+            ${
+              weatherData
+                ? weatherData
+                    .map(
+                      (day, index) => `
+                      <div class="weather-detail">
+                        <h2>${index === 0 ? "Heute" : "Morgen"} (${day.date}):</h2>
+                        <p><strong>Temperatur:</strong> ${Math.round(day.temperature)}°C</p>
+                        <p><strong>Niederschlag:</strong> ${Math.round(day.precipitation)} mm</p>
+                        <p><strong>Pictocode:</strong> ${day.pictocode}</p>
+                      </div>`
+                    )
+                    .join("")
+                : "<p>Keine detaillierten Wetterdaten verfügbar.</p>"
+            }
+          </body>
+        </html>
+      `);
+      detailedWindow.document.close();
+    }
+  };
 
   return (
     <div style={{ position: "relative", width: "200%", height: "50vh" }}>
