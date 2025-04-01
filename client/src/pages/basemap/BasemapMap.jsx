@@ -14,7 +14,7 @@ import Select from "ol/interaction/Select.js";
 import { click } from "ol/events/condition.js";
 import Style from "ol/style/Style";
 import { Circle as CircleStyle, Fill, Stroke } from "ol/style";
-
+import { transform } from "ol/proj";
 function BasemapMap() {
   const mapRef = useRef(null);
   const popupRef = useRef(null);
@@ -31,8 +31,6 @@ function BasemapMap() {
       source: new TileWMS({
         url: "https://wms.geo.admin.ch/",
         crossOrigin: "anonymous",
-        // attributions:
-        //   '© <a href="http://www.geo.admin.ch/internet/geoportal/en/home.html">geo.admin.ch</a>',
         projection: "EPSG:2056",
         params: {
           LAYERS: "ch.swisstopo.pixelkarte-farbe",
@@ -47,8 +45,6 @@ function BasemapMap() {
       source: new TileWMS({
         url: "https://wms.geo.admin.ch/",
         crossOrigin: "anonymous",
-        // attributions:
-        //   '© <a href="http://www.geo.admin.ch/internet/geoportal/en/home.html">geo.admin.ch</a>',
         projection: "EPSG:2056",
         params: {
           LAYERS: "ch.swisstopo.swissimage-product",
@@ -80,70 +76,75 @@ function BasemapMap() {
       layers: [swisstopoLayer, aerialLayer, vectorLayer],
       target: "map",
       view: new View({
-        center: [2600000, 1200000],
+        center: [2600000, 1200000], // Default coordinates
         zoom: 9,
         projection: new Projection({ code: "EPSG:2056", units: "m" }),
       }),
     });
-
     mapRef.current = map;
+  });
 
-    const overlay = new Overlay({
-      element: popupRef.current,
-      autoPan: true,
-      autoPanAnimation: { duration: 250 },
-    });
-    map.addOverlay(overlay);
+  return () => {
+    if (mapRef.current) {
+      mapRef.current.setTarget(null);
+    }
+  };
 
-    const selectInteraction = new Select({ condition: click });
-    map.addInteraction(selectInteraction);
+  const overlay = new Overlay({
+    element: popupRef.current,
+    autoPan: true,
+    autoPanAnimation: { duration: 250 },
+  });
+  map.addOverlay(overlay);
 
-    selectInteraction.on("select", (event) => {
-      if (event.selected.length > 0) {
-        const feature = event.selected[0];
-        const properties = feature.getProperties();
-        const content = Object.entries(properties)
-          .filter(([key]) => !["geometry", "X", "Y"].includes(key))
-          .map(([key, value]) => `<strong>${key}:</strong> ${value}`)
-          .join("<br>");
-        popupContentRef.current.innerHTML = content;
-        overlay.setPosition(feature.getGeometry().getCoordinates());
-      } else {
-        overlay.setPosition(undefined);
-      }
-    });
+  const selectInteraction = new Select({ condition: click });
+  map.addInteraction(selectInteraction);
 
-    popupCloserRef.current.onclick = () => {
+  selectInteraction.on("select", (event) => {
+    if (event.selected.length > 0) {
+      const feature = event.selected[0];
+      const properties = feature.getProperties();
+      const content = Object.entries(properties)
+        .filter(([key]) => !["geometry", "X", "Y"].includes(key))
+        .map(([key, value]) => `<strong>${key}:</strong> ${value}`)
+        .join("<br>");
+      popupContentRef.current.innerHTML = content;
+      overlay.setPosition(feature.getGeometry().getCoordinates());
+    } else {
       overlay.setPosition(undefined);
-      return false;
-    };
+    }
+  });
 
-    // Function to switch layers
-    const switchLayer = (layerName) => {
-      if (layerName === "swisstopo") {
-        swisstopoLayer.setVisible(true);
-        aerialLayer.setVisible(false);
-      } else if (layerName === "aerial") {
-        swisstopoLayer.setVisible(false);
-        aerialLayer.setVisible(true);
-      }
-      setActiveLayer(layerName);
-      setIsMenuOpen(false);
-    };
+  popupCloserRef.current.onclick = () => {
+    overlay.setPosition(undefined);
+    return false;
+  };
 
-    // Attach the switchLayer function to the mapRef for use in the JSX
-    mapRef.current.switchLayer = switchLayer;
+  // Function to switch layers
+  const switchLayer = (layerName) => {
+    if (layerName === "swisstopo") {
+      swisstopoLayer.setVisible(true);
+      aerialLayer.setVisible(false);
+    } else if (layerName === "aerial") {
+      swisstopoLayer.setVisible(false);
+      aerialLayer.setVisible(true);
+    }
+    setActiveLayer(layerName);
+    setIsMenuOpen(false);
+  };
 
-    // Add pointermove event to change cursor when hovering over Klettergebiete
-    map.on("pointermove", (event) => {
-      const hit = map.hasFeatureAtPixel(event.pixel); // Check if a feature is under the cursor
-      map.getTargetElement().style.cursor = hit ? "pointer" : ""; // Change cursor to pointer if hovering over a feature
-    });
+  // Attach the switchLayer function to the mapRef for use in the JSX
+  mapRef.current.switchLayer = switchLayer;
 
-    return () => {
-      map.setTarget(null);
-    };
-  }, []);
+  // Add pointermove event to change cursor when hovering over Klettergebiete
+  map.on("pointermove", (event) => {
+    const hit = map.hasFeatureAtPixel(event.pixel); // Check if a feature is under the cursor
+    map.getTargetElement().style.cursor = hit ? "pointer" : ""; // Change cursor to pointer if hovering over a feature
+  });
+
+  return () => {
+    map.setTarget(null);
+  };
 
   return (
     <div style={{ position: "relative", width: "200%", height: "50vh" }}>
