@@ -128,21 +128,7 @@ function BasemapMap() {
         <a ref={popupCloserRef} href="#" id="popup-closer" className="ol-popup-closer"></a>
         <div ref={popupContentRef} id="popup-content"></div>
       </div>
-      {/*Button für Standort-Zoom */}
-      <img
-        src="/public/emlid-reachrs.png"
-        alt="Standort"
-        onClick={zoomToUserLocation}
-        style={{
-          position: "absolute",
-          bottom: "10px",
-          left: "10px",
-          zIndex: 1000,
-          width: "40px",
-          height: "40px",
-          cursor: "pointer",
-        }}
-      />
+
       {/* 3 Icons oben rechts */}
       {["🔍", "⚙️", "ℹ️"].map((icon, index) => (
         <div
