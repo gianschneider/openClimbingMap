@@ -6,8 +6,10 @@ import { Projection } from "ol/proj";
 import Overlay from "ol/Overlay.js";
 import Select from "ol/interaction/Select.js";
 import { click } from "ol/events/condition.js";
-import Style from "ol/style/Style";
-import { Circle as CircleStyle, Fill, Stroke } from "ol/style";
+import { swisstopoLayer, aerialLayer } from "./layers/BackgroundLayers"; // Importiere die Hintergrundkarten
+import { createKlettergebieteLayer } from "./layers/KlettergebieteLayer"; // Import the Klettergebiete layer
+import { createNaturschutzgebieteLayer } from "./layers/NaturschutzgebieteLayer"; // Import the NSG layer
+
 
 function BasemapMap() {
   const mapRef = useRef(null);
@@ -18,121 +20,67 @@ function BasemapMap() {
   const [activeLayer, setActiveLayer] = useState("swisstopo");
 
   useEffect(() => {
-    const extent = [2420000, 130000, 2900000, 1350000];
 
-    const swisstopoLayer = new TileLayer({
-      extent: extent,
-      source: new TileWMS({
-        url: "https://wms.geo.admin.ch/",
-        crossOrigin: "anonymous",
-        // attributions:
-        //   '© <a href="http://www.geo.admin.ch/internet/geoportal/en/home.html">geo.admin.ch</a>',
-        projection: "EPSG:2056",
-        params: {
-          LAYERS: "ch.swisstopo.pixelkarte-farbe",
-          FORMAT: "image/jpeg",
-        },
-        serverType: "mapserver",
-      }),
-    });
-
-    const aerialLayer = new TileLayer({
-      extent: extent,
-      source: new TileWMS({
-        url: "https://wms.geo.admin.ch/",
-        crossOrigin: "anonymous",
-        // attributions:
-        //   '© <a href="http://www.geo.admin.ch/internet/geoportal/en/home.html">geo.admin.ch</a>',
-        projection: "EPSG:2056",
-        params: {
-          LAYERS: "ch.swisstopo.swissimage-product",
-          FORMAT: "image/jpeg",
-        },
-        serverType: "mapserver",
-      }),
-      visible: false, //startet unsichtbar
-    });
-
-    const vectorSource = new VectorSource({
-      format: new GeoJSON(),
-      url: "http://localhost:8080/geoserver/ne/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=ne%3AKlettergebiete&outputFormat=application%2Fjson",
-      strategy: bboxStrategy,
-    });
-
-    const vectorLayer = new VectorLayer({
-      source: vectorSource,
-      style: new Style({
-        image: new CircleStyle({
-          fill: new Fill({ color: "rgba(255, 255, 255, 0.6)" }),
-          stroke: new Stroke({ color: "rgba(255, 0, 0, 0.6)", width: 2 }),
-          radius: 5,
-        }),
-      }),
-    });
+    const klettergebieteLayer = createKlettergebieteLayer();
+    const naturschutzgebieteLayer = createNaturschutzgebieteLayer(); // Create the NSG layer
 
     const map = new Map({
       layers: [swisstopoLayer, aerialLayer, klettergebieteLayer],
       target: "map",
       view: new View({
-        center: [2600000, 1200000], // Default coordinates
+        center: [2600000, 1200000],
         zoom: 9,
         projection: new Projection({ code: "EPSG:2056", units: "m" }),
       }),
     });
+
     mapRef.current = map;
-  });
 
-  return () => {
-    if (mapRef.current) {
-      mapRef.current.setTarget(null);
-    }
-  };
+    const overlay = new Overlay({
+      element: popupRef.current,
+      autoPan: true,
+      autoPanAnimation: { duration: 250 },
+    });
+    map.addOverlay(overlay);
 
-  const overlay = new Overlay({
-    element: popupRef.current,
-    autoPan: true,
-    autoPanAnimation: { duration: 250 },
-  });
-  map.addOverlay(overlay);
+    const selectInteraction = new Select({ condition: click });
+    map.addInteraction(selectInteraction);
 
-  const selectInteraction = new Select({ condition: click });
-  map.addInteraction(selectInteraction);
+    selectInteraction.on("select", (event) => {
+      if (event.selected.length > 0) {
+        const feature = event.selected[0];
+        const properties = feature.getProperties();
+        const content = Object.entries(properties)
+          .filter(([key]) => !["geometry","X","Y"].includes(key))
+          .map(([key, value]) => `<strong>${key}:</strong> ${value}`)
+          .join("<br>");
+        popupContentRef.current.innerHTML = content;
+        overlay.setPosition(feature.getGeometry().getCoordinates());
+      } else {
+        overlay.setPosition(undefined);
+      }
+    });
 
-  selectInteraction.on("select", (event) => {
-    if (event.selected.length > 0) {
-      const feature = event.selected[0];
-      const properties = feature.getProperties();
-      const content = Object.entries(properties)
-        .filter(([key]) => !["geometry", "X", "Y"].includes(key))
-        .map(([key, value]) => `<strong>${key}:</strong> ${value}`)
-        .join("<br>");
-      popupContentRef.current.innerHTML = content;
-      overlay.setPosition(feature.getGeometry().getCoordinates());
-    } else {
+    popupCloserRef.current.onclick = () => {
       overlay.setPosition(undefined);
-    }
-  });
+      return false;
+    };
 
-  popupCloserRef.current.onclick = () => {
-    overlay.setPosition(undefined);
-    return false;
-  };
+    // Function to switch layers
+    const switchLayer = (layerName) => {
+      if (layerName === "swisstopo") {
+        swisstopoLayer.setVisible(true);
+        aerialLayer.setVisible(false);
+      } else if (layerName === "aerial") {
+        swisstopoLayer.setVisible(false);
+        aerialLayer.setVisible(true);
+      }
+      setActiveLayer(layerName);
+      setIsMenuOpen(false);
+    };
 
-  // Function to switch layers
-  const switchLayer = (layerName) => {
-    if (layerName === "swisstopo") {
-      swisstopoLayer.setVisible(true);
-      aerialLayer.setVisible(false);
-    } else if (layerName === "aerial") {
-      swisstopoLayer.setVisible(false);
-      aerialLayer.setVisible(true);
-    }
-    setActiveLayer(layerName);
-    setIsMenuOpen(false);
-  };
-
-  // Attach the switchLayer function to the mapRef for use in the JSX
-  mapRef.current.switchLayer = switchLayer;
+    // Attach the switchLayer function to the mapRef for use in the JSX
+    mapRef.current.switchLayer = switchLayer;
 
   // Add pointermove event to change cursor when hovering over Klettergebiete
   map.on("pointermove", (event) => {
@@ -140,12 +88,13 @@ function BasemapMap() {
     map.getTargetElement().style.cursor = hit ? "pointer" : ""; // Change cursor to pointer if hovering over a feature
   });
 
-  return () => {
-    map.setTarget(null);
-  };
+    return () => {
+      map.setTarget(null);
+    };
+  }, []);
 
   return (
-    <div style={{ position: "relative", width: "200%", height: "50vh" }}>
+    <div style={{ position: "relative" , width: "200%", height: "50vh" }}>
       <div id="map" style={{ width: "100%", height: "100%" }}></div>
 
       {/* Popup */}
@@ -156,11 +105,7 @@ function BasemapMap() {
 
       {/* 3 Icons oben rechts */}
       {["🔍", "⚙️", "ℹ️"].map((icon, index) => (
-        <div
-          key={index}
-          className="icon-container"
-          style={{ top: `${10 + index * 50}px`, right: "10px" }}
-        >
+        <div key={index} className="icon-container" style={{ top: `${10 + index * 50}px`, right: "10px" }}>
           {icon}
         </div>
       ))}
@@ -172,40 +117,49 @@ function BasemapMap() {
 
       {/* Layer-Auswahl-Menü */}
       {isMenuOpen && (
-        <div
-          style={{
-            position: "absolute",
-            bottom: "60px",
-            right: "10px",
-            backgroundColor: "white",
-            border: "1px solid #ccc",
-            borderRadius: "5px",
-            padding: "10px",
-            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
-            zIndex: 1000,
-          }}
-        >
           <div
-            onClick={() => mapRef.current.switchLayer("swisstopo")}
             style={{
-              padding: "5px",
-              cursor: "pointer",
-              backgroundColor: activeLayer === "swisstopo" ? "#f0f0f0" : "white",
+              position: "absolute",
+              bottom: "60px",
+              right: "10px",
+              backgroundColor: "white",
+              border: "1px solid #ccc",
+              borderRadius: "5px",
+              padding: "10px",
+              boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+              zIndex: 1000,
             }}
           >
-            Landeskarte
+            <div
+              onClick={() => mapRef.current.switchLayer("swisstopo")}
+              style={{
+                padding: "5px",
+                cursor: "pointer",
+                backgroundColor: activeLayer === "swisstopo" ? "#f0f0f0" : "white",
+              }}
+            >
+              Landeskarte
+            </div>
+            <div
+              onClick={() => mapRef.current.switchLayer("aerial")}
+              style={{
+                padding: "5px",
+                cursor: "pointer",
+                backgroundColor: activeLayer === "aerial" ? "#f0f0f0" : "white",
+              }}
+            >
+              Luftbild
+            </div>
+            <div
+              style={{
+                padding: "5px",
+                cursor: "pointer",
+                backgroundColor: activeLayer === "aerial" ? "#f0f0f0" : "white",
+              }}
+            >
+              Naturschutzgebiete
+            </div>
           </div>
-          <div
-            onClick={() => mapRef.current.switchLayer("aerial")}
-            style={{
-              padding: "5px",
-              cursor: "pointer",
-              backgroundColor: activeLayer === "aerial" ? "#f0f0f0" : "white",
-            }}
-          >
-            Luftbild
-          </div>
-        </div>
       )}
     </div>
   );
