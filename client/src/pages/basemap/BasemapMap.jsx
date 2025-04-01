@@ -193,12 +193,23 @@ function BasemapMap() {
         style={{
           position: "absolute",
           backgroundColor: "white",
-          top: "20px",
+          top: "10px",
           right: "10px",
           zIndex: 1000,
           width: "40px",
           height: "40px",
           cursor: "pointer",
+          transition: "transform 0.3s ease, opacity 1s ease",
+          borderRadius: "15%",
+          padding: "5px",
+        }}
+        onMouseEnter={(e) => {
+          e.target.style.transform = "scale(1.1)";
+          e.target.style.opacity = "1.1";
+        }}
+        onMouseLeave={(e) => {
+          e.target.style.transform = "scale(0.9)";
+          e.target.style.opacity = "0.9";
         }}
       />
 
@@ -276,12 +287,24 @@ function BasemapMap() {
         style={{
           position: "absolute",
           backgroundColor: "white",
-          top: "10px",
-          right: "200px",
+          top: "70px",
+          right: "10px",
           zIndex: 1000,
           width: "40px",
           height: "40px",
           cursor: "pointer",
+          transition: "transform 0.3s ease, opacity 1s ease",
+          borderRadius: "15%",
+          backgroundColor: "white",
+          padding: "5px",
+        }}
+        onMouseEnter={(e) => {
+          e.target.style.transform = "scale(1.1)";
+          e.target.style.opacity = "1.1";
+        }}
+        onMouseLeave={(e) => {
+          e.target.style.transform = "scale(0.9)";
+          e.target.style.opacity = "0.9";
         }}
       />
 
@@ -295,7 +318,7 @@ function BasemapMap() {
         <div
           style={{
             position: "absolute",
-            bottom: "60px",
+            bottom: "90px",
             right: "10px",
             backgroundColor: "white",
             border: "1px solid #ccc",
