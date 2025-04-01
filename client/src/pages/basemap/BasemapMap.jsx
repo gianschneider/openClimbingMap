@@ -7,6 +7,9 @@ import { transform } from "ol/proj";
 import Overlay from "ol/Overlay.js";
 import Select from "ol/interaction/Select.js";
 import { click } from "ol/events/condition.js";
+import proj4 from "proj4";
+import { register } from "ol/proj/proj4";
+import { get as getProjection } from "ol/proj";
 import { swisstopoLayer, aerialLayer } from "./layers/BackgroundLayers"; // Importiere die Hintergrundkarten
 import { createKlettergebieteLayer } from "./layers/KlettergebieteLayer"; // Import the Klettergebiete layer
 import { createNaturschutzgebieteLayer } from "./layers/NaturschutzgebieteLayer"; // Importiere den Naturschutzgebiete-Layer
@@ -23,6 +26,17 @@ function BasemapMap() {
   const [isNaturschutzgebieteVisible, setIsNaturschutzgebieteVisible] = useState(false);
 
   useEffect(() => {
+    // EPSG:2056 Definition hinzufügen
+    proj4.defs(
+      "EPSG:2056",
+      "+proj=somerc +lat_0=46.95240555555556 +lon_0=7.439583333333333 +k=1 +x_0=2600000 +y_0=1200000 +ellps=GRS80 +units=m +no_defs"
+    );
+    register(proj4);
+
+    // Projektion registrieren
+    const projection = getProjection("EPSG:2056");
+    projection.setExtent([2420000, 1030000, 2900000, 1350000]);
+
     const klettergebieteLayer = createKlettergebieteLayer();
     const naturschutzgebieteLayerInstance = createNaturschutzgebieteLayer();
     setNaturschutzgebieteLayer(naturschutzgebieteLayerInstance); // Set the layer in state
@@ -103,8 +117,11 @@ function BasemapMap() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const userCoordinates = [position.coords.longitude, position.coords.latitude];
+        console.log("User location retrieved:", userCoordinates);
+
         //userkoordinaten transformieren
         const transformedCoordinates = transform(userCoordinates, "EPSG:4326", "EPSG:2056");
+        console.log("Koordis transformiert:", transformedCoordinates);
 
         mapRef.current.getView().animate({
           center: transformedCoordinates,
@@ -132,7 +149,11 @@ function BasemapMap() {
       <img
         src="/public/emlid-reachrs.png"
         alt="Standort"
-        onClick={zoomToUserLocation}
+        onClick={() => {
+          // Hier wird die Funktion aufgerufen, wenn der Button geklickt wird
+          console.log("button clicked");
+          zoomToUserLocation();
+        }}
         style={{
           position: "absolute",
           bottom: "10px",
