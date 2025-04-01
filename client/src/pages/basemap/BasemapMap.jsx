@@ -1,19 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./BasemapPage.css";
 import Map from "ol/Map.js";
-import TileLayer from "ol/layer/Tile.js";
-import TileWMS from "ol/source/TileWMS.js";
 import View from "ol/View.js";
 import { Projection } from "ol/proj";
-import VectorLayer from "ol/layer/Vector.js";
-import VectorSource from "ol/source/Vector.js";
-import GeoJSON from "ol/format/GeoJSON.js";
-import { bbox as bboxStrategy } from "ol/loadingstrategy.js";
 import Overlay from "ol/Overlay.js";
 import Select from "ol/interaction/Select.js";
 import { click } from "ol/events/condition.js";
-import Style from "ol/style/Style";
-import { Circle as CircleStyle, Fill, Stroke } from "ol/style";
+import { swisstopoLayer, aerialLayer } from "./layers/BackgroundLayers"; // Importiere die Hintergrundkarten
+import { createKlettergebieteLayer } from "./layers/KlettergebieteLayer"; // Import the Klettergebiete layer
+import { createNaturschutzgebieteLayer } from "./layers/NaturschutzgebieteLayer"; // Import the NSG layer
+
 
 function BasemapMap() {
   const mapRef = useRef(null);
@@ -24,60 +20,12 @@ function BasemapMap() {
   const [activeLayer, setActiveLayer] = useState("swisstopo");
 
   useEffect(() => {
-    const extent = [2420000, 130000, 2900000, 1350000];
 
-    const swisstopoLayer = new TileLayer({
-      extent: extent,
-      source: new TileWMS({
-        url: "https://wms.geo.admin.ch/",
-        crossOrigin: "anonymous",
-        // attributions:
-        //   '© <a href="http://www.geo.admin.ch/internet/geoportal/en/home.html">geo.admin.ch</a>',
-        projection: "EPSG:2056",
-        params: {
-          LAYERS: "ch.swisstopo.pixelkarte-farbe",
-          FORMAT: "image/jpeg",
-        },
-        serverType: "mapserver",
-      }),
-    });
-
-    const aerialLayer = new TileLayer({
-      extent: extent,
-      source: new TileWMS({
-        url: "https://wms.geo.admin.ch/",
-        crossOrigin: "anonymous",
-        // attributions:
-        //   '© <a href="http://www.geo.admin.ch/internet/geoportal/en/home.html">geo.admin.ch</a>',
-        projection: "EPSG:2056",
-        params: {
-          LAYERS: "ch.swisstopo.swissimage-product",
-          FORMAT: "image/jpeg",
-        },
-        serverType: "mapserver",
-      }),
-      visible: false, //startet unsichtbar
-    });
-
-    const vectorSource = new VectorSource({
-      format: new GeoJSON(),
-      url: "http://localhost:8080/geoserver/ne/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=ne%3AKlettergebiete&outputFormat=application%2Fjson",
-      strategy: bboxStrategy,
-    });
-
-    const vectorLayer = new VectorLayer({
-      source: vectorSource,
-      style: new Style({
-        image: new CircleStyle({
-          fill: new Fill({ color: "rgba(255, 255, 255, 0.6)" }),
-          stroke: new Stroke({ color: "rgba(255, 0, 0, 0.6)", width: 2 }),
-          radius: 5,
-        }),
-      }),
-    });
+    const klettergebieteLayer = createKlettergebieteLayer();
+    const naturschutzgebieteLayer = createNaturschutzgebieteLayer(); // Create the NSG layer
 
     const map = new Map({
-      layers: [swisstopoLayer, aerialLayer, vectorLayer],
+      layers: [swisstopoLayer, aerialLayer, klettergebieteLayer],
       target: "map",
       view: new View({
         center: [2600000, 1200000],
@@ -201,6 +149,15 @@ function BasemapMap() {
               }}
             >
               Luftbild
+            </div>
+            <div
+              style={{
+                padding: "5px",
+                cursor: "pointer",
+                backgroundColor: activeLayer === "aerial" ? "#f0f0f0" : "white",
+              }}
+            >
+              Naturschutzgebiete
             </div>
           </div>
       )}
