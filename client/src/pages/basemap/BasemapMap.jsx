@@ -10,6 +10,7 @@ import { click } from "ol/events/condition.js";
 import { swisstopoLayer, aerialLayer } from "./layers/BackgroundLayers"; // Importiere die Hintergrundkarten
 import { createKlettergebieteLayer } from "./layers/KlettergebieteLayer"; // Import the Klettergebiete layer
 import { createNaturschutzgebieteLayer } from "./layers/NaturschutzgebieteLayer"; // Import the NSG layer
+import { getWeatherDataForTwoDays, getWeatherIcon } from "../weather/Weather.jsx";
 
 function BasemapMap() {
   const mapRef = useRef(null);
@@ -59,16 +60,38 @@ function BasemapMap() {
     const selectInteraction = new Select({ condition: click });
     map.addInteraction(selectInteraction);
 
-    selectInteraction.on("select", (event) => {
+    selectInteraction.on("select", async (event) => {
       if (event.selected.length > 0) {
         const feature = event.selected[0];
         const properties = feature.getProperties();
+        const coordinates = feature.getGeometry().getCoordinates();
+
+        // Wetterdaten für die ersten beiden Tage abrufen
+        const weatherData = await getWeatherDataForTwoDays();
+
+        // Popup-Inhalt erstellen
         const content = Object.entries(properties)
           .filter(([key]) => !["geometry", "X", "Y"].includes(key))
           .map(([key, value]) => `<strong>${key}:</strong> ${value}`)
           .join("<br>");
-        popupContentRef.current.innerHTML = content;
-        overlay.setPosition(feature.getGeometry().getCoordinates());
+
+        // Wetterdaten hinzufügen
+        const weatherContent = weatherData
+          ? weatherData
+              .map(
+                (day, index) => `
+                <div class="weather-section">
+                  <strong>${index === 0 ? "Heute" : "Morgen"} </strong><br>
+                  <span class="weather-icon">${getWeatherIcon(day.pictocode)}</span><br>
+                  Temperatur: ${Math.round(day.temperature)}°C<br>
+                  Niederschlag: ${Math.round(day.precipitation)} mm
+                </div>`
+              )
+              .join("")
+          : "<br><strong>Wetter:</strong> Daten nicht verfügbar";
+
+        popupContentRef.current.innerHTML = content + weatherContent;
+        overlay.setPosition(coordinates);
       } else {
         overlay.setPosition(undefined);
       }
