@@ -1,20 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./BasemapPage.css";
 import Map from "ol/Map.js";
-import TileLayer from "ol/layer/Tile.js";
-import TileWMS from "ol/source/TileWMS.js";
 import View from "ol/View.js";
 import { Projection } from "ol/proj";
-import VectorLayer from "ol/layer/Vector.js";
-import VectorSource from "ol/source/Vector.js";
-import GeoJSON from "ol/format/GeoJSON.js";
-import { bbox as bboxStrategy } from "ol/loadingstrategy.js";
 import Overlay from "ol/Overlay.js";
 import Select from "ol/interaction/Select.js";
 import { click } from "ol/events/condition.js";
 import Style from "ol/style/Style";
 import { Circle as CircleStyle, Fill, Stroke } from "ol/style";
-import { transform } from "ol/proj";
+
 function BasemapMap() {
   const mapRef = useRef(null);
   const popupRef = useRef(null);
@@ -31,6 +25,8 @@ function BasemapMap() {
       source: new TileWMS({
         url: "https://wms.geo.admin.ch/",
         crossOrigin: "anonymous",
+        // attributions:
+        //   '© <a href="http://www.geo.admin.ch/internet/geoportal/en/home.html">geo.admin.ch</a>',
         projection: "EPSG:2056",
         params: {
           LAYERS: "ch.swisstopo.pixelkarte-farbe",
@@ -45,6 +41,8 @@ function BasemapMap() {
       source: new TileWMS({
         url: "https://wms.geo.admin.ch/",
         crossOrigin: "anonymous",
+        // attributions:
+        //   '© <a href="http://www.geo.admin.ch/internet/geoportal/en/home.html">geo.admin.ch</a>',
         projection: "EPSG:2056",
         params: {
           LAYERS: "ch.swisstopo.swissimage-product",
@@ -57,7 +55,7 @@ function BasemapMap() {
 
     const vectorSource = new VectorSource({
       format: new GeoJSON(),
-      url: "http://10.175.7.65:8080/geoserver/GDI_openclimbingmap/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=GDI_openclimbingmap%3Aklettergebiete&maxFeatures=50&outputFormat=application%2Fjson",
+      url: "http://localhost:8080/geoserver/ne/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=ne%3AKlettergebiete&outputFormat=application%2Fjson",
       strategy: bboxStrategy,
     });
 
@@ -73,7 +71,7 @@ function BasemapMap() {
     });
 
     const map = new Map({
-      layers: [swisstopoLayer, aerialLayer, vectorLayer],
+      layers: [swisstopoLayer, aerialLayer, klettergebieteLayer],
       target: "map",
       view: new View({
         center: [2600000, 1200000], // Default coordinates
