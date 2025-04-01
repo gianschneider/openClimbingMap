@@ -14,6 +14,7 @@ import { swisstopoLayer, aerialLayer } from "./layers/BackgroundLayers"; // Impo
 import { createKlettergebieteLayer } from "./layers/KlettergebieteLayer"; // Import the Klettergebiete layer
 import { createNaturschutzgebieteLayer } from "./layers/NaturschutzgebieteLayer"; // Importiere den Naturschutzgebiete-Layer
 import { handleNaturschutzgebieteToggle } from "./funktionen/layereinschalten"; // Importiere die Funktion
+import SearchComponent from "./funktionen/search-funktion"; // Importiere die Suchfunktion
 
 function BasemapMap() {
   const mapRef = useRef(null);
@@ -23,6 +24,7 @@ function BasemapMap() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeLayer, setActiveLayer] = useState("swisstopo");
   const [naturschutzgebieteLayer, setNaturschutzgebieteLayer] = useState(null);
+  const [searchValue, setSearchValue] = useState("Beispielsuche");
   const [isNaturschutzgebieteVisible, setIsNaturschutzgebieteVisible] = useState(false);
 
   useEffect(() => {
@@ -139,6 +141,8 @@ function BasemapMap() {
   return (
     <div style={{ position: "relative", width: "200%", height: "50vh" }}>
       <div id="map" style={{ width: "100%", height: "100%" }}></div>
+      {/*hier wird die kindkomponente aufgerufen*/}
+      <SearchComponent searchValue={searchValue} />
 
       {/* Popup */}
       <div ref={popupRef} id="popup" className="ol-popup">
@@ -234,11 +238,13 @@ function BasemapMap() {
             cursor: "pointer",
           }}
         />
-        {/*ingabefeld*/}
+        {/*eingabefeld*/}
         <input
           type="text"
           placeholder="Name"
-          defaultValue="Beispieltext"
+          defaultValue={"d"}
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
           style={{
             border: "none",
             outline: "none",
