@@ -35,20 +35,6 @@ function BasemapMap() {
 
     mapRef.current = map;
 
-    //userkoordinaten herausfinden
-    navigator.geolocation.getCurrentPosition((position) => {
-      const userCoordinates = [position.coords.longitude, position.coords.latitude];
-
-      //userkoordinaten transformieren
-      const transformedCoordinates = transform(userCoordinates, "EPSG:4326", "EPSG:2056");
-
-      map.getView().animate({
-        center: transformedCoordinates,
-        zoom: 14, // Optional: Passe den Zoom-Level an
-        duration: 1000, // Animation in Millisekunden
-      });
-    });
-
     const overlay = new Overlay({
       element: popupRef.current,
       autoPan: true,
@@ -105,6 +91,29 @@ function BasemapMap() {
       map.setTarget(null);
     };
   }, []);
+
+  //Funktion zum Zoomen auf Benutzerstandort
+  const zoomToUserLocation = () => {
+    if (!mapRef.current) return;
+    //userkoordinaten herausfinden
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const userCoordinates = [position.coords.longitude, position.coords.latitude];
+        //userkoordinaten transformieren
+        const transformedCoordinates = transform(userCoordinates, "EPSG:4326", "EPSG:2056");
+
+        mapRef.current.getView().animate({
+          center: transformedCoordinates,
+          zoom: 14, // Optional: Passe den Zoom-Level an
+          duration: 1000, // Animation in Millisekunden
+        });
+      },
+      (error) => {
+        console.error("Error getting user location:", error);
+        alert("Unable to retrieve your location. Please check your device settings.");
+      }
+    );
+  };
 
   return (
     <div style={{ position: "relative", width: "200%", height: "50vh" }}>
