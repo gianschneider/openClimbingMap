@@ -3,6 +3,7 @@ import "./BasemapPage.css";
 import Map from "ol/Map.js";
 import View from "ol/View.js";
 import { Projection } from "ol/proj";
+import { transform } from "ol/proj";
 import Overlay from "ol/Overlay.js";
 import Select from "ol/interaction/Select.js";
 import { click } from "ol/events/condition.js";
@@ -33,9 +34,19 @@ function BasemapMap() {
     });
 
     mapRef.current = map;
+
     //userkoordinaten herausfinden
     navigator.geolocation.getCurrentPosition((position) => {
       const userCoordinates = [position.coords.longitude, position.coords.latitude];
+
+      //userkoordinaten transformieren
+      const transformedCoordinates = transform(userCoordinates, "EPSG:4326", "EPSG:2056");
+
+      map.getView().animate({
+        center: transformedCoordinates,
+        zoom: 14, // Optional: Passe den Zoom-Level an
+        duration: 1000, // Animation in Millisekunden
+      });
     });
 
     const overlay = new Overlay({
