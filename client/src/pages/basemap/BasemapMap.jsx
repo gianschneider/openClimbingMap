@@ -10,7 +10,6 @@ import { swisstopoLayer, aerialLayer } from "./layers/BackgroundLayers"; // Impo
 import { createKlettergebieteLayer } from "./layers/KlettergebieteLayer"; // Import the Klettergebiete layer
 import { createNaturschutzgebieteLayer } from "./layers/NaturschutzgebieteLayer"; // Import the NSG layer
 
-
 function BasemapMap() {
   const mapRef = useRef(null);
   const popupRef = useRef(null);
@@ -20,7 +19,6 @@ function BasemapMap() {
   const [activeLayer, setActiveLayer] = useState("swisstopo");
 
   useEffect(() => {
-
     const klettergebieteLayer = createKlettergebieteLayer();
     const naturschutzgebieteLayer = createNaturschutzgebieteLayer(); // Create the NSG layer
 
@@ -35,6 +33,10 @@ function BasemapMap() {
     });
 
     mapRef.current = map;
+    //userkoordinaten herausfinden
+    navigator.geolocation.getCurrentPosition((position) => {
+      const userCoordinates = [position.coords.longitude, position.coords.latitude];
+    });
 
     const overlay = new Overlay({
       element: popupRef.current,
@@ -51,7 +53,7 @@ function BasemapMap() {
         const feature = event.selected[0];
         const properties = feature.getProperties();
         const content = Object.entries(properties)
-          .filter(([key]) => !["geometry","X","Y"].includes(key))
+          .filter(([key]) => !["geometry", "X", "Y"].includes(key))
           .map(([key, value]) => `<strong>${key}:</strong> ${value}`)
           .join("<br>");
         popupContentRef.current.innerHTML = content;
@@ -82,11 +84,11 @@ function BasemapMap() {
     // Attach the switchLayer function to the mapRef for use in the JSX
     mapRef.current.switchLayer = switchLayer;
 
-  // Add pointermove event to change cursor when hovering over Klettergebiete
-  map.on("pointermove", (event) => {
-    const hit = map.hasFeatureAtPixel(event.pixel); // Check if a feature is under the cursor
-    map.getTargetElement().style.cursor = hit ? "pointer" : ""; // Change cursor to pointer if hovering over a feature
-  });
+    // Add pointermove event to change cursor when hovering over Klettergebiete
+    map.on("pointermove", (event) => {
+      const hit = map.hasFeatureAtPixel(event.pixel); // Check if a feature is under the cursor
+      map.getTargetElement().style.cursor = hit ? "pointer" : ""; // Change cursor to pointer if hovering over a feature
+    });
 
     return () => {
       map.setTarget(null);
@@ -94,7 +96,7 @@ function BasemapMap() {
   }, []);
 
   return (
-    <div style={{ position: "relative" , width: "200%", height: "50vh" }}>
+    <div style={{ position: "relative", width: "200%", height: "50vh" }}>
       <div id="map" style={{ width: "100%", height: "100%" }}></div>
 
       {/* Popup */}
@@ -105,7 +107,11 @@ function BasemapMap() {
 
       {/* 3 Icons oben rechts */}
       {["🔍", "⚙️", "ℹ️"].map((icon, index) => (
-        <div key={index} className="icon-container" style={{ top: `${10 + index * 50}px`, right: "10px" }}>
+        <div
+          key={index}
+          className="icon-container"
+          style={{ top: `${10 + index * 50}px`, right: "10px" }}
+        >
           {icon}
         </div>
       ))}
@@ -117,49 +123,49 @@ function BasemapMap() {
 
       {/* Layer-Auswahl-Menü */}
       {isMenuOpen && (
+        <div
+          style={{
+            position: "absolute",
+            bottom: "60px",
+            right: "10px",
+            backgroundColor: "white",
+            border: "1px solid #ccc",
+            borderRadius: "5px",
+            padding: "10px",
+            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+            zIndex: 1000,
+          }}
+        >
           <div
+            onClick={() => mapRef.current.switchLayer("swisstopo")}
             style={{
-              position: "absolute",
-              bottom: "60px",
-              right: "10px",
-              backgroundColor: "white",
-              border: "1px solid #ccc",
-              borderRadius: "5px",
-              padding: "10px",
-              boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
-              zIndex: 1000,
+              padding: "5px",
+              cursor: "pointer",
+              backgroundColor: activeLayer === "swisstopo" ? "#f0f0f0" : "white",
             }}
           >
-            <div
-              onClick={() => mapRef.current.switchLayer("swisstopo")}
-              style={{
-                padding: "5px",
-                cursor: "pointer",
-                backgroundColor: activeLayer === "swisstopo" ? "#f0f0f0" : "white",
-              }}
-            >
-              Landeskarte
-            </div>
-            <div
-              onClick={() => mapRef.current.switchLayer("aerial")}
-              style={{
-                padding: "5px",
-                cursor: "pointer",
-                backgroundColor: activeLayer === "aerial" ? "#f0f0f0" : "white",
-              }}
-            >
-              Luftbild
-            </div>
-            <div
-              style={{
-                padding: "5px",
-                cursor: "pointer",
-                backgroundColor: activeLayer === "aerial" ? "#f0f0f0" : "white",
-              }}
-            >
-              Naturschutzgebiete
-            </div>
+            Landeskarte
           </div>
+          <div
+            onClick={() => mapRef.current.switchLayer("aerial")}
+            style={{
+              padding: "5px",
+              cursor: "pointer",
+              backgroundColor: activeLayer === "aerial" ? "#f0f0f0" : "white",
+            }}
+          >
+            Luftbild
+          </div>
+          <div
+            style={{
+              padding: "5px",
+              cursor: "pointer",
+              backgroundColor: activeLayer === "aerial" ? "#f0f0f0" : "white",
+            }}
+          >
+            Naturschutzgebiete
+          </div>
+        </div>
       )}
     </div>
   );
