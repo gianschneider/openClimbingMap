@@ -199,24 +199,55 @@ function BasemapMap() {
       />
 
       {/* Button für Suchmenu */}
-      <img
-        src="/public/Suche.svg"
-        alt="Standort"
-        onClick={() => {
-          // Hier wird die Funktion aufgerufen, wenn der Button geklickt wird
-          console.log("button clicked");
-        }}
+      <div
         style={{
           position: "absolute",
           backgroundColor: "white",
           bottom: "10px",
-          right: "200px",
+          right: "100px",
           zIndex: 1000,
-          width: "40px",
+          width: "200px",
           height: "40px",
           cursor: "pointer",
+          display: "flex",
+          alignItems: "center",
+          borderRadius: "20px",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+          padding: "5px",
         }}
-      />
+      >
+        <img
+          src="/public/Suche.svg"
+          alt="Standort"
+          onClick={() => {
+            // Hier wird die Funktion aufgerufen, wenn der Button geklickt wird
+            console.log("button clicked");
+          }}
+          style={{
+            position: "absolute",
+            backgroundColor: "white",
+            bottom: "10px",
+            right: "200px",
+            zIndex: 1000,
+            width: "40px",
+            height: "40px",
+            cursor: "pointer",
+          }}
+        />
+        {/*ingabefeld*/}
+        <input
+          type="text"
+          placeholder="Name"
+          defaultValue="Beispieltext"
+          style={{
+            border: "none",
+            outline: "none",
+            padding: "10px",
+            fontSize: "16px",
+            flex: 1,
+          }}
+        ></input>
+      </div>
 
       {/* Button für Information */}
       <img
