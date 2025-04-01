@@ -24,7 +24,7 @@ function BasemapMap() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeLayer, setActiveLayer] = useState("swisstopo");
   const [naturschutzgebieteLayer, setNaturschutzgebieteLayer] = useState(null);
-  const [searchValue, setSearchValue] = useState("Beispielsuche");
+  const [searchValue, setSearchValue] = useState("");
   const [isNaturschutzgebieteVisible, setIsNaturschutzgebieteVisible] = useState(false);
 
   useEffect(() => {
@@ -141,7 +141,7 @@ function BasemapMap() {
   return (
     <div style={{ position: "relative", width: "200%", height: "50vh" }}>
       <div id="map" style={{ width: "100%", height: "100%" }}></div>
-      {/*hier wird die kindkomponente aufgerufen*/}
+      {/*hier wird die Searchkomponente aufgerufen*/}
       <SearchComponent searchValue={searchValue} />
 
       {/* Popup */}
@@ -154,13 +154,13 @@ function BasemapMap() {
         src="/public/emlid-reachrs.png"
         alt="Standort"
         onClick={() => {
-          // Hier wird die Funktion aufgerufen, wenn der Button geklickt wird
+          // Hier wird die Funktion aufgerufen, wenn der Zoom-Button geklickt wird
           console.log("button clicked");
           zoomToUserLocation();
         }}
         style={{
           position: "absolute",
-          bottom: "10px",
+          bottom: "5px",
           left: "10px",
           zIndex: 1000,
           width: "40px",
@@ -171,7 +171,7 @@ function BasemapMap() {
           padding: "10px",
           boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
           opacity: 0.95,
-          transition: "transform 0.3s ease, opacity 0.3s ease",
+          transition: "transform 0.3s ease, opacity 1s ease",
         }}
         onMouseEnter={(e) => {
           e.target.style.transform = "scale(1.1)";
@@ -208,9 +208,9 @@ function BasemapMap() {
           position: "absolute",
           backgroundColor: "white",
           bottom: "10px",
-          right: "100px",
+          right: "10px",
           zIndex: 1000,
-          width: "200px",
+          width: "300px",
           height: "40px",
           cursor: "pointer",
           display: "flex",
@@ -218,6 +218,15 @@ function BasemapMap() {
           borderRadius: "20px",
           boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
           padding: "5px",
+          transition: "transform 0.3s ease, opacity 1s ease",
+        }}
+        onMouseEnter={(e) => {
+          e.target.style.transform = "scale(1.05)";
+          e.target.style.opacity = "1.05";
+        }}
+        onMouseLeave={(e) => {
+          e.target.style.transform = "scale(0.95)";
+          e.target.style.opacity = "0.95";
         }}
       >
         <img
@@ -231,18 +240,18 @@ function BasemapMap() {
             position: "absolute",
             backgroundColor: "white",
             bottom: "10px",
-            right: "200px",
+            right: "260px",
             zIndex: 1000,
-            width: "40px",
-            height: "40px",
+            width: "30px",
+            height: "30px",
+            marginRight: "10px",
             cursor: "pointer",
           }}
         />
         {/*eingabefeld*/}
         <input
           type="text"
-          placeholder="Name"
-          defaultValue={"d"}
+          placeholder="Gebietsname"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
           style={{
@@ -251,6 +260,7 @@ function BasemapMap() {
             padding: "10px",
             fontSize: "16px",
             flex: 1,
+            marginLeft: "40px",
           }}
         ></input>
       </div>
