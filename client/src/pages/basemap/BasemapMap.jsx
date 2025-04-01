@@ -8,7 +8,8 @@ import Select from "ol/interaction/Select.js";
 import { click } from "ol/events/condition.js";
 import { swisstopoLayer, aerialLayer } from "./layers/BackgroundLayers"; // Importiere die Hintergrundkarten
 import { createKlettergebieteLayer } from "./layers/KlettergebieteLayer"; // Import the Klettergebiete layer
-import { createNaturschutzgebieteLayer } from "./layers/NaturschutzgebieteLayer"; // Import the NSG layer
+import { createNaturschutzgebieteLayer } from "./layers/NaturschutzgebieteLayer"; // Importiere den Naturschutzgebiete-Layer
+import { handleNaturschutzgebieteToggle } from "./funktionen/layereinschalten"; // Importiere die Funktion
 
 
 function BasemapMap() {
@@ -18,14 +19,19 @@ function BasemapMap() {
   const popupCloserRef = useRef(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeLayer, setActiveLayer] = useState("swisstopo");
+  const [naturschutzgebieteLayer, setNaturschutzgebieteLayer] = useState(null);
+  const [isNaturschutzgebieteVisible, setIsNaturschutzgebieteVisible] = useState(false);
+
 
   useEffect(() => {
 
     const klettergebieteLayer = createKlettergebieteLayer();
-    const naturschutzgebieteLayer = createNaturschutzgebieteLayer(); // Create the NSG layer
+    const naturschutzgebieteLayerInstance = createNaturschutzgebieteLayer();
+    setNaturschutzgebieteLayer(naturschutzgebieteLayerInstance); // Set the layer in state
+
 
     const map = new Map({
-      layers: [swisstopoLayer, aerialLayer, klettergebieteLayer],
+      layers: [swisstopoLayer, aerialLayer, naturschutzgebieteLayerInstance, klettergebieteLayer], // Add the layer here
       target: "map",
       view: new View({
         center: [2600000, 1200000],
@@ -150,15 +156,22 @@ function BasemapMap() {
             >
               Luftbild
             </div>
-            <div
-              style={{
-                padding: "5px",
-                cursor: "pointer",
-                backgroundColor: activeLayer === "aerial" ? "#f0f0f0" : "white",
-              }}
-            >
+            <div style={{ marginTop: "10px" }}>
+            <label>
+              <input
+                type="checkbox"
+                checked={isNaturschutzgebieteVisible}
+                onChange={() =>
+                  handleNaturschutzgebieteToggle(
+                    naturschutzgebieteLayer,
+                    isNaturschutzgebieteVisible,
+                    setIsNaturschutzgebieteVisible
+                  )
+                }
+              />
               Naturschutzgebiete
-            </div>
+            </label>
+          </div>
           </div>
       )}
     </div>

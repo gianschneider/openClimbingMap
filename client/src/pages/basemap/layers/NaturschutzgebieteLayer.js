@@ -14,6 +14,7 @@ export const createNaturschutzgebieteLayer = () => {
 
   const vectorLayer = new VectorLayer({
     source: vectorSource,
+    visible: false,
     style: new Style({
       fill: new Fill({
         color: "rgba(0, 255, 0, 0.4)", // Grüne Füllung mit Transparenz
