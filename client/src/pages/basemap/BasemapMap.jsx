@@ -318,7 +318,7 @@ function BasemapMap() {
         <div
           style={{
             position: "absolute",
-            bottom: "90px",
+            bottom: "200px",
             right: "10px",
             backgroundColor: "white",
             border: "1px solid #ccc",
