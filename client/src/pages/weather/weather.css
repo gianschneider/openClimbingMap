@@ -1,0 +1,108 @@
+/* Container für die gesamte Wetteranzeige */
+.weather-container {
+  padding: 16px;
+}
+
+/* Zeit-Auswahl */
+.time-selector {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.time-button {
+  padding: 8px 16px;
+  margin: 0 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  background-color: #ffffff;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.time-button.active {
+  background-color: #3b82f6; /* Blau */
+  color: #ffffff;
+  font-weight: bold;
+}
+
+/* Grid für die Wetterkarten */
+.weather-grid {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 8px;
+}
+
+/* Einzelne Wetterkarte */
+.weather-card {
+  flex: 0 0 auto;
+  min-width: 150px;
+  padding: 16px;
+  border: 1px solid #d1d5db; /* Grau */
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  background-color: #ffffff;
+}
+
+/* Datum */
+.date {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+/* Temperatur */
+.temp {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 8px 0;
+}
+
+/* Regen */
+.rain {
+  font-size: 0.875rem;
+  color: #3b82f6; /* Blau */
+}
+
+/* Wahrscheinlichkeit */
+.prob {
+  font-size: 0.875rem;
+  color: #4b5563; /* Dunkelgrau */
+}
+
+/* Keine Daten */
+.no-data {
+  font-size: 0.875rem;
+  color: #9ca3af; /* Hellgrau */
+}
+
+/* Icons */
+.icon {
+  margin: 8px 0;
+}
+
+.icon.sun {
+  color: #f59e0b; /* Gelb */
+}
+
+.icon.cloud-sun {
+  color: #fbbf24; /* Hellgelb */
+}
+
+.icon.cloud {
+  color: #9ca3af; /* Grau */
+}
+
+.icon.rain {
+  color: #3b82f6; /* Blau */
+}
+
+.icon.snow {
+  color: #93c5fd; /* Hellblau */
+}
+
+.icon.wind {
+  color: #6b7280; /* Grau */
+}

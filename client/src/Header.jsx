@@ -24,7 +24,7 @@ function Header() {
           <img src="./sportclimbing-pictogramm.png" className="logo" alt="OpenLayers logo" />
           BaseMap
         </NavButton>
-
+        <NavButton path="weather">Wetter</NavButton>
         <NavButton path="openlayers">Open Layers</NavButton>
         <NavButton path="maplibre">MapLibre (Reactive)</NavButton>
         <NavButton path="spatialanalysis">Spatial Analysis</NavButton>
