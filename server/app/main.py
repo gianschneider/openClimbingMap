@@ -2,6 +2,9 @@ from fastapi import FastAPI, HTTPException, status
 from fastapi.responses import HTMLResponse
 from fastapi.responses import ORJSONResponse
 
+# import geocover
+from .geocover import router as geocover_router
+
 # CORS aktivieren für FastAPI Backend
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -12,6 +15,10 @@ from psycopg2 import pool
 from pydantic import BaseModel
 
 app = FastAPI()
+
+
+# Andere Router hier registrieren
+app.include_router(geocover_router, prefix="/api", tags=["Geocover"])
 
 # CORS Einstellungen
 # siehe: https://fastapi.tiangolo.com/tutorial/cors/#use-corsmiddleware

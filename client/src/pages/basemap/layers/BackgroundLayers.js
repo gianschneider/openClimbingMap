@@ -31,3 +31,5 @@ export const aerialLayer = new TileLayer({
   }),
   visible: false, // Startet unsichtbar
 });
+
+// geocover
