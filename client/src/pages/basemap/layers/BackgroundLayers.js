@@ -14,8 +14,11 @@ export const GeocoverLayer = () => {
   return new VectorLayer({
     source: new VectorSource({
       format: new GeoJSON(),
-      url: (extent) => `/api/geocover?bbox=${extent.join(",")}`,
-      strategy: bboxStrategy, //lädt dateien nur für sichtbare bereiche
+      url: (extent) =>
+        `https://api3.geo.admin.ch/rest/services/api/MapServer/ch.swisstopo.geologie-geocover/query?geometry=${extent.join(
+          ","
+        )}&geometryType=esriGeometryEnvelope&inSR=2056&spatialRel=esriSpatialRelIntersects&outFields=*&returnGeometry=true&f=geojson`,
+      strategy: bboxStrategy, // Lädt Daten nur für sichtbare Bereiche
     }),
     visible: false, //startet unsichtbar
   });
