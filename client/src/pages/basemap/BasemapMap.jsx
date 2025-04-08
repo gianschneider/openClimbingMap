@@ -63,59 +63,27 @@ function BasemapMap() {
     map.addOverlay(overlay);
 
     const selectInteraction = new Select({ condition: click });
-    map.addInteraction(selectInteraction);
-
-    selectInteraction.on("select", async (event) => {
-      if (event.selected.length > 0) {
-        const feature = event.selected[0];
-        const properties = feature.getProperties();
-        const coordinates = feature.getGeometry().getCoordinates();
-
-        // Wetterdaten für die ersten beiden Tage abrufen
-        const weatherData = await getWeatherDataForTwoDays();
-
-        // Popup-Inhalt erstellen
-        const content = Object.entries(properties)
-          .filter(([key]) => !["geometry", "X", "Y"].includes(key))
-          .map(([key, value]) => `<strong>${key}:</strong> ${value}`)
-          .join("<br>");
-
-        // Wetterdaten hinzufügen
-        const weatherContent = weatherData
-          ? weatherData
-              .map(
-                (day, index) => `
-                <div class="weather-section">
-                  <strong>${index === 0 ? "Heute" : "Morgen"}:</strong><br>
-                  <span class="weather-icon">${getWeatherIcon(day.pictocode)}</span><br>
-                  Temperatur: ${Math.round(day.temperature)}°C<br>
-                  Niederschlag: ${Math.round(day.precipitation)} mm
-                </div>`
-              )
-              .join("") +
-            `<br><a href="#" id="detailed-weather-link" style="color: dodgerblue; text-decoration: underline;">Mehr Wetterdaten</a>`
-          : "<br><strong>Wetter:</strong> Daten nicht verfügbar";
-
-        popupContentRef.current.innerHTML = content + weatherContent;
-        overlay.setPosition(coordinates);
-
-        // Event-Listener für den Link hinzufügen
-        const detailedWeatherLink = document.getElementById("detailed-weather-link");
-        if (detailedWeatherLink) {
-          detailedWeatherLink.onclick = (e) => {
-            e.preventDefault();
-            openDetailedWeatherPopup(weatherData);
-          };
-        }
-      } else {
-        overlay.setPosition(undefined);
-      }
-    });
-
-    popupCloserRef.current.onclick = () => {
-      overlay.setPosition(undefined);
-      return false;
-    };
+     map.addInteraction(selectInteraction);
+ 
+     selectInteraction.on("select", (event) => {
+       if (event.selected.length > 0) {
+         const feature = event.selected[0];
+         const properties = feature.getProperties();
+         const content = Object.entries(properties)
+           .filter(([key]) => !["geometry","X","Y"].includes(key))
+           .map(([key, value]) => `<strong>${key}:</strong> ${value}`)
+           .join("<br>");
+         popupContentRef.current.innerHTML = content;
+         overlay.setPosition(feature.getGeometry().getCoordinates());
+       } else {
+         overlay.setPosition(undefined);
+       }
+     });
+ 
+     popupCloserRef.current.onclick = () => {
+       overlay.setPosition(undefined);
+       return false;
+     };
 
     // Function to switch layers
     const switchLayer = (layerName) => {
@@ -225,7 +193,7 @@ function BasemapMap() {
       </div>
       {/*Button für Standort-Zoom */}
       <img
-        src="/public/emlid-reachrs.png"
+        src="/emlid-reachrs.png"
         alt="Standort"
         onClick={() => {
           // Hier wird die Funktion aufgerufen, wenn der Zoom-Button geklickt wird
@@ -258,7 +226,7 @@ function BasemapMap() {
       />
       {/* Button für Filtermenu */}
       <img
-        src="/public/Filter.svg"
+        src="/Filter.svg"
         alt="Standort"
         onClick={() => {
           // Hier wird die Funktion aufgerufen, wenn der Button geklickt wird
@@ -315,7 +283,7 @@ function BasemapMap() {
         }}
       >
         <img
-          src="/public/Suche.svg"
+          src="/Suche.svg"
           alt="Standort"
           onClick={() => {
             // Hier wird die Funktion aufgerufen, wenn der Button geklickt wird
@@ -352,7 +320,7 @@ function BasemapMap() {
 
       {/* Button für Information */}
       <img
-        src="/public/info.svg"
+        src="/info.svg"
         alt="Standort"
         onClick={() => {
           // Hier wird die Funktion aufgerufen, wenn der Button geklickt wird
@@ -384,7 +352,7 @@ function BasemapMap() {
 
       {/* Button für Layer-Wechsel */}
       <img
-        src="/public/layer.svg"
+        src="/layer.svg"
         alt="Standort"
         onClick={() => {
           // Hier wird die Funktion aufgerufen, wenn der Button geklickt wird

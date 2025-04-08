@@ -8,7 +8,7 @@ import { Fill, Stroke } from "ol/style";
 export const createNaturschutzgebieteLayer = () => {
   const vectorSource = new VectorSource({
     format: new GeoJSON(),
-    url: "http://10.175.7.65:8080/geoserver/GDI_openclimbingmap/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=GDI_openclimbingmap%3Anaturschutzgebiete&maxFeatures=50&outputFormat=application%2Fjson",
+    url: "http://10.175.27.25:8080/geoserver/GDI_openclimbingmap/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=GDI_openclimbingmap%3Anaturschutzgebiete&maxFeatures=50&outputFormat=application%2Fjson",
     strategy: bboxStrategy, // Lädt nur Features innerhalb der aktuellen Bounding-Box
   });
 

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Sun, CloudRain, Cloud, CloudSun, CloudSnow, Wind, CloudLightning, Snowflake } from "lucide-react";
 import "./weather.css";
 
 // Funktion zur Zuordnung der Icons basierend auf dem Pictocode
