@@ -15,6 +15,7 @@ import { createKlettergebieteLayer } from "./layers/KlettergebieteLayer"; // Imp
 import { createNaturschutzgebieteLayer } from "./layers/NaturschutzgebieteLayer"; // Importiere den Naturschutzgebiete-Layer
 import { handleNaturschutzgebieteToggle } from "./funktionen/layereinschalten"; // Importiere die Funktion
 import SearchComponent from "./funktionen/search-funktion"; // Importiere die Suchfunktion
+import { getWeatherDataForTwoDays, getWeatherIcon } from "../weather/Weather"; // Importiere die Wetterdatenfunktion und das Icon
 
 function BasemapMap() {
   const mapRef = useRef(null);
@@ -63,27 +64,68 @@ function BasemapMap() {
     map.addOverlay(overlay);
 
     const selectInteraction = new Select({ condition: click });
-     map.addInteraction(selectInteraction);
- 
-     selectInteraction.on("select", (event) => {
-       if (event.selected.length > 0) {
-         const feature = event.selected[0];
-         const properties = feature.getProperties();
-         const content = Object.entries(properties)
-           .filter(([key]) => !["geometry","X","Y"].includes(key))
-           .map(([key, value]) => `<strong>${key}:</strong> ${value}`)
-           .join("<br>");
-         popupContentRef.current.innerHTML = content;
-         overlay.setPosition(feature.getGeometry().getCoordinates());
-       } else {
-         overlay.setPosition(undefined);
-       }
-     });
- 
-     popupCloserRef.current.onclick = () => {
-       overlay.setPosition(undefined);
-       return false;
-     };
+    map.addInteraction(selectInteraction);
+
+    selectInteraction.on("select", async (event) => {
+      if (event.selected.length > 0) {
+        const feature = event.selected[0];
+        const properties = feature.getProperties();
+        const coordinates = feature.getGeometry().getCoordinates();
+
+        console.log("Feature selected:", properties); // Debugging
+
+        try {
+          // Wetterdaten für die ersten beiden Tage abrufen
+          const weatherData = await getWeatherDataForTwoDays();
+          console.log("Weather data retrieved:", weatherData); // Debugging
+
+          // Popup-Inhalt erstellen
+          const content = Object.entries(properties)
+            .filter(([key]) => !["geometry", "X", "Y"].includes(key))
+            .map(([key, value]) => `<strong>${key}:</strong> ${value}`)
+            .join("<br>");
+
+          // Wetterdaten hinzufügen
+          const weatherContent = weatherData
+            ? weatherData
+                .map(
+                  (day, index) => `
+                  <div class="weather-section">
+                    <strong>${index === 0 ? "Heute" : "Morgen"}:</strong><br>
+                    <span class="weather-icon">${getWeatherIcon(day.pictocode)}</span><br>
+                    Temperatur: ${Math.round(day.temperature)}°C<br>
+                    Niederschlag: ${Math.round(day.precipitation)} mm
+                  </div>`
+                )
+                .join("") +
+              `<br><a href="#" id="detailed-weather-link" style="color: dodgerblue; text-decoration: underline;">Mehr Wetterdaten</a>`
+            : "<br><strong>Wetter:</strong> Daten nicht verfügbar";
+
+          popupContentRef.current.innerHTML = content + weatherContent;
+          overlay.setPosition(coordinates);
+
+          // Event-Listener für den Link hinzufügen
+          const detailedWeatherLink = document.getElementById("detailed-weather-link");
+          if (detailedWeatherLink) {
+            detailedWeatherLink.onclick = (e) => {
+              e.preventDefault();
+              openDetailedWeatherPopup(weatherData);
+            };
+          }
+        } catch (error) {
+          console.error("Error retrieving weather data:", error); // Debugging
+          popupContentRef.current.innerHTML = "<strong>Fehler beim Abrufen der Wetterdaten.</strong>";
+          overlay.setPosition(coordinates);
+        }
+      } else {
+        overlay.setPosition(undefined);
+      }
+    });
+
+    popupCloserRef.current.onclick = () => {
+      overlay.setPosition(undefined);
+      return false;
+    };
 
     // Function to switch layers
     const switchLayer = (layerName) => {
