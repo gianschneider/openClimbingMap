@@ -10,13 +10,14 @@ import { click } from "ol/events/condition.js";
 import proj4 from "proj4";
 import { register } from "ol/proj/proj4";
 import { get as getProjection } from "ol/proj";
-import { swisstopoLayer, aerialLayer } from "./layers/BackgroundLayers"; // Importiere die Hintergrundkarten
-import { createKlettergebieteLayer } from "./layers/KlettergebieteLayer"; // Import the Klettergebiete layer
-import { createNaturschutzgebieteLayer } from "./layers/NaturschutzgebieteLayer"; // Importiere den Naturschutzgebiete-Layer
-import { handleNaturschutzgebieteToggle } from "./funktionen/layereinschalten"; // Importiere die Funktion
-import SearchComponent from "./funktionen/search-funktion"; // Importiere die Suchfunktion
-import { getWeatherDataForTwoDays, getWeatherIcon } from "../weather/Weather"; // Importiere die Wetterdatenfunktion und das Icon
+import { swisstopoLayer, aerialLayer } from "./layers/BackgroundLayers";
+import { createKlettergebieteLayer } from "./layers/KlettergebieteLayer";
+import { createNaturschutzgebieteLayer } from "./layers/NaturschutzgebieteLayer";
+import { handleNaturschutzgebieteToggle } from "./funktionen/layereinschalten";
+import { getWeatherDataForTwoDays, getWeatherIcon } from "../weather/Weather";
 import { GeocoverLayer } from "./layers/BackgroundLayers";
+import SearchResults from "./funktionen/search-funktion";
+import { Style, Fill, Stroke} from "ol/style";
 
 function BasemapMap() {
   const mapRef = useRef(null);
@@ -30,25 +31,24 @@ function BasemapMap() {
   const [isNaturschutzgebieteVisible, setIsNaturschutzgebieteVisible] = useState(false);
   const [geocoverLayer, setGeocoverlayer] = useState(null);
   const [isGeocoverVisible, setIsGeocoverVisible] = useState(false);
+  const [showSearchResults, setShowSearchResults] = useState(false);
 
   useEffect(() => {
-    // EPSG:2056 Definition hinzufügen
     proj4.defs(
       "EPSG:2056",
       "+proj=somerc +lat_0=46.95240555555556 +lon_0=7.439583333333333 +k=1 +x_0=2600000 +y_0=1200000 +ellps=GRS80 +units=m +no_defs"
     );
     register(proj4);
 
-    // Projektion registrieren
     const projection = getProjection("EPSG:2056");
     projection.setExtent([2420000, 1030000, 2900000, 1350000]);
 
     const klettergebieteLayer = createKlettergebieteLayer();
     const naturschutzgebieteLayerInstance = createNaturschutzgebieteLayer();
-    setNaturschutzgebieteLayer(naturschutzgebieteLayerInstance); // Set the layer in state
+    setNaturschutzgebieteLayer(naturschutzgebieteLayerInstance);
 
     const geocoverLayerInstance = GeocoverLayer();
-    setGeocoverlayer(geocoverLayerInstance); // Set the layer in state;
+    setGeocoverlayer(geocoverLayerInstance);
 
     const map = new Map({
       layers: [
@@ -57,7 +57,7 @@ function BasemapMap() {
         naturschutzgebieteLayerInstance,
         klettergebieteLayer,
         geocoverLayerInstance,
-      ], // Add the layer here
+      ],
       target: "map",
       view: new View({
         center: [2600000, 1200000],
@@ -84,20 +84,17 @@ function BasemapMap() {
         const properties = feature.getProperties();
         const coordinates = feature.getGeometry().getCoordinates();
 
-        console.log("Feature selected:", properties); // Debugging
+        console.log("Feature selected:", properties);
 
         try {
-          // Wetterdaten für die ersten beiden Tage abrufen
           const weatherData = await getWeatherDataForTwoDays();
-          console.log("Weather data retrieved:", weatherData); // Debugging
+          console.log("Weather data retrieved:", weatherData);
 
-          // Popup-Inhalt erstellen
           const content = Object.entries(properties)
             .filter(([key]) => !["geometry", "X", "Y"].includes(key))
             .map(([key, value]) => `<strong>${key}:</strong> ${value}`)
             .join("<br>");
 
-          // Wetterdaten hinzufügen
           const weatherContent = weatherData
             ? weatherData
                 .map(
@@ -115,7 +112,7 @@ function BasemapMap() {
           popupContentRef.current.innerHTML = content + weatherContent;
           overlay.setPosition(coordinates);
         } catch (error) {
-          console.error("Error retrieving weather data:", error); // Debugging
+          console.error("Error retrieving weather data:", error);
           popupContentRef.current.innerHTML =
             "<strong>Fehler beim Abrufen der Wetterdaten.</strong>";
           overlay.setPosition(coordinates);
@@ -130,7 +127,6 @@ function BasemapMap() {
       return false;
     };
 
-    // Function to switch layers
     const switchLayer = (layerName) => {
       if (layerName === "swisstopo") {
         swisstopoLayer.setVisible(true);
@@ -143,37 +139,32 @@ function BasemapMap() {
       setIsMenuOpen(false);
     };
 
-    // Attach the switchLayer function to the mapRef for use in the JSX
     mapRef.current.switchLayer = switchLayer;
 
-    // Add pointermove event to change cursor when hovering over Klettergebiete
     map.on("pointermove", (event) => {
-      const hit = map.hasFeatureAtPixel(event.pixel); // Check if a feature is under the cursor
-      map.getTargetElement().style.cursor = hit ? "pointer" : ""; // Change cursor to pointer if hovering over a feature
+      const hit = map.hasFeatureAtPixel(event.pixel);
+      map.getTargetElement().style.cursor = hit ? "pointer" : "";
     });
 
     return () => {
       map.setTarget(null);
     };
   }, []);
-  ////
-  //Funktion zum Zoomen auf Benutzerstandort
+
   const zoomToUserLocation = () => {
     if (!mapRef.current) return;
-    //userkoordinaten herausfinden
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const userCoordinates = [position.coords.longitude, position.coords.latitude];
         console.log("User location retrieved:", userCoordinates);
 
-        //userkoordinaten transformieren
         const transformedCoordinates = transform(userCoordinates, "EPSG:4326", "EPSG:2056");
         console.log("Koordis transformiert:", transformedCoordinates);
 
         mapRef.current.getView().animate({
           center: transformedCoordinates,
-          zoom: 14, // Optional: Passe den Zoom-Level an
-          duration: 1000, // Animation in Millisekunden
+          zoom: 14,
+          duration: 1000,
         });
       },
       (error) => {
@@ -183,7 +174,6 @@ function BasemapMap() {
     );
   };
 
-  // Funktion zum Umschalten der Sichtbarkeit des Geocover-Layers
   const toggleGeocoverLayer = () => {
     if (geocoverLayer) {
       geocoverLayer.setVisible(!isGeocoverVisible);
@@ -191,181 +181,141 @@ function BasemapMap() {
     }
   };
 
+  const handleSearchFocus = () => {
+    setShowSearchResults(true);
+  };
+
+  const handleSearchBlur = () => {
+    setTimeout(() => setShowSearchResults(false), 200);
+  };
+
   return (
     <div style={{ position: "relative", width: "200%", height: "50vh" }}>
       <div id="map" style={{ width: "100%", height: "100%" }}></div>
-      {/*hier wird die Searchkomponente aufgerufen*/}
-      <SearchComponent searchValue={searchValue} />
+      
       {/* Popup */}
       <div ref={popupRef} id="popup" className="ol-popup">
         <a ref={popupCloserRef} href="#" id="popup-closer" className="ol-popup-closer"></a>
         <div ref={popupContentRef} id="popup-content"></div>
       </div>
-      {/*Button für Standort-Zoom */}
+
+      {/* Standort-Zoom Button */}
       <img
         src="/emlid-reachrs.png"
         alt="Standort"
-        onClick={() => {
-          // Hier wird die Funktion aufgerufen, wenn der Zoom-Button geklickt wird
-          console.log("button clicked");
-          zoomToUserLocation();
-        }}
-        style={{
-          position: "absolute",
-          bottom: "5px",
-          left: "10px",
-          zIndex: 1000,
-          width: "40px",
-          height: "40px",
-          cursor: "pointer",
-          backgroundColor: "white",
-          borderRadius: "50%",
-          padding: "10px",
-          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
-          opacity: 0.95,
-          transition: "transform 0.3s ease, opacity 1s ease",
-        }}
-        onMouseEnter={(e) => {
-          e.target.style.transform = "scale(1.1)";
-          e.target.style.opacity = "1.1";
-        }}
-        onMouseLeave={(e) => {
-          e.target.style.transform = "scale(0.9)";
-          e.target.style.opacity = "0.9";
-        }}
+        className = "zoom-button"
+        onClick={zoomToUserLocation}
       />
-      {/* Button für Filtermenu */}
+
+      {/* Filter Button */}
       <img
         src="/Filter.svg"
-        alt="Standort"
-        onClick={() => {
-          // Hier wird die Funktion aufgerufen, wenn der Button geklickt wird
-          console.log("button clicked");
-        }}
-        style={{
-          position: "absolute",
-          backgroundColor: "white",
-          top: "10px",
-          right: "10px",
-          zIndex: 1000,
-          width: "40px",
-          height: "40px",
-          cursor: "pointer",
-          transition: "transform 0.3s ease, opacity 1s ease",
-          borderRadius: "15%",
-          padding: "5px",
-        }}
-        onMouseEnter={(e) => {
-          e.target.style.transform = "scale(1.1)";
-          e.target.style.opacity = "1.1";
-        }}
-        onMouseLeave={(e) => {
-          e.target.style.transform = "scale(0.9)";
-          e.target.style.opacity = "0.9";
-        }}
+        alt="Filter"
+        className = "filter-button"
+        onClick={() => console.log("button clicked")}
       />
-      {/* Button für Suchmenu */}
-      <div
-        style={{
-          position: "absolute",
-          backgroundColor: "white",
-          bottom: "10px",
-          right: "10px",
-          zIndex: 1000,
-          width: "300px",
-          height: "40px",
-          cursor: "pointer",
-          display: "flex",
-          alignItems: "center",
-          borderRadius: "20px",
-          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
-          padding: "5px",
-          transition: "transform 0.3s ease, opacity 1s ease",
-        }}
-        onMouseEnter={(e) => {
-          e.target.style.transform = "scale(1.05)";
-          e.target.style.opacity = "1.05";
-        }}
-        onMouseLeave={(e) => {
-          e.target.style.transform = "scale(0.95)";
-          e.target.style.opacity = "0.95";
-        }}
-      >
-        <img
-          src="/Suche.svg"
-          alt="Standort"
-          onClick={() => {
-            // Hier wird die Funktion aufgerufen, wenn der Button geklickt wird
-            console.log("button clicked");
-          }}
+
+      {/* Suchcontainer mit flex-col-reverse für die Anordnung */}
+      <div style={{
+        position: "absolute",
+        bottom: "10px",
+        right: "10px",
+        zIndex: 1000,
+        display: "flex",
+        flexDirection: "column-reverse",
+        gap: "5px"
+      }}>
+        {/* Suchfeld */}
+        <div
           style={{
-            position: "absolute",
             backgroundColor: "white",
-            bottom: "10px",
-            right: "260px",
-            zIndex: 1000,
-            width: "30px",
-            height: "30px",
-            marginRight: "10px",
+            width: "300px",
+            height: "40px",
             cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            borderRadius: "20px",
+            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+            padding: "5px",
+            transition: "transform 0.3s ease, opacity 1s ease",
           }}
-        />
-        {/*eingabefeld*/}
-        <input
-          type="text"
-          placeholder="Gebietsname"
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-          style={{
-            border: "none",
-            outline: "none",
-            padding: "10px",
-            fontSize: "16px",
-            flex: 1,
-            marginLeft: "40px",
+          onMouseEnter={(e) => {
+            e.target.style.transform = "scale(1.05)";
+            e.target.style.opacity = "1.05";
           }}
-        ></input>
+          onMouseLeave={(e) => {
+            e.target.style.transform = "scale(0.95)";
+            e.target.style.opacity = "0.95";
+          }}
+        >
+          <img
+            src="/Suche.svg"
+            alt="Suche"
+            onClick={() => console.log("button clicked")}
+            style={{
+              width: "20px",
+              height: "20px",
+              marginRight: "10px",
+              cursor: "pointer",
+            }}
+          />
+          <input
+            type="text"
+            placeholder="Gebietsname"
+            value={searchValue}
+            onChange={(e) => {
+              setSearchValue(e.target.value);
+              if (e.target.value.length >= 3) {
+                setShowSearchResults(true);
+              } else {
+                setShowSearchResults(false);
+              }
+            }}
+            onFocus={handleSearchFocus}
+            onBlur={handleSearchBlur}
+            style={{
+              border: "none",
+              outline: "none",
+              padding: "5px",
+              fontSize: "16px",
+              flex: 1,
+            }}
+          />
+        </div>
+
+        {/* Suchergebnisse (erscheint jetzt über dem Suchfeld) */}
+        {showSearchResults && (
+          <div className="search-results">
+            <SearchResults 
+              searchValue={searchValue} 
+              onResultClick={(feature) => {
+                const coordinates = feature.geometry.coordinates;
+                mapRef.current.getView().animate({
+                  center: coordinates,
+                  zoom: 12,
+                  duration: 1000,
+                });
+                setShowSearchResults(false);
+              }}
+            />
+          </div>
+        )}
       </div>
-      {/* Button für Information */}
+
+      {/* Info Button */}
       <img
         src="/info.svg"
-        alt="Standort"
-        onClick={() => {
-          // Hier wird die Funktion aufgerufen, wenn der Button geklickt wird
-          console.log("button clicked");
-        }}
-        style={{
-          position: "absolute",
-          backgroundColor: "white",
-          top: "70px",
-          right: "10px",
-          zIndex: 1000,
-          width: "40px",
-          height: "40px",
-          cursor: "pointer",
-          transition: "transform 0.3s ease, opacity 1s ease",
-          borderRadius: "15%",
-          backgroundColor: "white",
-          padding: "5px",
-        }}
-        onMouseEnter={(e) => {
-          e.target.style.transform = "scale(1.1)";
-          e.target.style.opacity = "1.1";
-        }}
-        onMouseLeave={(e) => {
-          e.target.style.transform = "scale(0.9)";
-          e.target.style.opacity = "0.9";
-        }}
+        alt="Info"
+        className="info-button"
+        onClick={() => console.log("button clicked")}
       />
-      {/* Button für Layer-Wechsel */}
+
+      {/* Layer-Wechsel Button */}
       <img
         src="/layer.svg"
-        alt="Standort"
-        onClick={() => {
-          // Hier wird die Funktion aufgerufen, wenn der Button geklickt wird
-          console.log("button clicked");
-          setIsMenuOpen(!isMenuOpen);
-        }}
+        alt="Layer"
+        className="layer-button"
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
         style={{
           position: "absolute",
           backgroundColor: "white",
@@ -377,7 +327,6 @@ function BasemapMap() {
           cursor: "pointer",
           transition: "transform 0.3s ease, opacity 1s ease",
           borderRadius: "15%",
-          backgroundColor: "white",
           padding: "5px",
         }}
         onMouseEnter={(e) => {
@@ -389,6 +338,7 @@ function BasemapMap() {
           e.target.style.opacity = "0.9";
         }}
       />
+
       {/* Layer-Auswahl-Menü */}
       {isMenuOpen && (
         <div
@@ -445,14 +395,13 @@ function BasemapMap() {
               <input
                 type="checkbox"
                 checked={isGeocoverVisible}
-                onChange={toggleGeocoverLayer} //sichtbarkeit umschalten
+                onChange={toggleGeocoverLayer}
               />
               Gesteinskarte
             </label>
           </div>
         </div>
       )}
-      ;
     </div>
   );
 }

@@ -8,7 +8,7 @@ import { Circle as CircleStyle, Fill, Stroke } from "ol/style";
 export const createKlettergebieteLayer = () => {
   const vectorSource = new VectorSource({
     format: new GeoJSON(),
-    url: "http://10.175.27.25:8080/geoserver/GDI_openclimbingmap/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=GDI_openclimbingmap%3Aklettergebiete&outputFormat=application%2Fjson",
+    url: "http://localhost:8080/geoserver/ne/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=ne%3AKlettergebiete&outputFormat=application%2Fjson",
     strategy: bboxStrategy,
   });
 
