@@ -16,6 +16,7 @@ import { createNaturschutzgebieteLayer } from "./layers/NaturschutzgebieteLayer"
 import { handleNaturschutzgebieteToggle } from "./funktionen/layereinschalten"; // Importiere die Funktion
 import SearchComponent from "./funktionen/search-funktion"; // Importiere die Suchfunktion
 import { getWeatherDataForTwoDays, getWeatherIcon } from "../weather/Weather"; // Importiere die Wetterdatenfunktion und das Icon
+import { GeocoverLayer } from "./layers/BackgroundLayers";
 
 function BasemapMap() {
   const mapRef = useRef(null);
@@ -27,6 +28,8 @@ function BasemapMap() {
   const [naturschutzgebieteLayer, setNaturschutzgebieteLayer] = useState(null);
   const [searchValue, setSearchValue] = useState("");
   const [isNaturschutzgebieteVisible, setIsNaturschutzgebieteVisible] = useState(false);
+  const [geocoverLayer, setGeocoverlayer] = useState(null);
+  const [isGeocoverVisible, setIsGeocoverVisible] = useState(false);
 
   useEffect(() => {
     // EPSG:2056 Definition hinzufügen
@@ -44,8 +47,17 @@ function BasemapMap() {
     const naturschutzgebieteLayerInstance = createNaturschutzgebieteLayer();
     setNaturschutzgebieteLayer(naturschutzgebieteLayerInstance); // Set the layer in state
 
+    const geocoverLayerInstance = GeocoverLayer();
+    setGeocoverlayer(geocoverLayerInstance); // Set the layer in state;
+
     const map = new Map({
-      layers: [swisstopoLayer, aerialLayer, naturschutzgebieteLayerInstance, klettergebieteLayer], // Add the layer here
+      layers: [
+        swisstopoLayer,
+        aerialLayer,
+        naturschutzgebieteLayerInstance,
+        klettergebieteLayer,
+        geocoverLayerInstance,
+      ], // Add the layer here
       target: "map",
       view: new View({
         center: [2600000, 1200000],
@@ -114,7 +126,8 @@ function BasemapMap() {
           }
         } catch (error) {
           console.error("Error retrieving weather data:", error); // Debugging
-          popupContentRef.current.innerHTML = "<strong>Fehler beim Abrufen der Wetterdaten.</strong>";
+          popupContentRef.current.innerHTML =
+            "<strong>Fehler beim Abrufen der Wetterdaten.</strong>";
           overlay.setPosition(coordinates);
         }
       } else {
@@ -222,12 +235,19 @@ function BasemapMap() {
     }
   };
 
+  // Funktion zum Umschalten der Sichtbarkeit des Geocover-Layers
+  const toggleGeocoverLayer = () => {
+    if (geocoverLayer) {
+      geocoverLayer.setVisible(!isGeocoverVisible);
+      setIsGeocoverVisible(!isGeocoverVisible);
+    }
+  };
+
   return (
     <div style={{ position: "relative", width: "200%", height: "50vh" }}>
       <div id="map" style={{ width: "100%", height: "100%" }}></div>
       {/*hier wird die Searchkomponente aufgerufen*/}
       <SearchComponent searchValue={searchValue} />
-
       {/* Popup */}
       <div ref={popupRef} id="popup" className="ol-popup">
         <a ref={popupCloserRef} href="#" id="popup-closer" className="ol-popup-closer"></a>
@@ -296,7 +316,6 @@ function BasemapMap() {
           e.target.style.opacity = "0.9";
         }}
       />
-
       {/* Button für Suchmenu */}
       <div
         style={{
@@ -359,7 +378,6 @@ function BasemapMap() {
           }}
         ></input>
       </div>
-
       {/* Button für Information */}
       <img
         src="/info.svg"
@@ -391,7 +409,6 @@ function BasemapMap() {
           e.target.style.opacity = "0.9";
         }}
       />
-
       {/* Button für Layer-Wechsel */}
       <img
         src="/layer.svg"
@@ -424,7 +441,6 @@ function BasemapMap() {
           e.target.style.opacity = "0.9";
         }}
       />
-
       {/* Layer-Auswahl-Menü */}
       {isMenuOpen && (
         <div
@@ -476,8 +492,19 @@ function BasemapMap() {
               Naturschutzgebiete
             </label>
           </div>
+          <div style={{ marginTop: "10px" }}>
+            <label>
+              <input
+                type="checkbox"
+                checked={isGeocoverVisible}
+                onChange={toggleGeocoverLayer} //sichtbarkeit umschalten
+              />
+              Gesteinskarte
+            </label>
+          </div>
         </div>
       )}
+      ;
     </div>
   );
 }
