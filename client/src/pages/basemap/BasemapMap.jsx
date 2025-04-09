@@ -87,7 +87,11 @@ function BasemapMap() {
         console.log("Feature selected:", properties);
 
         try {
-          const weatherData = await getWeatherDataForTwoDays();
+          const lonLat = transform(coordinates, "EPSG:2056", "EPSG:4326");
+          const altitude = properties.hoehe || "N/A"; // Assuming 'hoehe' is a property in the feature
+
+          // Wetterdaten abrufen mit lat, lon und asl
+          const weatherData = await getWeatherDataForTwoDays(lonLat[1], lonLat[0], altitude);
           console.log("Weather data retrieved:", weatherData);
 
           const content = Object.entries(properties)
@@ -108,7 +112,7 @@ function BasemapMap() {
                 )
                 .join("")
             : "<br><strong>Wetter:</strong> Daten nicht verfügbar";
-
+          
           popupContentRef.current.innerHTML = content + weatherContent;
           overlay.setPosition(coordinates);
         } catch (error) {

@@ -1,38 +1,56 @@
 import { useEffect, useState } from "react";
 import "./weather.css";
 
-// Funktion zur Zuordnung der Icons basierend auf dem Pictocode
+// Funktion zur Zuordnung der Icons basierend auf dem Pictocode aus der CSV
 export const getWeatherIcon = (pictocode) => {
   switch (pictocode) {
     case 1:
+      return "☀️"; // Sonnig, wolkenloser Himmel
     case 2:
-      return "☀️"; // Sonnig
+      return "🌤️"; // Sonnig mit einigen Wolken
     case 3:
+      return "⛅"; // Wechselnd bewölkt
     case 4:
+      return "☁️"; // Bedeckt
     case 5:
-      return "⛅"; // Teilweise bewölkt
+      return "🌫️"; // Nebel
     case 6:
+      return "🌧️"; // Bedeckt mit Regen
     case 7:
+      return "🌦️"; // Wechselhaft, Schauer möglich
     case 8:
-      return "☁️"; // Bewölkt
-    case 23:
-    case 25:
-      return "🌧️"; // Regen
-    case 26:
-    case 34:
-      return "❄️"; // Schnee
-    case 27:
-    case 28:
-      return "⛈️"; // Gewitter
+      return "⛈️"; // Schauer, Gewitter möglich
+    case 9:
+      return "❄️"; // Bedeckt mit Schneefall
+    case 10:
+      return "🌨️"; // Wechselhaft mit Schneeschauern
+    case 11:
+      return "🌧️❄️"; // Überwiegend bewölkt mit Schnee und Regen
+    case 12:
+      return "🌦️"; // Bedeckt mit leichtem Regen
+    case 13:
+      return "🌨️"; // Bedeckt mit leichtem Schneefall
+    case 14:
+      return "🌧️"; // Überwiegend bewölkt mit Regen
+    case 15:
+      return "🌨️"; // Überwiegend bewölkt mit Schneefall
+    case 16:
+      return "🌦️"; // Überwiegend bewölkt mit leichtem Regen
+    case 17:
+      return "🌨️"; // Überwiegend bewölkt mit leichtem Schneefall
     default:
-      return "🌫️"; // Nebel oder unbekannt
+      return "❓"; // Unbekannt
   }
 };
 
-export const getWeatherDataForTwoDays = async () => {
+export const getWeatherDataForTwoDays = async (lat, lon, asl) => {
   try {
-    // JSON-Datei laden
-    const response = await fetch("/src/pages/weather/Testabfrage_1d.json");
+    // URL mit den übergebenen Werten erstellen
+    const key = "ZCSK1YekVagxq5fN"; // API-Schlüssel
+    const url = `https://my.meteoblue.com/packages/basic-day?apikey=${key}&lat=${lat}&lon=${lon}&asl=${asl}&format=json`;
+    console.log(url); // Debugging: URL ausgeben
+    // Daten abrufen
+    const response = await fetch(url);
     if (!response.ok) {
       throw new Error("Fehler beim Laden der Wetterdaten");
     }

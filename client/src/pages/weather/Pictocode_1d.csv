@@ -1,35 +1,17 @@
-﻿1;Klar, wolkenlos
-2;Klar, vereinzelt Cirrus-Wolken
-3;Klar mit Cirrus-Wolken
-4;Klar mit einigen niederen Wolken
-5;Klar mit einigen niederen Wolken sowie vereinzelt Cirrus-Wolken
-6;Klar mit einigen niederen Wolken sowie Cirrus-Wolken
-7;Wechselnd bewölkt
-8;Teilweise bewölkt mit vereinzelt Cirrus-Wolken
-9;Teilweise bewölkt mit Cirrus-Wolken
-10;Wechselhaft, vereinzelt Gewitter möglich
-11;Wechselhaft, vereinzelt Cirrus-Wolken und Gewitter möglich
-12;Wechselhaft mit Cirrus-Wolken, Gewitter möglich
-13;Klar, aber dunstig
-14;Klar, aber dunstig mit einigen Cirrus-Wolken
-15;Klar, aber dunstig mit Cirrus-Wolken
-16;Nebel/niedere Schichtwolken
-17;Nebel/niedere Schichtwolken mit vereinzelt Cirrus-Wolken
-18;Nebel/niedere Schichtwolken mit Cirrus-Wolken
-19;Überwiegend bewölkt
-20;Überwiegend bewölkt, vereinzelt Cirrus-Wolken
-21;Überwiegend bewölkt mit Cirrus-Wolken
-22;Bedeckt
-23;Bedeckt mit Regen
-24;Bedeckt mit Schneefall
-25;Bedeckt mit starkem Regen
-26;Bedeckt mit starkem Schneefall
-27;Regen, Gewitter möglich
-28;Leichter Regen, Gewitter möglich
-29;Sturm mit starkem Schneefall
-30;Starker Regen, Gewitter möglich
-31;Wechselhaft, Schauer möglich
-32;Wechselhaft mit Schneeschauern
-33;Bedeckt mit leichtem Regen
-34;Bedeckt mit leichtem Schneefall
-35;Bedeckt mit Schnee und Regen
+﻿Bild;1;Sonnig, wolkenloser Himmel
+Stratocumulus cloud pictogram (1);2;Sonnig mit einigen Wolken
+Bild;3;Wechselnd bewölkt
+Stratocumulus cloud pictogram (2);4;Bedeckt
+Bild;5;Nebel
+Bild;6;Bedeckt mit Regen
+Cumulus cloud pictogram (1);7;Wechselhaft, Schauer möglich
+Cumulonimbus clouds pictogram (1);8;Schauer, Gewitter möglich
+Bild;9;Bedeckt mit Schneefall
+Bild;10;Wechselhaft mit Schneeschauern
+Bild;11;Überwiegend bewölkt mit Schnee und Regen
+Nimbostratus cloud pictogram (3);12;Bedeckt mit leichtem Regen
+Bild;13;Bedeckt mit leichtem Schneefall
+Bild;14;Überwiegend bewölkt mit Regen
+Bild;15;Überwiegend bewölkt mit Schneefall
+Bild;16;Überwiegend bewölkt mit leichtem Regen
+Bild;17;Überwiegend bewölkt mit leichtem Schneefall
