@@ -17,6 +17,7 @@ import { handleNaturschutzgebieteToggle } from "./funktionen/layereinschalten";
 import { getWeatherDataForTwoDays, getWeatherIcon } from "../weather/Weather";
 import SearchResults from "./funktionen/search-funktion";
 import { Style, Fill, Stroke } from "ol/style";
+//import AddClimbingArea from "./funktionen/AddClimbingArea";
 
 function BasemapMap() {
   const mapRef = useRef(null);
@@ -57,6 +58,8 @@ function BasemapMap() {
       view: new View({
         center: [2600000, 1200000],
         zoom: 9,
+        minZoom: 8, // Minimum zoom level
+        maxZoom: 20, // Maximum zoom level
         projection: new Projection({ code: "EPSG:2056", units: "m" }),
       }),
     });
@@ -222,6 +225,9 @@ function BasemapMap() {
 
       {/* logo wand */}
       <img src="./logo-wand.png" alt="Logo Wand" className="basemap-logo-wand"></img>
+
+      {/* logo climbing 
+     <AddClimbingArea mapRef={mapRef} /> */}
 
       {/* Suchcontainer mit flex-col-reverse für die Anordnung */}
       <div
