@@ -372,15 +372,24 @@ function BasemapMap() {
             zIndex: 1000,
           }}
         >
+          {/* Landeskarte */}
           <div
             onClick={() => mapRef.current.switchLayer("swisstopo")}
             style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: "5px",
               padding: "5px",
               cursor: "pointer",
               backgroundColor: activeLayer === "swisstopo" ? "#f0f0f0" : "white",
             }}
           >
-            Landeskarte
+            <img
+              src="/rasterkarte.png"
+              alt="rasterkarte"
+              style={{ width: "30%", marginRight: "5px" }}
+            />
           </div>
           <div
             onClick={() => mapRef.current.switchLayer("aerial")}

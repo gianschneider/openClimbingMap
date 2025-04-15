@@ -41,6 +41,16 @@
   clip-path: inset(0 0 0 5);
 }
 
+.layer-menu img {
+  border-radius: 5px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.layer-menu img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 .custom-zoom {
   position: absolute !important;
   bottom: 80px;
@@ -279,7 +289,7 @@
   opacity: 1.1;
 }
 
-.erfassen-button{
+.erfassen-button {
   position: absolute;
   top: 190px;
   right: 13px;
