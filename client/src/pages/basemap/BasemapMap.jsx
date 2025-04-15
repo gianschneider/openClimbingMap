@@ -190,7 +190,7 @@ function BasemapMap() {
 
   return (
     <div style={{ position: "relative", width: "200%", height: "50vh" }}>
-      <div id="map" style={{ width: "100%", height: "100%" }}></div>
+      <div id="map"></div>
 
       {/* Popup */}
       <div ref={popupRef} id="popup" className="ol-popup">
