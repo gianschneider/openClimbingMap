@@ -220,6 +220,9 @@ function BasemapMap() {
         className="basemap-logo"
       />
 
+      {/* logo wand */}
+      <img src="./logo-wand.png" alt="Logo Wand" className="basemap-logo-wand"></img>
+
       {/* Suchcontainer mit flex-col-reverse für die Anordnung */}
       <div
         style={{

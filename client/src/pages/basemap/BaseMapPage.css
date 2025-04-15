@@ -5,6 +5,8 @@
   padding: 0;
   box-sizing: border-box;
   cursor: grab;
+  overflow: hidden;
+  position: relative;
 }
 
 /* Anpassung für Handybildschirme */
@@ -17,13 +19,26 @@
 .basemap-logo {
   position: absolute;
   top: -28px; /* Abstand vom oberen Rand */
-  left: -15px; /* Abstand vom rechten Rand */
+  left: -10px; /* Abstand vom rechten Rand */
   width: 50px; /* Breite des Logos */
   height: auto; /* Automatische Höhe basierend auf der Breite */
   z-index: 1000; /* Sicherstellen, dass das Logo über der Karte liegt */
   cursor: pointer; /* Zeigt an, dass das Logo klickbar ist */
   transition: transform 0.3s ease; /* Animation bei Hover */
   transform: scaleX(-1); /* Logo umkehren */
+}
+
+.basemap-logo-wand {
+  position: absolute;
+  top: 60px; /* Abstand vom oberen Rand, unterhalb des ersten Logos */
+  left: 0px; /* Gleicher Abstand vom rechten Rand wie das erste Logo */
+  width: 50px; /* Breite des Logos */
+  height: auto; /* Automatische Höhe basierend auf der Breite */
+  z-index: 1000; /* Sicherstellen, dass das Logo über der Karte liegt */
+  cursor: pointer; /* Zeigt an, dass das Logo klickbar ist */
+  transition: transform 0.3s ease; /* Animation bei Hover */
+  mix-blend-mode: multiply;
+  clip-path: inset(0 0 0 5);
 }
 
 .custom-zoom {
