@@ -402,6 +402,7 @@ function BasemapMap() {
                 alt="rasterkarte"
                 style={{ width: "80px", height: "80px" }}
               />
+              <span>Landeskarte</span>
             </div>
 
             {/* Luftbild */}
@@ -415,6 +416,7 @@ function BasemapMap() {
               }}
             >
               <img src="/luftbild.png" alt="luftbild" style={{ width: "80px", height: "80px" }} />
+              <span>Luftbild</span>
             </div>
 
             {/* Gesteinskarte */}
@@ -432,6 +434,7 @@ function BasemapMap() {
                 alt="gesteinskarte"
                 style={{ width: "80px", height: "80px" }}
               />
+              <span>Gesteinskarte</span>
             </div>
           </div>
 
