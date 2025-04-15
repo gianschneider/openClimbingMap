@@ -213,6 +213,12 @@ function BasemapMap() {
         className="filter-button"
         onClick={() => console.log("button clicked")}
       />
+      {/* Sport Climbing Logo */}
+      <img
+        src="./sportclimbing-pictogramm.png"
+        alt="Sport Climbing Logo"
+        className="basemap-logo"
+      />
 
       {/* Suchcontainer mit flex-col-reverse für die Anordnung */}
       <div
