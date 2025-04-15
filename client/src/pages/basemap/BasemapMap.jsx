@@ -234,7 +234,7 @@ function BasemapMap() {
       <div
         style={{
           position: "absolute",
-          bottom: "10px",
+          bottom: "-280px",
           right: "10px",
           zIndex: 1000,
           display: "flex",
@@ -270,6 +270,7 @@ function BasemapMap() {
             alt="Suche"
             onClick={() => console.log("button clicked")}
             style={{
+              bottom: "0px",
               width: "20px",
               height: "20px",
               marginRight: "10px",
