@@ -378,67 +378,64 @@ function BasemapMap() {
             zIndex: 1000,
           }}
         >
-          {/* Landeskarte */}
           <div
-            onClick={() => mapRef.current.switchLayer("swisstopo")}
             style={{
               display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
+              flexDirection: "row", // Bilder nebeneinander
+              justifyContent: "space-around", // Platz zwischen den Bildern
               alignItems: "center",
-              marginBottom: "5px",
-              padding: "5px",
-              cursor: "pointer",
-              backgroundColor: activeLayer === "swisstopo" ? "#f0f0f0" : "white",
+              gap: "10px", // Abstand zwischen den Bildern
             }}
           >
-            <img
-              src="/rasterkarte.png"
-              alt="rasterkarte"
-              style={{ width: "30%", marginRight: "5px" }}
-            />
+            {/* Landeskarte */}
+            <div
+              onClick={() => mapRef.current.switchLayer("swisstopo")}
+              style={{
+                cursor: "pointer",
+                backgroundColor: activeLayer === "swisstopo" ? "#f0f0f0" : "white",
+                padding: "5px",
+                borderRadius: "5px",
+              }}
+            >
+              <img
+                src="/rasterkarte.png"
+                alt="rasterkarte"
+                style={{ width: "80px", height: "80px" }}
+              />
+            </div>
+
+            {/* Luftbild */}
+            <div
+              onClick={() => mapRef.current.switchLayer("aerial")}
+              style={{
+                cursor: "pointer",
+                backgroundColor: activeLayer === "aerial" ? "#f0f0f0" : "white",
+                padding: "5px",
+                borderRadius: "5px",
+              }}
+            >
+              <img src="/luftbild.png" alt="luftbild" style={{ width: "80px", height: "80px" }} />
+            </div>
+
+            {/* Gesteinskarte */}
+            <div
+              onClick={() => mapRef.current.switchLayer("geocover")}
+              style={{
+                cursor: "pointer",
+                backgroundColor: activeLayer === "geocover" ? "#f0f0f0" : "white",
+                padding: "5px",
+                borderRadius: "5px",
+              }}
+            >
+              <img
+                src="/gesteinskarte.png"
+                alt="gesteinskarte"
+                style={{ width: "80px", height: "80px" }}
+              />
+            </div>
           </div>
-          {/* Luftbild */}
-          <div
-            onClick={() => mapRef.current.switchLayer("aerial")}
-            style={{
-              display: "flex",
-              flexDirection: "row",
 
-              justifyContent: "space-between",
-              alignItems: "center",
-              padding: "5px",
-              cursor: "pointer",
-              backgroundColor: activeLayer === "aerial" ? "#f0f0f0" : "white",
-            }}
-          >
-            <img src="/luftbild.png" alt="luftbild" style={{ width: "30%", marginRight: "5px" }} />
-          </div>
-
-          {/* gesteinskarte */}
-
-          <div
-            onClick={() => {
-              mapRef.current.switchLayer("geocover");
-            }}
-            style={{
-              display: "flex",
-              flexDirection: "row",
-
-              justifyContent: "space-between",
-              alignItems: "center",
-              cursor: "pointer",
-              marginTop: "10px",
-              backgroundColor: activeLayer === "geocover" ? "#f0f0f0" : "white",
-            }}
-          >
-            <img
-              src="/gesteinskarte.png"
-              alt="geocover"
-              style={{ width: "30%", marginRight: "5px" }}
-            />
-          </div>
-          {/* naturschutz */}
+          {/* Naturschutz */}
           <div style={{ marginTop: "10px" }}>
             <label>
               <input
