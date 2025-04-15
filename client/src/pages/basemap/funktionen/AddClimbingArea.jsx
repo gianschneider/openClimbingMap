@@ -33,7 +33,7 @@ function AddClimbingArea({ mapRef }) {
   return (
     <>
       <img
-        src="/erfassen-dot.svg"
+        src="/erfassen-green.png"
         alt="Add Climbing Area"
         className="erfassen-button"
         onClick={() => setIsOpen((prevState) => !prevState)}
@@ -42,65 +42,110 @@ function AddClimbingArea({ mapRef }) {
         <div
           style={{
             position: "absolute",
-            top: "10%",
-            left: "25%",
-            width: "50%", // Fenster nimmt 50% der Breite ein
-            height: "80%", // Fenster nimmt 80% der Höhe ein
+            top: "10px",
+            left: "60px", // Zentriert das Fenster bei einer Breite von 60%
+            width: "60%", // Fenster nimmt 60% der Breite ein
+            height: "auto", // Höhe passt sich dem Inhalt an
             backgroundColor: "white",
             padding: "20px",
             borderRadius: "10px",
             boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
             zIndex: 2000,
-            overflowY: "auto", // Scrollbar, falls der Inhalt zu groß ist
           }}
         >
           <h3 style={{ textAlign: "center" }}>Klettergebiet erfassen</h3>
+
+          {/* Name */}
           <label style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
-            <span style={{ width: "150px", textAlign: "left" }}>Name:</span>
+            <span style={{ flex: "0 0 130px", textAlign: "left" }}>Name</span>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              style={{ flex: 1 }}
+              style={{ flex: 1, minWidth: "0" }}
             />
           </label>
+
+          {/* Anzahl Routen */}
           <label style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
-            <span style={{ width: "150px", textAlign: "left" }}>Anzahl Routen:</span>
+            <span style={{ flex: "0 0 130px", textAlign: "left" }}>Anzahl Routen</span>
             <input
               type="number"
               value={routes}
               onChange={(e) => setRoutes(e.target.value)}
-              style={{ flex: 1 }}
+              style={{ flex: 1, minWidth: "0" }}
             />
           </label>
+
+          {/* Höhe über Meer */}
           <label style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
-            <span style={{ width: "150px", textAlign: "left" }}>Höhe über Meer:</span>
+            <span style={{ flex: "0 0 130px", textAlign: "left" }}>Höhe über Meer</span>
             <input
               type="number"
               value={altitude}
               onChange={(e) => setAltitude(e.target.value)}
-              style={{ flex: 1 }}
+              style={{ flex: 1, minWidth: "0" }}
             />
           </label>
+
+          {/* Schwierigkeit */}
           <label style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
-            <span style={{ width: "150px", textAlign: "left" }}>Disziplin:</span>
+            <span style={{ flex: "0 0 130px", textAlign: "left" }}>Schwierigkeit</span>
+            <div style={{ flex: 1, display: "flex", alignItems: "center" }}>
+              <select
+                value={difficulties[difficultyRange[0]]}
+                onChange={(e) =>
+                  setDifficultyRange([difficulties.indexOf(e.target.value), difficultyRange[1]])
+                }
+                style={{ flex: 1, marginRight: "10px" }}
+              >
+                {difficulties.map((difficulty, index) => (
+                  <option key={index} value={difficulty}>
+                    {difficulty}
+                  </option>
+                ))}
+              </select>
+              bis
+              <select
+                value={difficulties[difficultyRange[1]]}
+                onChange={(e) =>
+                  setDifficultyRange([difficultyRange[0], difficulties.indexOf(e.target.value)])
+                }
+                style={{ flex: 1, marginLeft: "10px" }}
+              >
+                {difficulties.map((difficulty, index) => (
+                  <option key={index} value={difficulty}>
+                    {difficulty}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </label>
+
+          {/* Disziplin */}
+          <label style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
+            <span style={{ flex: "0 0 130px", textAlign: "left" }}>Disziplin</span>
             <select
               value={type}
               onChange={(e) => setType(e.target.value)}
-              style={{ flex: 1 }}
+              style={{ flex: 1, minWidth: "0" }}
             >
               <option value="Sportklettern">Sportklettern</option>
               <option value="Alpines Klettern">Alpinklettern</option>
             </select>
           </label>
-          <label style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
-            <span style={{ width: "150px", textAlign: "left" }}>Koordinaten:</span>
-            <input
-              type="text"
-              value={coordinates ? coordinates.join(", ") : ""}
-              readOnly
-              style={{ flex: 1 }}
-            />
+
+          {/* Koordinaten */}
+          <div style={{ marginBottom: "10px" }}>
+            <label style={{ display: "flex", alignItems: "center", marginBottom: "5px" }}>
+              <span style={{ flex: "0 0 130px", textAlign: "left" }}>Koordinaten</span>
+              <input
+                type="text"
+                value={coordinates ? coordinates.join(", ") : ""}
+                readOnly
+                style={{ flex: 1, minWidth: "0", width: "100%" }}
+              />
+            </label>
             <button
               onClick={() => {
                 const map = mapRef.current;
@@ -112,11 +157,13 @@ function AddClimbingArea({ mapRef }) {
                   alert("Klicken Sie auf die Karte, um die Position auszuwählen.");
                 }
               }}
-              style={{ marginLeft: "10px" }}
+              style={{ display: "block", marginLeft: "130px" }} // Einrücken unterhalb des Inputs
             >
               Auf Karte auswählen
             </button>
-          </label>
+          </div>
+
+          {/* Buttons */}
           <div style={{ textAlign: "center", marginTop: "20px" }}>
             <button onClick={handleSubmit} style={{ marginRight: "10px" }}>
               Hinzufügen

@@ -212,7 +212,7 @@ function BasemapMap() {
 
       {/* Filter Button */}
       <img
-        src="/Filter.svg"
+        src="/radar.jpg"
         alt="Filter"
         className="filter-button"
         onClick={() => console.log("button clicked")}
@@ -330,7 +330,7 @@ function BasemapMap() {
 
       {/* Layer-Wechsel Button */}
       <img
-        src="/layer.svg"
+        src="/layers.png"
         alt="Layer"
         className="layer-button"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
