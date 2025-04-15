@@ -279,6 +279,25 @@
   opacity: 1.1;
 }
 
+.erfassen-button{
+  position: absolute;
+  top: 190px;
+  right: 13px;
+  z-index: 1000;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 15%;
+  padding: 5px;
+  transition: transform 0.3s ease, opacity 1s ease;
+}
+
+.erfassen-button:hover {
+  transform: scale(1.1);
+  opacity: 1.1;
+}
+
 /* Layer-Wechsel-Button */
 .layer-button {
   position: absolute;
