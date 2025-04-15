@@ -1,5 +1,12 @@
 from fastapi import APIRouter, HTTPException, Query
 import httpx
+import logging
+
+# Logger konfigurieren
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+bbox = "2600000,1200000,2601000,1201000"  # Beispiel für eine gültige Bounding Box
 
 router = APIRouter()
 
@@ -30,7 +37,7 @@ async def get_geocover_data(
         if response.status_code != 200:
             raise HTTPException(
                 status_code=response.status_code,
-                detail="Fehler beim Abrufen der Geocover-Daten",
+                detail="Fehler beim Abrufen der Geocover-Daten: {response.text}",
             )
         return response.json()
 

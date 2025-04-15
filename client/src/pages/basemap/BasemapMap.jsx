@@ -10,14 +10,13 @@ import { click } from "ol/events/condition.js";
 import proj4 from "proj4";
 import { register } from "ol/proj/proj4";
 import { get as getProjection } from "ol/proj";
-import { swisstopoLayer, aerialLayer } from "./layers/BackgroundLayers";
+import { swisstopoLayer, aerialLayer, geocoverLayer } from "./layers/BackgroundLayers";
 import { createKlettergebieteLayer } from "./layers/KlettergebieteLayer";
 import { createNaturschutzgebieteLayer } from "./layers/NaturschutzgebieteLayer";
 import { handleNaturschutzgebieteToggle } from "./funktionen/layereinschalten";
 import { getWeatherDataForTwoDays, getWeatherIcon } from "../weather/Weather";
-import { GeocoverLayer } from "./layers/BackgroundLayers";
 import SearchResults from "./funktionen/search-funktion";
-import { Style, Fill, Stroke} from "ol/style";
+import { Style, Fill, Stroke } from "ol/style";
 
 function BasemapMap() {
   const mapRef = useRef(null);
@@ -29,7 +28,6 @@ function BasemapMap() {
   const [naturschutzgebieteLayer, setNaturschutzgebieteLayer] = useState(null);
   const [searchValue, setSearchValue] = useState("");
   const [isNaturschutzgebieteVisible, setIsNaturschutzgebieteVisible] = useState(false);
-  const [geocoverLayer, setGeocoverlayer] = useState(null);
   const [isGeocoverVisible, setIsGeocoverVisible] = useState(false);
   const [showSearchResults, setShowSearchResults] = useState(false);
 
@@ -47,16 +45,13 @@ function BasemapMap() {
     const naturschutzgebieteLayerInstance = createNaturschutzgebieteLayer();
     setNaturschutzgebieteLayer(naturschutzgebieteLayerInstance);
 
-    const geocoverLayerInstance = GeocoverLayer();
-    setGeocoverlayer(geocoverLayerInstance);
-
     const map = new Map({
       layers: [
         swisstopoLayer,
         aerialLayer,
         naturschutzgebieteLayerInstance,
         klettergebieteLayer,
-        geocoverLayerInstance,
+        geocoverLayer,
       ],
       target: "map",
       view: new View({
@@ -112,7 +107,7 @@ function BasemapMap() {
                 )
                 .join("")
             : "<br><strong>Wetter:</strong> Daten nicht verfügbar";
-          
+
           popupContentRef.current.innerHTML = content + weatherContent;
           overlay.setPosition(coordinates);
         } catch (error) {
@@ -196,7 +191,7 @@ function BasemapMap() {
   return (
     <div style={{ position: "relative", width: "200%", height: "50vh" }}>
       <div id="map" style={{ width: "100%", height: "100%" }}></div>
-      
+
       {/* Popup */}
       <div ref={popupRef} id="popup" className="ol-popup">
         <a ref={popupCloserRef} href="#" id="popup-closer" className="ol-popup-closer"></a>
@@ -207,7 +202,7 @@ function BasemapMap() {
       <img
         src="/emlid-reachrs.png"
         alt="Standort"
-        className = "zoom-button"
+        className="zoom-button"
         onClick={zoomToUserLocation}
       />
 
@@ -215,20 +210,22 @@ function BasemapMap() {
       <img
         src="/Filter.svg"
         alt="Filter"
-        className = "filter-button"
+        className="filter-button"
         onClick={() => console.log("button clicked")}
       />
 
       {/* Suchcontainer mit flex-col-reverse für die Anordnung */}
-      <div style={{
-        position: "absolute",
-        bottom: "10px",
-        right: "10px",
-        zIndex: 1000,
-        display: "flex",
-        flexDirection: "column-reverse",
-        gap: "5px"
-      }}>
+      <div
+        style={{
+          position: "absolute",
+          bottom: "10px",
+          right: "10px",
+          zIndex: 1000,
+          display: "flex",
+          flexDirection: "column-reverse",
+          gap: "5px",
+        }}
+      >
         {/* Suchfeld */}
         <div
           style={{
@@ -269,7 +266,7 @@ function BasemapMap() {
             value={searchValue}
             onChange={(e) => {
               setSearchValue(e.target.value);
-              if (e.target.value.length >= 3) {
+              if (e.target.value.length >= 1) {
                 setShowSearchResults(true);
               } else {
                 setShowSearchResults(false);
@@ -290,8 +287,8 @@ function BasemapMap() {
         {/* Suchergebnisse (erscheint jetzt über dem Suchfeld) */}
         {showSearchResults && (
           <div className="search-results">
-            <SearchResults 
-              searchValue={searchValue} 
+            <SearchResults
+              searchValue={searchValue}
               onResultClick={(feature) => {
                 const coordinates = feature.geometry.coordinates;
                 mapRef.current.getView().animate({
@@ -396,11 +393,7 @@ function BasemapMap() {
           </div>
           <div style={{ marginTop: "10px" }}>
             <label>
-              <input
-                type="checkbox"
-                checked={isGeocoverVisible}
-                onChange={toggleGeocoverLayer}
-              />
+              <input type="checkbox" checked={isGeocoverVisible} onChange={toggleGeocoverLayer} />
               Gesteinskarte
             </label>
           </div>
