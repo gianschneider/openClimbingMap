@@ -134,12 +134,18 @@ function BasemapMap() {
       if (layerName === "swisstopo") {
         swisstopoLayer.setVisible(true);
         aerialLayer.setVisible(false);
+        geocoverLayer.setVisible(false); // Deaktiviere geocoverLayer
       } else if (layerName === "aerial") {
         swisstopoLayer.setVisible(false);
         aerialLayer.setVisible(true);
+        geocoverLayer.setVisible(false); // Deaktiviere geocoverLayer
+      } else if (layerName === "geocover") {
+        swisstopoLayer.setVisible(false);
+        aerialLayer.setVisible(false);
+        geocoverLayer.setVisible(true);
       }
-      setActiveLayer(layerName);
-      setIsMenuOpen(false);
+      setActiveLayer(layerName); // Aktualisiere den aktiven Layer
+      setIsMenuOpen(false); // Schließe das Menü nach dem Wechsel
     };
 
     mapRef.current.switchLayer = switchLayer;
@@ -195,13 +201,11 @@ function BasemapMap() {
   return (
     <div style={{ position: "relative", width: "200%", height: "50vh" }}>
       <div id="map"></div>
-
       {/* Popup */}
       <div ref={popupRef} id="popup" className="ol-popup">
         <a ref={popupCloserRef} href="#" id="popup-closer" className="ol-popup-closer"></a>
         <div ref={popupContentRef} id="popup-content"></div>
       </div>
-
       {/* Standort-Zoom Button */}
       <img
         src="/emlid-reachrs.png"
@@ -209,7 +213,6 @@ function BasemapMap() {
         className="zoom-button"
         onClick={zoomToUserLocation}
       />
-
       {/* Filter Button */}
       <img
         src="/radar.jpg"
@@ -223,13 +226,10 @@ function BasemapMap() {
         alt="Sport Climbing Logo"
         className="basemap-logo"
       />
-
       {/* logo wand */}
       <img src="./logo-wand.png" alt="Logo Wand" className="basemap-logo-wand"></img>
-
       {/* logo climbing */}
       <AddClimbingArea mapRef={mapRef} />
-
       {/* Suchcontainer mit flex-col-reverse für die Anordnung */}
       <div
         style={{
@@ -319,7 +319,6 @@ function BasemapMap() {
           </div>
         )}
       </div>
-
       {/* Info Button */}
       <img
         src="/info.svg"
@@ -327,7 +326,6 @@ function BasemapMap() {
         className="info-button"
         onClick={() => console.log("button clicked")}
       />
-
       {/* Layer-Wechsel Button */}
       <img
         src="/layers.png"
@@ -356,14 +354,13 @@ function BasemapMap() {
           e.target.style.opacity = "0.9";
         }}
       />
-
       {/* Layer-Auswahl-Menü */}
       {isMenuOpen && (
         <div
           style={{
             position: "absolute",
             bottom: "150px",
-            right: "10px",
+            right: "60px",
             backgroundColor: "white",
             border: "1px solid #ccc",
             borderRadius: "5px",
@@ -373,26 +370,74 @@ function BasemapMap() {
           }}
         >
           <div
-            onClick={() => mapRef.current.switchLayer("swisstopo")}
             style={{
-              padding: "5px",
-              cursor: "pointer",
-              backgroundColor: activeLayer === "swisstopo" ? "#f0f0f0" : "white",
+              display: "flex",
+              flexDirection: "row", // Bilder nebeneinander
+              justifyContent: "space-around", // Platz zwischen den Bildern
+              alignItems: "center",
+              gap: "10px", // Abstand zwischen den Bildern
             }}
           >
-            Landeskarte
+            {/* Landeskarte */}
+            <div
+              onClick={() => mapRef.current.switchLayer("swisstopo")}
+              style={{
+                cursor: "pointer",
+                backgroundColor: activeLayer === "swisstopo" ? "#f0f0f0" : "white",
+                padding: "5px",
+                borderRadius: "5px",
+                textAlign: "center",
+              }}
+            >
+              <img
+                src="/rasterkarte.png"
+                alt="rasterkarte"
+                style={{ width: "80px", height: "40px" }} // Rechteckiges Seitenverhältnis
+              />
+              <span>Landeskarte</span>
+            </div>
+
+            {/* Luftbild */}
+            <div
+              onClick={() => mapRef.current.switchLayer("aerial")}
+              style={{
+                cursor: "pointer",
+                backgroundColor: activeLayer === "aerial" ? "#f0f0f0" : "white",
+                padding: "5px",
+                borderRadius: "5px",
+                textAlign: "center",
+              }}
+            >
+              <img
+                src="/luftbild.png"
+                alt="luftbild"
+                style={{ width: "80px", height: "40px" }} // Rechteckiges Seitenverhältnis
+              />
+              <span>Luftbild</span>
+            </div>
+
+            {/* Gesteinskarte */}
+            <div
+              onClick={() => mapRef.current.switchLayer("geocover")}
+              style={{
+                cursor: "pointer",
+                backgroundColor: activeLayer === "geocover" ? "#f0f0f0" : "white",
+                padding: "5px",
+                borderRadius: "5px",
+                textAlign: "center",
+              }}
+            >
+              <img
+                src="/gesteinskarte.png"
+                alt="gesteinskarte"
+                style={{ width: "80px", height: "40px" }} // Rechteckiges Seitenverhältnis
+              />
+              <span>Gesteinskarte</span>
+            </div>
           </div>
-          <div
-            onClick={() => mapRef.current.switchLayer("aerial")}
-            style={{
-              padding: "5px",
-              cursor: "pointer",
-              backgroundColor: activeLayer === "aerial" ? "#f0f0f0" : "white",
-            }}
-          >
-            Luftbild
-          </div>
-          <div style={{ marginTop: "10px" }}>
+
+          {/* Naturschutz */}
+          <div style={{ marginTop: "10px", textAlign: "left" }}>
             <label>
               <input
                 type="checkbox"
@@ -408,14 +453,8 @@ function BasemapMap() {
               Naturschutzgebiete
             </label>
           </div>
-          <div style={{ marginTop: "10px" }}>
-            <label>
-              <input type="checkbox" checked={isGeocoverVisible} onChange={toggleGeocoverLayer} />
-              Gesteinskarte
-            </label>
-          </div>
         </div>
-      )}
+      )}{" "}
     </div>
   );
 }

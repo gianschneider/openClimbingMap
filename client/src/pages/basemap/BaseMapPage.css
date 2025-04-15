@@ -41,6 +41,16 @@
   clip-path: inset(0 0 0 5);
 }
 
+.layer-menu img {
+  border-radius: 5px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.layer-menu img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 .custom-zoom {
   position: absolute !important;
   bottom: 80px;
@@ -118,6 +128,20 @@
   font-size: 24px;
   cursor: pointer;
   transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.layer-images {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.layer-images img {
+  width: 30%;
+  margin-right: 5px;
+}
+.layer-images img:last-child {
+  margin-right: 0;
 }
 
 .icon-container:hover {
@@ -279,7 +303,7 @@
   opacity: 1.1;
 }
 
-.erfassen-button{
+.erfassen-button {
   position: absolute;
   top: 190px;
   right: 13px;
