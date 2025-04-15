@@ -134,12 +134,18 @@ function BasemapMap() {
       if (layerName === "swisstopo") {
         swisstopoLayer.setVisible(true);
         aerialLayer.setVisible(false);
+        geocoverLayer.setVisible(false); // Deaktiviere geocoverLayer
       } else if (layerName === "aerial") {
         swisstopoLayer.setVisible(false);
         aerialLayer.setVisible(true);
+        geocoverLayer.setVisible(false); // Deaktiviere geocoverLayer
+      } else if (layerName === "geocover") {
+        swisstopoLayer.setVisible(false);
+        aerialLayer.setVisible(false);
+        geocoverLayer.setVisible(true);
       }
-      setActiveLayer(layerName);
-      setIsMenuOpen(false);
+      setActiveLayer(layerName); // Aktualisiere den aktiven Layer
+      setIsMenuOpen(false); // Schließe das Menü nach dem Wechsel
     };
 
     mapRef.current.switchLayer = switchLayer;
@@ -391,16 +397,22 @@ function BasemapMap() {
               style={{ width: "30%", marginRight: "5px" }}
             />
           </div>
+          {/* Luftbild */}
           <div
             onClick={() => mapRef.current.switchLayer("aerial")}
             style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
               padding: "5px",
               cursor: "pointer",
               backgroundColor: activeLayer === "aerial" ? "#f0f0f0" : "white",
             }}
           >
-            Luftbild
+            <img src="/luftbild.png" alt="luftbild" style={{ width: "30%", marginRight: "5px" }} />
           </div>
+
+          {/* naturschutz */}
           <div style={{ marginTop: "10px" }}>
             <label>
               <input
@@ -417,11 +429,26 @@ function BasemapMap() {
               Naturschutzgebiete
             </label>
           </div>
-          <div style={{ marginTop: "10px" }}>
-            <label>
-              <input type="checkbox" checked={isGeocoverVisible} onChange={toggleGeocoverLayer} />
-              Gesteinskarte
-            </label>
+          {/* gesteinskarte */}
+
+          <div
+            onClick={() => {
+              mapRef.current.switchLayer("geocover");
+            }}
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              cursor: "pointer",
+              marginTop: "10px",
+              backgroundColor: activeLayer === "geocover" ? "#f0f0f0" : "white",
+            }}
+          >
+            <img
+              src="/gesteinskarte.png"
+              alt="geocover"
+              style={{ width: "30%", marginRight: "5px" }}
+            />
           </div>
         </div>
       )}
