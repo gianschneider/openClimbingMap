@@ -60,6 +60,7 @@ function BasemapMap() {
         zoom: 9,
         minZoom: 8, // Minimum zoom level
         maxZoom: 20, // Maximum zoom level
+        extent: [2420000, 1030000, 2900000, 1350000],
         projection: new Projection({ code: "EPSG:2056", units: "m" }),
       }),
     });
