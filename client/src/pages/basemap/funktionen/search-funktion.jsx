@@ -13,15 +13,14 @@ function SearchResults({ searchValue, onResultClick, mapRef }) {
   }, []);
 
   useEffect(() => {
-    if (searchValue.length >= 3) {
+    if (searchValue === "") {
+      setFilteredResults(geojsonData); // Zeige alle Klettergebiete an
+    } else {
       const filtered = geojsonData.filter((feature) => {
         const name = feature.properties.Name?.toLowerCase() || "";
-        return name.includes(searchValue.toLowerCase());
+        return name.startsWith(searchValue.toLowerCase());
       });
       setFilteredResults(filtered);
-    } else {
-      setFilteredResults([]);
-      setSelectedFeatureId(null);
     }
   }, [searchValue, geojsonData]);
 
@@ -44,7 +43,7 @@ function SearchResults({ searchValue, onResultClick, mapRef }) {
       left: "0",
       width: "100%"
     }}>
-      {filteredResults.length > 0 ? (
+      {filteredResults.length >= 1 ? (
         <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
           {filteredResults.map((feature) => (
             <li
@@ -76,7 +75,7 @@ function SearchResults({ searchValue, onResultClick, mapRef }) {
           ))}
         </ul>
       ) : (
-        searchValue.length >= 3 && (
+        searchValue.length >= 1 && (
           <div style={{ padding: "8px 12px", color: "#777", whiteSpace: "nowrap" }}>
             Keine Ergebnisse gefunden
           </div>
