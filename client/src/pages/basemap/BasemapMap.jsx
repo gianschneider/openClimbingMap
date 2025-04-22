@@ -13,6 +13,7 @@ import { get as getProjection } from "ol/proj";
 import { swisstopoLayer, aerialLayer, geocoverLayer } from "./layers/BackgroundLayers";
 import { createKlettergebieteLayer } from "./layers/KlettergebieteLayer";
 import { createNaturschutzgebieteLayer } from "./layers/NaturschutzgebieteLayer";
+import { createHaltestelleLayer } from "./layers/HaltestellenLayer";
 import { handleNaturschutzgebieteToggle } from "./funktionen/layereinschalten";
 import { getWeatherDataForTwoDays, getWeatherIcon } from "../weather/Weather";
 import SearchResults from "./funktionen/search-funktion";
@@ -24,6 +25,7 @@ function BasemapMap() {
   const popupRef = useRef(null);
   const popupContentRef = useRef(null);
   const popupCloserRef = useRef(null);
+  const haltestelleLayerRef = useRef(null); // Ref für den Haltestellen-Layer
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeLayer, setActiveLayer] = useState("swisstopo");
   const [naturschutzgebieteLayer, setNaturschutzgebieteLayer] = useState(null);
@@ -31,6 +33,7 @@ function BasemapMap() {
   const [isNaturschutzgebieteVisible, setIsNaturschutzgebieteVisible] = useState(false);
   const [isGeocoverVisible, setIsGeocoverVisible] = useState(false);
   const [showSearchResults, setShowSearchResults] = useState(false);
+  const [isHaltestellenVisible, setIsHaltestellenVisible] = useState(false); // Sichtbarkeit der Haltestellen
 
   useEffect(() => {
     proj4.defs(
@@ -44,6 +47,9 @@ function BasemapMap() {
 
     const klettergebieteLayer = createKlettergebieteLayer();
     const naturschutzgebieteLayerInstance = createNaturschutzgebieteLayer();
+    const haltestelleLayer = createHaltestelleLayer(); // Haltestellen-Layer erstellen
+    haltestelleLayer.setVisible(isHaltestellenVisible); // Initiale Sichtbarkeit setzen
+    haltestelleLayerRef.current = haltestelleLayer; // Layer in Ref speichern
     setNaturschutzgebieteLayer(naturschutzgebieteLayerInstance);
 
     const map = new Map({
@@ -53,6 +59,7 @@ function BasemapMap() {
         naturschutzgebieteLayerInstance,
         klettergebieteLayer,
         geocoverLayer,
+        haltestelleLayer, // Haltestellen-Layer hinzufügen
       ],
       target: "map",
       view: new View({
@@ -83,41 +90,60 @@ function BasemapMap() {
         const properties = feature.getProperties();
         const coordinates = feature.getGeometry().getCoordinates();
 
-        console.log("Feature selected:", properties);
+        console.log("Feature properties:", properties); // Debug-Ausgabe
 
-        try {
-          const lonLat = transform(coordinates, "EPSG:2056", "EPSG:4326");
-          const altitude = properties.hoehe || "N/A"; // Assuming 'hoehe' is a property in the feature
+        // Layer anhand der Quelle unterscheiden
+        if (klettergebieteLayer.getSource().hasFeature(feature)) {
+          // Popup für Klettergebiete
+          try {
+            const lonLat = transform(coordinates, "EPSG:2056", "EPSG:4326");
+            const altitude = properties.hoehe || "N/A";
 
-          // Wetterdaten abrufen mit lat, lon und asl
-          const weatherData = await getWeatherDataForTwoDays(lonLat[1], lonLat[0], altitude);
-          console.log("Weather data retrieved:", weatherData);
+            // Wetterdaten abrufen mit lat, lon und asl
+            const weatherData = await getWeatherDataForTwoDays(lonLat[1], lonLat[0], altitude);
 
-          const content = Object.entries(properties)
-            .filter(([key]) => !["geometry", "X", "Y"].includes(key))
-            .map(([key, value]) => `<strong>${key}:</strong> ${value}`)
-            .join("<br>");
+            const content = Object.entries(properties)
+              .filter(([key]) => !["geometry", "X", "Y"].includes(key))
+              .map(([key, value]) => `<strong>${key}:</strong> ${value}`)
+              .join("<br>");
 
-          const weatherContent = weatherData
-            ? weatherData
-                .map(
-                  (day, index) => `
-                  <div class="weather-section">
-                    <strong>${index === 0 ? "Heute" : "Morgen"}:</strong><br>
-                    <span class="weather-icon">${getWeatherIcon(day.pictocode)}</span><br>
-                    Temperatur: ${Math.round(day.temperature)}°C<br>
-                    Niederschlag: ${Math.round(day.precipitation)} mm
-                  </div>`
-                )
-                .join("")
-            : "<br><strong>Wetter:</strong> Daten nicht verfügbar";
+            const weatherContent = weatherData
+              ? weatherData
+                  .map(
+                    (day, index) => `
+                    <div class="weather-section">
+                      <strong>${index === 0 ? "Heute" : "Morgen"}:</strong><br>
+                      <span class="weather-icon">${getWeatherIcon(day.pictocode)}</span><br>
+                      Temperatur: ${Math.round(day.temperature)}°C<br>
+                      Niederschlag: ${Math.round(day.precipitation)} mm
+                    </div>`
+                  )
+                  .join("")
+              : "<br><strong>Wetter:</strong> Daten nicht verfügbar";
 
-          popupContentRef.current.innerHTML = content + weatherContent;
+            popupContentRef.current.innerHTML = content + weatherContent;
+            overlay.setPosition(coordinates);
+          } catch (error) {
+            console.error("Error retrieving weather data:", error);
+            popupContentRef.current.innerHTML =
+              "<strong>Fehler beim Abrufen der Wetterdaten.</strong>";
+            overlay.setPosition(coordinates);
+          }
+        } else if (haltestelleLayer.getSource().hasFeature(feature)) {
+          // Popup für Haltestellen
+          const properties = feature.getProperties();
+          const cleanedProperties = Object.fromEntries(
+            Object.entries(properties).map(([key, value]) => [key.trim().replace(/\uFEFF/g, ""), value])
+          );
+
+          // Zugriff auf den bereinigten Schlüssel
+          const name = cleanedProperties["name"];
+          popupContentRef.current.innerHTML = `
+            <strong>${name || "Unbekannt"} (${properties.verkehrs_1 || "N/A"})</strong>`;
           overlay.setPosition(coordinates);
-        } catch (error) {
-          console.error("Error retrieving weather data:", error);
-          popupContentRef.current.innerHTML =
-            "<strong>Fehler beim Abrufen der Wetterdaten.</strong>";
+        } else {
+          // Fallback für unbekannte Features
+          popupContentRef.current.innerHTML = `<strong>Unbekanntes Feature</strong>`;
           overlay.setPosition(coordinates);
         }
       } else {
@@ -158,7 +184,7 @@ function BasemapMap() {
     return () => {
       map.setTarget(null);
     };
-  }, []);
+  }, [isHaltestellenVisible]); // Abhängigkeit hinzufügen, um Sichtbarkeit zu aktualisieren
 
   const zoomToUserLocation = () => {
     if (!mapRef.current) return;
@@ -451,6 +477,19 @@ function BasemapMap() {
                 }
               />
               Naturschutzgebiete
+            </label>
+          </div>
+          <div style={{ marginTop: "10px", textAlign: "left" }}>
+            <label>
+              <input
+                type="checkbox"
+                checked={isHaltestellenVisible}
+                onChange={() => {
+                  setIsHaltestellenVisible(!isHaltestellenVisible);
+                  haltestelleLayerRef.current.setVisible(!isHaltestellenVisible); // Sichtbarkeit umschalten
+                }}
+              />
+              Haltestellen
             </label>
           </div>
         </div>
