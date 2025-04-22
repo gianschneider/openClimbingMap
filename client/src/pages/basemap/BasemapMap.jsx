@@ -185,6 +185,22 @@ function BasemapMap() {
     );
   };
 
+  const toggleMenu = (menuName) => {
+    if (menuName === "info") {
+      setIsInfoMenuOpen(!isInfoMenuOpen);
+      setIsMenuOpen(false); // Schließt das Layer-Menü
+      setIsImpressumOpen(false); // Schließt das Impressum
+    } else if (menuName === "layer") {
+      setIsMenuOpen(!isMenuOpen);
+      setIsInfoMenuOpen(false); // Schließt das Info-Menü
+      setIsImpressumOpen(false); // Schließt das Impressum
+    } else if (menuName === "impressum") {
+      setIsImpressumOpen(!isImpressumOpen);
+      setIsInfoMenuOpen(false); // Schließt das Info-Menü
+      setIsMenuOpen(false); // Schließt das Layer-Menü
+    }
+  };
+
   const toggleGeocoverLayer = () => {
     if (geocoverLayer) {
       geocoverLayer.setVisible(!isGeocoverVisible);
@@ -326,7 +342,7 @@ function BasemapMap() {
         src="/info.svg"
         alt="Info"
         className="info-button"
-        onClick={() => setIsInfoMenuOpen(!isInfoMenuOpen)} // Öffnet oder schließt das Info-Menü
+        onClick={() => toggleMenu("info")} // Öffnet oder schließt das Info-Menü
         style={{
           position: "absolute",
           backgroundColor: "white",
@@ -406,7 +422,7 @@ function BasemapMap() {
         src="/layers.png"
         alt="Layer"
         className="layer-button"
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        onClick={() => toggleMenu("layer")}
         style={{
           position: "absolute",
           backgroundColor: "white",
