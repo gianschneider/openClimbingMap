@@ -1,12 +1,11 @@
 from fastapi import FastAPI, HTTPException, status
 from fastapi.responses import HTMLResponse
 from fastapi.responses import ORJSONResponse
+from fastapi.middleware.cors import CORSMiddleware
+from psycopg2 import sql
 
 # import geocover
 from .geocover import router as geocover_router
-
-# CORS aktivieren für FastAPI Backend
-from fastapi.middleware.cors import CORSMiddleware
 
 # Datenbank Verbindung
 from psycopg2 import pool
@@ -26,14 +25,15 @@ origins = [
     "http://localhost",
     "http://localhost:8080",
     "http://localhost:3000",
+    "http://localhost:5173",  # Füge die URL des Frontends hinzu
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=origins,  # Erlaubte Ursprünge
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["*"],  # Erlaubt alle HTTP-Methoden (GET, POST, etc.)
+    allow_headers=["*"],  # Erlaubt alle Header
 )
 
 
@@ -175,4 +175,63 @@ async def get_punkte():
     finally:
         if conn:
             # Die Verbindung zur Datenbank beenden
+            db_pool.putconn(conn)
+
+
+# Pydantic-Modell für die Attribute des Klettergebiets
+class Klettergebiet(BaseModel):
+    Name: str
+    X: float  # Easting
+    Y: float  # Northing
+    Hoehe: float
+    Disziplin: str
+    Routen: int
+    Schwierigkeit: str  # Kombination aus "von" und "bis"
+
+
+# POST-Endpunkt zum Hinzufügen eines Klettergebiets
+@app.post("/addKlettergebiet")
+async def add_klettergebiet(klettergebiet: Klettergebiet):
+    conn = None
+    try:
+        # Verbindung zur Datenbank herstellen
+        conn = db_pool.getconn()
+        cur = conn.cursor()
+
+        # SQL-Insert-Anweisung
+        insert_query = sql.SQL(
+            """
+            INSERT INTO "Klettergebiete" ("Name", "X", "Y", "Hoehe", "Disziplin", "Routen", "Schwierigkeit", "geom")
+            VALUES (%s, %s, %s, %s, %s, %s, %s, ST_SetSRID(ST_MakePoint(%s, %s), 2056))
+        """
+        )
+
+        # Werte einfügen
+        cur.execute(
+            insert_query,
+            (
+                klettergebiet.Name,
+                klettergebiet.X,
+                klettergebiet.Y,
+                klettergebiet.Hoehe,
+                klettergebiet.Disziplin,
+                klettergebiet.Routen,
+                klettergebiet.Schwierigkeit,
+                klettergebiet.X,
+                klettergebiet.Y,
+            ),
+        )
+
+        # Änderungen speichern
+        conn.commit()
+        return {"message": "Klettergebiet erfolgreich gespeichert!"}
+
+    except Exception as e:
+        print(e)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Fehler beim Speichern des Klettergebiets: {str(e)}",
+        )
+    finally:
+        if conn:
             db_pool.putconn(conn)
