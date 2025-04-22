@@ -36,6 +36,7 @@ function BasemapMap() {
   const [isHaltestellenVisible, setIsHaltestellenVisible] = useState(false); // Sichtbarkeit der Haltestellen
   const [isInfoMenuOpen, setIsInfoMenuOpen] = useState(false); //  State für das Info-Menü
   const [isImpressumOpen, setIsImpressumOpen] = useState(false);
+  const [isAddClimbingAreaOpen, setIsAddClimbingAreaOpen] = useState(false); // State für das Klettergebiet erfassen-Menü
 
   useEffect(() => {
     proj4.defs(
@@ -212,19 +213,10 @@ function BasemapMap() {
   };
 
   const toggleMenu = (menuName) => {
-    if (menuName === "info") {
-      setIsInfoMenuOpen(!isInfoMenuOpen);
-      setIsMenuOpen(false); // Schließt das Layer-Menü
-      setIsImpressumOpen(false); // Schließt das Impressum
-    } else if (menuName === "layer") {
-      setIsMenuOpen(!isMenuOpen);
-      setIsInfoMenuOpen(false); // Schließt das Info-Menü
-      setIsImpressumOpen(false); // Schließt das Impressum
-    } else if (menuName === "impressum") {
-      setIsImpressumOpen(!isImpressumOpen);
-      setIsInfoMenuOpen(false); // Schließt das Info-Menü
-      setIsMenuOpen(false); // Schließt das Layer-Menü
-    }
+    setIsInfoMenuOpen(menuName === "info" ? !isInfoMenuOpen : false);
+    setIsMenuOpen(menuName === "layer" ? !isMenuOpen : false);
+    setIsImpressumOpen(menuName === "impressum" ? !isImpressumOpen : false);
+    setIsAddClimbingAreaOpen(menuName === "addClimbingArea" ? !isAddClimbingAreaOpen : false);
   };
 
   const toggleGeocoverLayer = () => {
@@ -273,7 +265,10 @@ function BasemapMap() {
       {/* logo wand */}
       <img src="./logo-wand.png" alt="Logo Wand" className="basemap-logo-wand"></img>
       {/* logo climbing */}
-      <AddClimbingArea mapRef={mapRef} />
+      <AddClimbingArea
+        mapRef={mapRef}
+        onClick={() => toggleMenu("addClimbingArea")} // Öffnet oder schließt das Menü
+      />
       {/* Suchcontainer mit flex-col-reverse für die Anordnung */}
       <div
         style={{
