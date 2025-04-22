@@ -32,6 +32,7 @@ function BasemapMap() {
   const [isGeocoverVisible, setIsGeocoverVisible] = useState(false);
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [isInfoMenuOpen, setIsInfoMenuOpen] = useState(false); //  State für das Info-Menü
+  const [isImpressumOpen, setIsImpressumOpen] = useState(false);
 
   useEffect(() => {
     proj4.defs(
@@ -361,19 +362,36 @@ function BasemapMap() {
           <p>Hier können Sie weitere Informationen anzeigen.</p>
           <p>Fügen Sie beliebig viele Zeilen hinzu.</p>
           <button
-            onClick={() => setIsInfoMenuOpen(false)} // Schließt das Menü
+            onClick={() => setIsImpressumOpen(!isImpressumOpen)} // Öffnet oder schließt das Impressum-Dropdown
             style={{
               marginTop: "10px",
               padding: "5px 10px",
-              backgroundColor: "#007BFF",
+              backgroundColor: "#28a745",
               color: "white",
               border: "none",
               borderRadius: "3px",
               cursor: "pointer",
             }}
           >
-            Schließen
+            Impressum
           </button>
+          {isImpressumOpen && ( // Dropdown für das Impressum
+            <div
+              style={{
+                marginTop: "10px",
+                padding: "10px",
+                backgroundColor: "#f9f9f9",
+                border: "1px solid #ccc",
+                borderRadius: "5px",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              <h4>Impressum</h4>
+              <p>Hier steht das Impressum.</p>
+              <p>Adresse: Musterstraße 123, 12345 Musterstadt</p>
+              <p>Kontakt: info@musterfirma.de</p>
+            </div>
+          )}
         </div>
       )}
       {/* Layer-Wechsel Button */}
