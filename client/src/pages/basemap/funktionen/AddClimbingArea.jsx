@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Range } from "react-range";
 import "../BasemapPage.css";
 
-function AddClimbingArea({ mapRef }) {
-  const [isOpen, setIsOpen] = useState(false);
+function AddClimbingArea({ mapRef, isAddClimbingAreaOpen, toggleMenu }) {
   const [name, setName] = useState("");
   const [routes, setRoutes] = useState("");
   const [difficultyRange, setDifficultyRange] = useState([7, 14]); // Index für Schwierigkeit
@@ -12,8 +11,32 @@ function AddClimbingArea({ mapRef }) {
   const [type, setType] = useState("Sportklettern");
 
   const difficulties = [
-    "5a", "5b", "5c", "6a", "6a+", "6b", "6b+", "6c", "6c+", "7a", "7a+", "7b", "7b+", "7c", "7c+",
-    "8a", "8a+", "8b", "8b+", "8c", "8c+", "9a", "9a+", "9b", "9b+", "9c",
+    "5a",
+    "5b",
+    "5c",
+    "6a",
+    "6a+",
+    "6b",
+    "6b+",
+    "6c",
+    "6c+",
+    "7a",
+    "7a+",
+    "7b",
+    "7b+",
+    "7c",
+    "7c+",
+    "8a",
+    "8a+",
+    "8b",
+    "8b+",
+    "8c",
+    "8c+",
+    "9a",
+    "9a+",
+    "9b",
+    "9b+",
+    "9c",
   ];
 
   const handleSubmit = () => {
@@ -27,7 +50,7 @@ function AddClimbingArea({ mapRef }) {
       type,
     });
     alert("Klettergebiet hinzugefügt!");
-    setIsOpen(false);
+    toggleMenu("addClimbingArea"); // Schließt das Menü nach dem Hinzufügen
   };
 
   return (
@@ -36,9 +59,9 @@ function AddClimbingArea({ mapRef }) {
         src="/erfassen-green.png"
         alt="Add Climbing Area"
         className="erfassen-button"
-        onClick={() => setIsOpen((prevState) => !prevState)}
+        onClick={() => toggleMenu("addClimbingArea")} // Öffnet oder schließt das Menü
       />
-      {isOpen && (
+      {isAddClimbingAreaOpen && (
         <div
           style={{
             position: "absolute",
@@ -168,7 +191,7 @@ function AddClimbingArea({ mapRef }) {
             <button onClick={handleSubmit} style={{ marginRight: "10px" }}>
               Hinzufügen
             </button>
-            <button onClick={() => setIsOpen(false)}>Abbrechen</button>
+            <button onClick={() => toggleMenu("addClimbingArea")}>Abbrechen</button>
           </div>
         </div>
       )}

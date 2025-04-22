@@ -241,7 +241,8 @@ function BasemapMap() {
       {/* logo climbing */}
       <AddClimbingArea
         mapRef={mapRef}
-        onClick={() => toggleMenu("addClimbingArea")} // Öffnet oder schließt das Menü
+        isAddClimbingAreaOpen={isAddClimbingAreaOpen}
+        toggleMenu={toggleMenu}
       />
       {/* Suchcontainer mit flex-col-reverse für die Anordnung */}
       <div
