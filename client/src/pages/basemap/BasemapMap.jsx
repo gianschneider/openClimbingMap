@@ -386,10 +386,12 @@ function BasemapMap() {
                 boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
               }}
             >
-              <h4>Impressum</h4>
-              <p>Hier steht das Impressum.</p>
-              <p>Adresse: Musterstraße 123, 12345 Musterstadt</p>
-              <p>Kontakt: info@musterfirma.de</p>
+              <h4>openClimbingMap</h4>
+              <p>
+                Ein Projekt von Youssef Shamoun, Gian Schneider und Pascal Kalbermatten an der FHNW.
+              </p>
+              <p>GithubPage: temp.com</p>
+              <p>Kontakt: gian.schneider@students.fhnw.ch</p>
             </div>
           )}
         </div>
