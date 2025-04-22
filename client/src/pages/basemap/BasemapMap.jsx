@@ -187,27 +187,10 @@ function BasemapMap() {
   };
 
   const toggleMenu = (menuName) => {
-    if (menuName === "info") {
-      setIsInfoMenuOpen(!isInfoMenuOpen);
-      setIsMenuOpen(false); // Schließt das Layer-Menü
-      setIsImpressumOpen(false); // Schließt das Impressum
-      setIsAddClimbingAreaOpen(false); // Schließt das Klettergebiet erfassen-Menü
-    } else if (menuName === "layer") {
-      setIsMenuOpen(!isMenuOpen);
-      setIsInfoMenuOpen(false); // Schließt das Info-Menü
-      setIsImpressumOpen(false); // Schließt das Impressum
-      setIsAddClimbingAreaOpen(false); // Schließt das Klettergebiet erfassen-Menü
-    } else if (menuName === "impressum") {
-      setIsImpressumOpen(!isImpressumOpen);
-      setIsInfoMenuOpen(false); // Schließt das Info-Menü
-      setIsMenuOpen(false); // Schließt das Layer-Menü
-      setIsAddClimbingAreaOpen(false); // Schließt das Klettergebiet erfassen-Menü
-    } else if (menuName === "addClimbingArea") {
-      setIsAddClimbingAreaOpen(!isAddClimbingAreaOpen);
-      setIsInfoMenuOpen(false); // Schließt das Info-Menü
-      setIsMenuOpen(false); // Schließt das Layer-Menü
-      setIsImpressumOpen(false); // Schließt das Impressum
-    }
+    setIsInfoMenuOpen(menuName === "info" ? !isInfoMenuOpen : false);
+    setIsMenuOpen(menuName === "layer" ? !isMenuOpen : false);
+    setIsImpressumOpen(menuName === "impressum" ? !isImpressumOpen : false);
+    setIsAddClimbingAreaOpen(menuName === "addClimbingArea" ? !isAddClimbingAreaOpen : false);
   };
 
   const toggleGeocoverLayer = () => {
