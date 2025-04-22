@@ -6,7 +6,7 @@ from pathlib import Path
 
 # Pfade
 csv_file = r"c:\Users\Pascal\OneDrive - FHNW\VP-Geoinformation-und-Raumanalyse-Projekt\02_Grundlagedaten\Klettergebiete\Klettergebiete.csv"
-output_dir = Path(r"c:\GDI\openClimbingMap\results")
+output_dir = Path(r"c:\GDI\openClimbingMap\pp_suche\results")
 output_dir.mkdir(parents=True, exist_ok=True)
 
 # Overpass-API-Endpunkt
@@ -39,7 +39,7 @@ def process_csv():
     ways = []
     relations = []
 
-    with open(csv_file, newline='', encoding='latin1') as csvfile:  # Zeichensatz geändert
+    with open(csv_file, newline='', encoding='latin1') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             name = row["Name"]
