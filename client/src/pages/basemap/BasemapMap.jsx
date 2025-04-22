@@ -33,6 +33,7 @@ function BasemapMap() {
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [isInfoMenuOpen, setIsInfoMenuOpen] = useState(false); //  State für das Info-Menü
   const [isImpressumOpen, setIsImpressumOpen] = useState(false);
+  const [isAddClimbingAreaOpen, setIsAddClimbingAreaOpen] = useState(false); // State für das Klettergebiet erfassen-Menü
 
   useEffect(() => {
     proj4.defs(
@@ -190,14 +191,22 @@ function BasemapMap() {
       setIsInfoMenuOpen(!isInfoMenuOpen);
       setIsMenuOpen(false); // Schließt das Layer-Menü
       setIsImpressumOpen(false); // Schließt das Impressum
+      setIsAddClimbingAreaOpen(false); // Schließt das Klettergebiet erfassen-Menü
     } else if (menuName === "layer") {
       setIsMenuOpen(!isMenuOpen);
       setIsInfoMenuOpen(false); // Schließt das Info-Menü
       setIsImpressumOpen(false); // Schließt das Impressum
+      setIsAddClimbingAreaOpen(false); // Schließt das Klettergebiet erfassen-Menü
     } else if (menuName === "impressum") {
       setIsImpressumOpen(!isImpressumOpen);
       setIsInfoMenuOpen(false); // Schließt das Info-Menü
       setIsMenuOpen(false); // Schließt das Layer-Menü
+      setIsAddClimbingAreaOpen(false); // Schließt das Klettergebiet erfassen-Menü
+    } else if (menuName === "addClimbingArea") {
+      setIsAddClimbingAreaOpen(!isAddClimbingAreaOpen);
+      setIsInfoMenuOpen(false); // Schließt das Info-Menü
+      setIsMenuOpen(false); // Schließt das Layer-Menü
+      setIsImpressumOpen(false); // Schließt das Impressum
     }
   };
 
@@ -247,7 +256,10 @@ function BasemapMap() {
       {/* logo wand */}
       <img src="./logo-wand.png" alt="Logo Wand" className="basemap-logo-wand"></img>
       {/* logo climbing */}
-      <AddClimbingArea mapRef={mapRef} />
+      <AddClimbingArea
+        mapRef={mapRef}
+        onClick={() => toggleMenu("addClimbingArea")} // Öffnet oder schließt das Menü
+      />
       {/* Suchcontainer mit flex-col-reverse für die Anordnung */}
       <div
         style={{
