@@ -31,6 +31,7 @@ function BasemapMap() {
   const [isNaturschutzgebieteVisible, setIsNaturschutzgebieteVisible] = useState(false);
   const [isGeocoverVisible, setIsGeocoverVisible] = useState(false);
   const [showSearchResults, setShowSearchResults] = useState(false);
+  const [isInfoMenuOpen, setIsInfoMenuOpen] = useState(false); //  State für das Info-Menü
 
   useEffect(() => {
     proj4.defs(
@@ -324,8 +325,57 @@ function BasemapMap() {
         src="/info.svg"
         alt="Info"
         className="info-button"
-        onClick={() => console.log("button clicked")}
+        onClick={() => setIsInfoMenuOpen(!isInfoMenuOpen)} // Öffnet oder schließt das Info-Menü
+        style={{
+          position: "absolute",
+          backgroundColor: "white",
+          top: "180px",
+          right: "10px",
+          zIndex: 1000,
+          width: "40px",
+          height: "40px",
+          cursor: "pointer",
+          transition: "transform 0.3s ease, opacity 1s ease",
+          borderRadius: "15%",
+          padding: "5px",
+        }}
       />
+      {/* Info-Menü */}
+      {isInfoMenuOpen && (
+        <div
+          style={{
+            position: "absolute",
+            top: "230px",
+            right: "10px",
+            backgroundColor: "white",
+            border: "1px solid #ccc",
+            borderRadius: "5px",
+            padding: "15px",
+            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+            zIndex: 1000,
+            width: "300px",
+          }}
+        >
+          <h3>Informationen</h3>
+          <p>Dies ist ein Beispieltext für das Info-Menü.</p>
+          <p>Hier können Sie weitere Informationen anzeigen.</p>
+          <p>Fügen Sie beliebig viele Zeilen hinzu.</p>
+          <button
+            onClick={() => setIsInfoMenuOpen(false)} // Schließt das Menü
+            style={{
+              marginTop: "10px",
+              padding: "5px 10px",
+              backgroundColor: "#007BFF",
+              color: "white",
+              border: "none",
+              borderRadius: "3px",
+              cursor: "pointer",
+            }}
+          >
+            Schließen
+          </button>
+        </div>
+      )}
       {/* Layer-Wechsel Button */}
       <img
         src="/layers.png"
