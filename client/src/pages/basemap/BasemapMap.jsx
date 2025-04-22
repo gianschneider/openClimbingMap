@@ -53,8 +53,8 @@ function BasemapMap() {
         swisstopoLayer,
         aerialLayer,
         naturschutzgebieteLayerInstance,
-        klettergebieteLayer,
         geocoverLayer,
+        klettergebieteLayer,
       ],
       target: "map",
       view: new View({
@@ -358,7 +358,10 @@ function BasemapMap() {
           }}
         >
           <h3>Informationen</h3>
-          <p>Dies ist ein Beispieltext für das Info-Menü.</p>
+          <p>
+            Die openClimbingMap hat 2 UseCases: Einerseits bestehende Gebiete zu finden und
+            andererseit neue Gebiete zu erfassen! .
+          </p>
           <p>Hier können Sie weitere Informationen anzeigen.</p>
           <p>Fügen Sie beliebig viele Zeilen hinzu.</p>
           <button
