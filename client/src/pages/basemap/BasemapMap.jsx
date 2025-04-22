@@ -34,6 +34,8 @@ function BasemapMap() {
   const [isGeocoverVisible, setIsGeocoverVisible] = useState(false);
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [isHaltestellenVisible, setIsHaltestellenVisible] = useState(false); // Sichtbarkeit der Haltestellen
+  const [isInfoMenuOpen, setIsInfoMenuOpen] = useState(false); //  State für das Info-Menü
+  const [isImpressumOpen, setIsImpressumOpen] = useState(false);
 
   useEffect(() => {
     proj4.defs(
@@ -57,9 +59,9 @@ function BasemapMap() {
         swisstopoLayer,
         aerialLayer,
         naturschutzgebieteLayerInstance,
-        klettergebieteLayer,
         geocoverLayer,
         haltestelleLayer, // Haltestellen-Layer hinzufügen
+        klettergebieteLayer,
       ],
       target: "map",
       view: new View({
@@ -209,6 +211,22 @@ function BasemapMap() {
     );
   };
 
+  const toggleMenu = (menuName) => {
+    if (menuName === "info") {
+      setIsInfoMenuOpen(!isInfoMenuOpen);
+      setIsMenuOpen(false); // Schließt das Layer-Menü
+      setIsImpressumOpen(false); // Schließt das Impressum
+    } else if (menuName === "layer") {
+      setIsMenuOpen(!isMenuOpen);
+      setIsInfoMenuOpen(false); // Schließt das Info-Menü
+      setIsImpressumOpen(false); // Schließt das Impressum
+    } else if (menuName === "impressum") {
+      setIsImpressumOpen(!isImpressumOpen);
+      setIsInfoMenuOpen(false); // Schließt das Info-Menü
+      setIsMenuOpen(false); // Schließt das Layer-Menü
+    }
+  };
+
   const toggleGeocoverLayer = () => {
     if (geocoverLayer) {
       geocoverLayer.setVisible(!isGeocoverVisible);
@@ -350,14 +368,87 @@ function BasemapMap() {
         src="/info.svg"
         alt="Info"
         className="info-button"
-        onClick={() => console.log("button clicked")}
+        onClick={() => toggleMenu("info")} // Öffnet oder schließt das Info-Menü
+        style={{
+          position: "absolute",
+          backgroundColor: "white",
+          top: "70px",
+          right: "10px",
+          zIndex: 1000,
+          width: "40px",
+          height: "40px",
+          cursor: "pointer",
+          transition: "transform 0.3s ease, opacity 1s ease",
+          borderRadius: "15%",
+          padding: "5px",
+        }}
       />
+      {/* Info-Menü */}
+      {isInfoMenuOpen && (
+        <div
+          style={{
+            position: "absolute",
+            top: "230px",
+            right: "10px",
+            backgroundColor: "white",
+            border: "1px solid #ccc",
+            borderRadius: "5px",
+            padding: "15px",
+            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+            zIndex: 1000,
+            width: "300px",
+          }}
+        >
+          <h3>Informationen</h3>
+          <p>
+            Die openClimbingMap hat 2 UseCases: Einerseits bestehende Gebiete zu finden und
+            andererseit neue Gebiete zu erfassen! .
+          </p>
+          <p>
+            Nutze die Buttons auf der rechten Seite um alle nötigen Einstellungen vorzunehmen.
+            Weitere Informationen findest du auf der GitHubPage
+          </p>
+          <button
+            onClick={() => setIsImpressumOpen(!isImpressumOpen)} // Öffnet oder schließt das Impressum-Dropdown
+            style={{
+              marginTop: "10px",
+              padding: "5px 10px",
+              backgroundColor: "#28a745",
+              color: "white",
+              border: "none",
+              borderRadius: "3px",
+              cursor: "pointer",
+            }}
+          >
+            Impressum
+          </button>
+          {isImpressumOpen && ( // Dropdown für das Impressum
+            <div
+              style={{
+                marginTop: "10px",
+                padding: "10px",
+                backgroundColor: "#f9f9f9",
+                border: "1px solid #ccc",
+                borderRadius: "5px",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              <h4>openClimbingMap</h4>
+              <p>
+                Ein Projekt von Youssef Shamoun, Gian Schneider und Pascal Kalbermatten an der FHNW.
+              </p>
+              <p>GithubPage: temp.com</p>
+              <p>Kontakt: gian.schneider@students.fhnw.ch</p>
+            </div>
+          )}
+        </div>
+      )}
       {/* Layer-Wechsel Button */}
       <img
         src="/layers.png"
         alt="Layer"
         className="layer-button"
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        onClick={() => toggleMenu("layer")}
         style={{
           position: "absolute",
           backgroundColor: "white",
