@@ -362,8 +362,10 @@ function BasemapMap() {
             Die openClimbingMap hat 2 UseCases: Einerseits bestehende Gebiete zu finden und
             andererseit neue Gebiete zu erfassen! .
           </p>
-          <p>Hier können Sie weitere Informationen anzeigen.</p>
-          <p>Fügen Sie beliebig viele Zeilen hinzu.</p>
+          <p>
+            Nutze die Buttons auf der rechten Seite um alle nötigen Einstellungen vorzunehmen.
+            Weitere Informationen findest du auf der GitHubPage
+          </p>
           <button
             onClick={() => setIsImpressumOpen(!isImpressumOpen)} // Öffnet oder schließt das Impressum-Dropdown
             style={{
