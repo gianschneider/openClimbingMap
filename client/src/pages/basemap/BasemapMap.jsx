@@ -329,7 +329,7 @@ function BasemapMap() {
         style={{
           position: "absolute",
           backgroundColor: "white",
-          top: "180px",
+          top: "70px",
           right: "10px",
           zIndex: 1000,
           width: "40px",
