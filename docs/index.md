@@ -1,8 +1,10 @@
-Minimal by Steve Smith
+# GDI-Projekt - openClimbingMap
 
-# Minimal
+Willkommen auf der GitHub-Page der Geodateninfarastruktur openClimbingMap. Hier findest du alles über die vorhandenen Funktionen und die Informationen zur Erarbeitung der Smartphone-App.
 
-A Theme for GitHub Pages
+GitHub Repository: https://github.com/gianschneider/openClimbingMap
+
+Ansicht der Startseite
 
 [View the Project on GitHub orderedlist/minimal](http://github.com/orderedlist/minimal)
 
