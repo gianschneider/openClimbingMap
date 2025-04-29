@@ -1,6 +1,9 @@
-theme: jekyll-theme-minimal
+theme: just-the-docs
+#theme: jekyll-theme-minimal
 title: openClimbingMap
 description: Werde Teil der openClimbingMap-Community!
+remote_theme: pmarsceill/just-the-docs
+
 
 
 # Navigation
