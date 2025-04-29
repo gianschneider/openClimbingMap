@@ -8,7 +8,7 @@ Diesees Kapitel behandelt die ersten Ideen des Aufbaus und der Gestaltung von op
 
 <div id="gdi"></div>
 
-Im folgenden Bild ist ein erster Entwurf der Architektur der GDI zu sehen. Während der beschaffung der Daten und des Erstellens der Oberfläche entstanden Herausforderungen, die schlussendlich anders als geplant gelöst wurden. Auch konnten einige Prozesse einfacher als geplant gelöst werden. Die finale Architektur der GDI ist [hier](#gdi-final) sichtbar.
+Im folgenden Bild ist ein erster Entwurf der Architektur der GDI zu sehen. Während der Beschaffung der Daten und des Erstellens der Oberfläche entstanden Herausforderungen, die schlussendlich anders als geplant gelöst wurden. Auch konnten einige Prozesse einfacher als geplant gelöst werden. Die finale Architektur der GDI ist [hier](#gdi-final) sichtbar.
 ![GDI Konzept](Bilder/GDI_Architektur_konzept.png)
 
 ### Mockup
@@ -20,14 +20,7 @@ Bevor mit der technischen Umsetzung des Frontends begonnen wurde, wurde zunächs
 
 **_Abweichungen bezüglich Endprodukt:_**
 
-- Die Ligatabelle wurde auf der Startseite weggelassen und mit einer Liste aller Clubs (einer Liga), sortiert nach Stadiongrösse, ersetzt. Dies wurde deshalb gemacht, da diese Information zu den aktuellen Spielen nicht mit dem Sinn und Konzept der anderen Features übereinpasst.
-- Auf der Seite "Player Origin" wurde eine Ländertabelle ergänzt, die nach der Anzahl Spieler pro Land sortiert ist. Diese Ergänzung sorgt einerseits für ein konsistentes Design über alle Seiten hinweg und gewährleistet andererseits, dass alle Herkunftsländer in der Tabelle erfasst sind. Da Europa als Standardzoomstufe verwendet wird, werden durch diese Massnahme auch aussereuropäische Länder berücksichtigt.
-- Auf der Seite Transferhistory wurden die Transferwege linear und nicht als geodätische Linien dargestellt.
-- Zusätzlich wurden in allen Tabellen weitere Attribute ergänzt, darunter Spielerbilder, Landesflaggen und Clublogos.
-
 ### Visualisierungsideen
-
-Es wurden Visualisierungsideen aus den sozialen Medien und aus dem Internet gesammelt. Vorallem die Funktion und Anzeige der [Transferhistorie](funktionen.md#transfer-history) ist durch die Inspiration von statischen Visualisierungen der Transferhistorie einzelner Spieler entstanden. Es war die Idee von allen Spielern der Schweizer Super League eine dynamische Karte der Transferwege zu erstellen.
 
 [↑](#top)
 

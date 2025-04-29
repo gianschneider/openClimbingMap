@@ -6,7 +6,7 @@ In diesem Abschnitt werden die Funktionen und Interaktionen der openClimbingMap 
 ## Startpage
 
 <div id="startpage"></div>
-Auf der Startseite erscheint eine dynamische Karte, die auf die Schweiz fokussiert ist. Es werden die Clublogos entsprechend ihrer geografischen Lage (Stadion) angezeigt. Über die Toolbar können die Nutzenden aus 30 Ländern und 70 Ligen, Clubs auswählen und filtern. Insgesamt sind 1060 Clubs in der Datenbank vorhanden.
+Auf der Startseite erscheint eine dynamische Karte, die auf die Schweiz fokussiert ist. ...
 
 ### Funktionen:
 
