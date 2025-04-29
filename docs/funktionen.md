@@ -6,7 +6,11 @@ In diesem Abschnitt werden die Funktionen und Interaktionen der openClimbingMap 
 ## Startpage
 
 <div id="startpage"></div>
-Auf der Startseite erscheint eine dynamische Karte, die auf die Schweiz fokussiert ist.
+Das Frontend besteht aus einer One-Page-Applikation im Smartphone-Layout, die mehrere Funktionen bietet, wie die Auswahl der Hintergrundkarte, das Zoomen auf den aktuellen Standort, die Erfassung neuer Gebiete und die Filterung der Klettergebiete. Die Klettergebiete werden als Punkte dargestellt. Beim Klicken auf ein Klettergebiet öffnet sich ein Pop-up-Fenster mit Detailinformationen (Name, Höhe, Disziplin, Anzahl der Routen, Schwierigkeit). Zusätzlich werden die Wetterdaten am Standort des Klettergebiets angezeigt. Die Klettergebiete und deren Attribute werden über einen WFS-Dienst vom GeoServer bereitgestellt, während die Wetterdaten über die API der meteoblue AG abgerufen werden.
+
+<div style="text-align: center;">
+  <img src="bilder/Klettergebiet.jpg">
+</div>
 
 ---
 
@@ -16,7 +20,7 @@ Auf der Startseite erscheint eine dynamische Karte, die auf die Schweiz fokussie
 - Die Darstellung der Klettergebiete auf der Basemap wird auf jene Gebiete beschränkt, die den eingegebenen Suchparametern entsprechen. (Dieser Abschnitt wird genauer erläutert, sobald die Funktion implementiert ist.)
 
 <div style="text-align: center;">
-  <img src="bilder/Filterfunktion.jpg" alt="Filterfunktion der Klettergebiete" style="width: 400px; height: auto;">
+  <img src="bilder/Filterfunktion.jpg">
 </div>
 
 ---
