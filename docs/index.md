@@ -1,12 +1,11 @@
 # GDI-Projekt - openClimbingMap
 
-Willkommen auf der GitHub-Page der Geodateninfarastruktur openClimbingMap. Hier findest du alles über die vorhandenen Funktionen und die Informationen zur Erarbeitung der Smartphone-App.
+Willkommen auf der GitHub-Page der Geodateninfarastruktur openClimbingMap. Hier findest du alles über die vorhandenen Funktionen und die Informationen über die Entwicklung der Smartphone-App.
 
 GitHub Repository: https://github.com/gianschneider/openClimbingMap
 
 Ansicht der Startseite
-
-[View the Project on GitHub orderedlist/minimal](http://github.com/orderedlist/minimal)
+![Ansicht der Startseite](startseite.jpg)
 
 - [Download **ZIP File**](https://github.com/orderedlist/minimal/zipball/master)
 - [Download **TAR Ball**](https://github.com/orderedlist/minimal/tarball/master)
