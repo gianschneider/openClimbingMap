@@ -46,6 +46,13 @@ Auf der Startseite erscheint eine dynamische Karte, die auf die Schweiz fokussie
   - Naturschutzgebiete (WFS-Dienst vom GeoServer)
   - ÖV-Haltestellen (WFS-Dienst vom GeoServer)
 
+<div style="text-align: center;">
+  <video width="400" controls>
+    <source src="videos/Hintergrund.mp4" type="video/mp4">
+    Dein Browser unterstützt das Video-Tag nicht.
+  </video>
+</div>
+
 ---
 
 #### 4. **Klettergebiet erfassen**
@@ -69,10 +76,24 @@ Auf der Startseite erscheint eine dynamische Karte, die auf die Schweiz fokussie
   - *Reset*: Setzt alle Eingabefelder auf ihren Ursprungszustand zurück.
   - *Abbrechen*: Schließt das Eingabefenster ohne zu speichern.
 
+<div style="text-align: center;">
+  <video width="400" controls>
+    <source src="videos/Erfassen.mp4" type="video/mp4">
+    Dein Browser unterstützt das Video-Tag nicht.
+  </video>
+</div>
+
 ---
 
 #### 5. **Navigation zur eigenen Position**
 - Beim Klick auf den Emlid-Button wird zur aktuellen Position des Nutzers auf der Karte gezoomt.
+
+<div style="text-align: center;">
+  <video width="400" controls>
+    <source src="videos/Emlid.mp4" type="video/mp4">
+    Dein Browser unterstützt das Video-Tag nicht.
+  </video>
+</div>
 
 ---
 
@@ -82,6 +103,13 @@ Auf der Startseite erscheint eine dynamische Karte, die auf die Schweiz fokussie
   - Nur Klettergebiete, deren Name mit dem eingegebenen Begriff beginnt, bleiben sichtbar.
   - Ergebnisse erscheinen in einer Liste.
   - Bei Klick auf ein Ergebnis wird auf das entsprechende Gebiet gezoomt.
+
+<div style="text-align: center;">
+  <video width="400" controls>
+    <source src="videos/Suchen.mp4" type="video/mp4">
+    Dein Browser unterstützt das Video-Tag nicht.
+  </video>
+</div>
 
 ---
 
