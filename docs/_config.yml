@@ -1,3 +1,11 @@
 theme: jekyll-theme-minimal
 title: openClimbingMap
 description: Werde Teil der openClimbingMap-Community!
+
+
+# Navigation
+header_pages:
+  - index.md
+  - team.md
+  - features.md
+  - installation.md
