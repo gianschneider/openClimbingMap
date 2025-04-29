@@ -6,7 +6,7 @@ Eine vollständige Geodateninfrastruktur (GDI) besteht aus dem Backend, dem Fron
 
 <div id="gdi-final"></div>
 
-![GDI Architektur Schema](bilder/architekturaufbau.jpg)
+![GDI Architektur Schema](bilder/gdi-aufbau.jpg)
 
 ## Backend
 
