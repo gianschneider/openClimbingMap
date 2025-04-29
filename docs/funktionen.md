@@ -13,9 +13,11 @@ Auf der Startseite erscheint eine dynamische Karte, die auf die Schweiz fokussie
 ### Funktionen:
 
 #### 1. **Filterung von Klettergebieten**
-- Die Darstellung der Klettergebiete auf der Basemap wird auf jene Gebiete beschränkt, die den eingegebenen Suchparametern entsprechen.(Dieser Abschnitt wird genauer erläutert, sobald die Funktion implementiert ist.)
+- Die Darstellung der Klettergebiete auf der Basemap wird auf jene Gebiete beschränkt, die den eingegebenen Suchparametern entsprechen. (Dieser Abschnitt wird genauer erläutert, sobald die Funktion implementiert ist.)
 
-![Filterfunktion der Klettergebiete](bilder/Filterfunktion.jpg)
+<div style="text-align: center;">
+  <img src="bilder/Filterfunktion.jpg" alt="Filterfunktion der Klettergebiete" style="width: 50%; height: auto;">
+</div>
 
 ---
 
