@@ -27,6 +27,10 @@ Auf der Startseite erscheint eine dynamische Karte, die auf die Schweiz fokussie
   - Verfügbare Funktionen
   - Allgemeine Informationen zum Klettersport, einschließlich einer Legende zu den Schwierigkeitsgraden der Routen in den Klettergebieten.
 
+<div style="text-align: center;">
+  <img src="videos/Info.mp4" alt="Filterfunktion der Klettergebiete" style="width: 400px; height: auto;">
+</div>
+
 ---
 
 #### 3. **Layer-Button**
