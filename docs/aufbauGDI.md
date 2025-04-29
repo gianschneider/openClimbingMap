@@ -2,11 +2,11 @@
 
 <a id="top"></a>
 
-Eine vollständige Geodateninfrastruktur (GDI) besteht aus dem Backend, dem Frontend und den verwendeted Libraries und API Schnittstellen. Das folgende Schema zeigt die aufgebaute und verwendete Geodateninfrasturktur der openClimbingMap auf.
+Eine vollständige Geodateninfrastruktur (GDI) besteht aus dem Backend, dem Frontend und den verwendeten Bibliotheken und API Schnittstellen. Das folgende Schema zeigt die aufgebaute und verwendete Geodateninfrasturktur der openClimbingMap auf.
 
 <div id="gdi-final"></div>
 
-![GDI Architektur Schema](Bilder/architekturaufbau.jpg)
+![GDI Architektur Schema](bilder/architekturaufbau.jpg)
 
 ## Backend
 
