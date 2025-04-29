@@ -8,7 +8,7 @@ GitHub Pages: https://gianschneider.github.io/openClimbingMap
 
 
 ## Repository lokal klonen
-Mit Git in einem Terminal das GitHub Repository *Geoharvester* in ein lokales Verzeichnis klonen.
+Mit Git in einem Terminal das GitHub Repository *openClimbingMap* in ein lokales Verzeichnis klonen.
 
 ``` shell
 cd /path/to/workspace
@@ -31,6 +31,7 @@ cd client
 npm install
 ```
 ``` shell
+# Projekt ausführen
 npm run dev
 ```
 
