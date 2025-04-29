@@ -9,7 +9,7 @@ Projektteam:
 - [Youssef Shamoun](https://github.com/YoussefShamoun)
 
 Ansicht der Startseite
-![Ansicht der Startseite](startseite.jpg)
+![Ansicht der Startseite](public/startseite.jpg)
 
 - [Download **ZIP File**](https://github.com/gianschneider/openClimbingMap/archive/refs/heads/main.zip)
 - [Download **TAR Ball**](https://github.com/orderedlist/minimal/tarball/master)
