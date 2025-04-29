@@ -20,3 +20,14 @@ Auf der Startseite erscheint eine dynamische Karte, die auf die Schweiz fokussie
 
 - Klettergebiet erfassen
   Füge fehlende Klettergebiete hinzu, und ermögliche anderen die Gebiete zu besuchen
+
+[↑](#top)
+
+<div style="display: flex; justify-content: space-between;">
+  <div>
+    <a href="einleitung.html">← Einleitung</a>
+  </div>
+  <div>
+    <a href="aufbauGDI.html">Aufbau GDI →</a>
+  </div>
+</div>
