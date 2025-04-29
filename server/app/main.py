@@ -3,9 +3,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.responses import ORJSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from psycopg2 import sql
-
-# import geocover
-from .geocover import router as geocover_router
+import requests  # Für HTTP-Anfragen
 
 # Datenbank Verbindung
 from psycopg2 import pool
@@ -15,9 +13,6 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-
-# Andere Router hier registrieren
-app.include_router(geocover_router, prefix="/api", tags=["Geocover"])
 
 # CORS Einstellungen
 # siehe: https://fastapi.tiangolo.com/tutorial/cors/#use-corsmiddleware
@@ -235,3 +230,25 @@ async def add_klettergebiet(klettergebiet: Klettergebiet):
     finally:
         if conn:
             db_pool.putconn(conn)
+
+
+@app.get("/klettergebiete")
+async def get_klettergebiete():
+    geoserver_url = "http://localhost:8080/geoserver/testuebung/ows"
+    params = {
+        "service": "WFS",
+        "version": "1.0.0",
+        "request": "GetFeature",
+        "typeName": "testuebung:klettergebiete",
+        "outputFormat": "application/json",
+    }
+
+    try:
+        response = requests.get(geoserver_url, params=params)
+        response.raise_for_status()  # Fehler bei HTTP-Statuscodes abfangen
+        return response.json()  # JSON-Daten an das Frontend zurückgeben
+    except requests.exceptions.RequestException as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Fehler beim Abrufen der Klettergebiete: {str(e)}",
+        )
