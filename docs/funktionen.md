@@ -18,25 +18,18 @@ Unter diesem Button werden wichtige Informationen zur App in einem eigenen Fenst
 
 - Layer-Button
 Unter diesem Button haben die Benutzenden die Möglichkeit, zwischen drei verschiedenen Hintergrundkarten zu wählen: Swisstopo farbig, Luftbild und Geocover (Gesteinskarte). Diese werden als WMS-Layer von Swisstopo bereitgestellt.
-
 Zusätzlich können über Checkboxen weitere Layer über der Hintergrundkarte eingeblendet werden. Dabei handelt es sich um die Naturschutzgebiete und ÖV-Haltestellen, die als WFS-Dienste vom GeoServer geladen werden.
 
 - Klettergebiet erfassen
 Beim Klick auf den entsprechenden Button öffnet sich ein Eingabefenster zur Erfassung der Attribute eines neuen Klettergebiets. Eingabefelder sind validiert, sodass z. B. doppelte Namen oder negative Routenanzahlen verhindert werden. Eine zusätzliche Prüfung warnt, falls sich das Gebiet innerhalb eines Naturschutzgebiets befindet, da dort keine Klettergebiete liegen dürfen. Disziplin und Schwierigkeitsgrad (von/bis) werden über Dropdown-Menüs ausgewählt.
-
 Die Koordinaten können auf drei Arten eingegeben werden:
 manuell als LV95-Koordinaten,
 automatisch via GPS-Position (umgerechnet in LV95 / EPSG:2056),
 durch Klick auf einen Punkt auf der Karte.
-
 Die Höhe des Standorts wird automatisiert über eine API von Swisstopo bezogen.
-
 Im Eingabefenster stehen drei Buttons zur Verfügung:
-
 Hinzufügen: Überträgt die eingegebenen Daten via FastAPI-Schnittstelle in die PostgreSQL/PostGIS-Datenbank und zeigt das neue Klettergebiet auf der Karte,
-
 Reset: Setzt alle Eingabefelder auf ihren Ursprungszustand zurück,
-
 Abbrechen: Schließt das Eingabefenster ohne zu speichern.
 
 - Navigation zur eigenen Position
