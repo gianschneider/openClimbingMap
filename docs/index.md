@@ -14,5 +14,3 @@ Ansicht der Startseite
 - [Download **ZIP File**](https://github.com/gianschneider/openClimbingMap/archive/refs/heads/main.zip)
 - [Download **TAR Ball**](https://github.com/orderedlist/minimal/tarball/master)
 - [Fork On **GitHub**](https://github.com/gianschneider/openClimbingMap)
-
-# GitHub Flavored Markdown
