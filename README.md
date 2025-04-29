@@ -31,6 +31,7 @@ cd client
 npm install
 ```
 ``` shell
+# Projekt ausführen
 npm run dev
 ```
 
