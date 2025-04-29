@@ -29,6 +29,7 @@ cd client
 ``` shell
 # installiere alle node.js dependencies
 npm install
+npm install react-range
 ```
 ``` shell
 # Projekt ausführen
