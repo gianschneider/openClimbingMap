@@ -4,7 +4,7 @@ Server Client Projekt für eine Geodateninfrastruktur Webportal im Rahmen des Mo
 - **Frontend:** React.js, OpenLayers
 - **Backend:** FastAPI, GeoServer
 
-GitHub Pages: https://314a.github.io/GDI_Project/
+GitHub Pages: https://gianschneider.github.io/openClimbingMap
 
 
 ## Repository lokal klonen
