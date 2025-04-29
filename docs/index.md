@@ -2,14 +2,18 @@
 
 Willkommen auf der GitHub-Page der Geodateninfarastruktur openClimbingMap. Hier findest du alles über die vorhandenen Funktionen und die Informationen über die Entwicklung der Smartphone-App.
 
-GitHub Repository: https://github.com/gianschneider/openClimbingMap
-
 Ansicht der Startseite
 ![Ansicht der Startseite](startseite.jpg)
 
-- [Download **ZIP File**](https://github.com/orderedlist/minimal/zipball/master)
+Projektteam:
+
+- [Gian Schneider](https://github.com/gianschneider)
+- [Pascal Kalbermatten](https://github.com/pasika23)
+- [Youssef Shamoun](https://github.com/YoussefShamoun)
+
+- [Download **ZIP File**](https://github.com/gianschneider/openClimbingMap/archive/refs/heads/main.zip)
 - [Download **TAR Ball**](https://github.com/orderedlist/minimal/tarball/master)
-- [Fork On **GitHub**](http://github.com/orderedlist/minimal)
+- [Fork On **GitHub**](https://github.com/gianschneider/openClimbingMap)
 
 # GitHub Flavored Markdown
 
