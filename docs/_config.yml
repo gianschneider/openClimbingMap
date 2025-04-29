@@ -1,12 +1,4 @@
-theme: jekyll-theme-minimal
-title: openClimbingMap
-description: Werde Teil der openClimbingMap-Community!
+title: FootballMap
+description: Interaktive Fussball-Karte
 navigation: main
-
-
-
-
-# Navigation
-header_pages:
-  - index.md
-  - features.md
+theme: jekyll-theme-minimal
