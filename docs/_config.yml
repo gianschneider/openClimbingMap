@@ -9,6 +9,4 @@ remote_theme: pmarsceill/just-the-docs
 # Navigation
 header_pages:
   - index.md
-  - team.md
   - features.md
-  - installation.md
