@@ -3,5 +3,5 @@ main:
     url: /dokumentation.html
   - title: "Startseite"
     url: /index.html
-  - title: "Features"
-    url: /features.html
+  - title: "Funktionen"
+    url: /funktionen.html

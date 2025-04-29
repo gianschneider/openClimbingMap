@@ -12,7 +12,6 @@ Willkommen auf der GitHub-Page der Geodateninfarastruktur openClimbingMap. Hier 
 
 ### Ansicht der Startseite
 
-Ansicht der Startseite
 ![Ansicht der Startseite](bilder/startseite.jpg)
 
 ### Links
@@ -26,6 +25,6 @@ Ansicht der Startseite
   <div>
   </div>
   <div>
-    <a href="einleitung.html">Konzept und Ideen →</a>
+    <a href="einleitung.html">Einleitung →</a>
   </div>
 </div>
