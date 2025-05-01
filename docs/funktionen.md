@@ -6,7 +6,11 @@ In diesem Abschnitt werden die Funktionen und Interaktionen der openClimbingMap 
 ## Startpage
 
 <div id="startpage"></div>
-Auf der Startseite erscheint eine dynamische Karte, die auf die Schweiz fokussiert ist.
+Das Frontend besteht aus einer One-Page-Applikation im Smartphone-Layout, die mehrere Funktionen bietet, wie die Auswahl der Hintergrundkarte, das Zoomen auf den aktuellen Standort, die Erfassung neuer Gebiete und die Filterung der Klettergebiete. Die Klettergebiete werden als Punkte dargestellt. Beim Klicken auf ein Klettergebiet öffnet sich ein Pop-up-Fenster mit Detailinformationen (Name, Höhe, Disziplin, Anzahl der Routen, Schwierigkeit). Zusätzlich werden die Wetterdaten am Standort des Klettergebiets angezeigt. Die Klettergebiete und deren Attribute werden über einen WFS-Dienst vom GeoServer bereitgestellt, während die Wetterdaten über die API der meteoblue AG abgerufen werden.
+
+<div style="text-align: center;">
+  <img src="bilder/Klettergebiet.jpg">
+</div>
 
 ---
 
@@ -16,7 +20,7 @@ Auf der Startseite erscheint eine dynamische Karte, die auf die Schweiz fokussie
 - Die Darstellung der Klettergebiete auf der Basemap wird auf jene Gebiete beschränkt, die den eingegebenen Suchparametern entsprechen. (Dieser Abschnitt wird genauer erläutert, sobald die Funktion implementiert ist.)
 
 <div style="text-align: center;">
-  <img src="bilder/Filterfunktion.jpg" alt="Filterfunktion der Klettergebiete" style="width: 50%; height: auto;">
+  <img src="bilder/Filterfunktion.jpg">
 </div>
 
 ---
@@ -26,6 +30,13 @@ Auf der Startseite erscheint eine dynamische Karte, die auf die Schweiz fokussie
   - Nutzung der Anwendung
   - Verfügbare Funktionen
   - Allgemeine Informationen zum Klettersport, einschließlich einer Legende zu den Schwierigkeitsgraden der Routen in den Klettergebieten.
+
+<div style="text-align: center;">
+  <video width="400" controls>
+    <source src="videos/Info.mp4" type="video/mp4">
+    Dein Browser unterstützt das Video-Tag nicht.
+  </video>
+</div>
 
 ---
 
@@ -38,6 +49,13 @@ Auf der Startseite erscheint eine dynamische Karte, die auf die Schweiz fokussie
 - Zusätzliche Layer, die über eine Checkbox ein- und ausgeschaltet werden können:
   - Naturschutzgebiete (WFS-Dienst vom GeoServer)
   - ÖV-Haltestellen (WFS-Dienst vom GeoServer)
+
+<div style="text-align: center;">
+  <video width="400" controls>
+    <source src="videos/Hintergrund.mp4" type="video/mp4">
+    Dein Browser unterstützt das Video-Tag nicht.
+  </video>
+</div>
 
 ---
 
@@ -62,10 +80,24 @@ Auf der Startseite erscheint eine dynamische Karte, die auf die Schweiz fokussie
   - *Reset*: Setzt alle Eingabefelder auf ihren Ursprungszustand zurück.
   - *Abbrechen*: Schließt das Eingabefenster ohne zu speichern.
 
+<div style="text-align: center;">
+  <video width="400" controls>
+    <source src="videos/Erfassen.mp4" type="video/mp4">
+    Dein Browser unterstützt das Video-Tag nicht.
+  </video>
+</div>
+
 ---
 
 #### 5. **Navigation zur eigenen Position**
 - Beim Klick auf den Emlid-Button wird zur aktuellen Position des Nutzers auf der Karte gezoomt.
+
+<div style="text-align: center;">
+  <video width="400" controls>
+    <source src="videos/Emlid.mp4" type="video/mp4">
+    Dein Browser unterstützt das Video-Tag nicht.
+  </video>
+</div>
 
 ---
 
@@ -75,6 +107,13 @@ Auf der Startseite erscheint eine dynamische Karte, die auf die Schweiz fokussie
   - Nur Klettergebiete, deren Name mit dem eingegebenen Begriff beginnt, bleiben sichtbar.
   - Ergebnisse erscheinen in einer Liste.
   - Bei Klick auf ein Ergebnis wird auf das entsprechende Gebiet gezoomt.
+
+<div style="text-align: center;">
+  <video width="400" controls>
+    <source src="videos/Suchen.mp4" type="video/mp4">
+    Dein Browser unterstützt das Video-Tag nicht.
+  </video>
+</div>
 
 ---
 
