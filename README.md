@@ -79,33 +79,29 @@ Diese Anleitung richtet sich an die Inbetriebnahme des Backends auf dem Raspberr
 
 7.) pip install --upgrade setuptools
 
-8.) pip3 install starlette
+8.) pip3 install fastapi
 
-9.) pip3 install fastapi
+9.) pip3 install uvicorn
 
-10.) pip3 install uvicorn
+10.) pip3 install requests
 
-11.) pip3 install requests
+11.) pip3 install psycopg2
 
-12.) pip3 install psycopg2
+12.) pip3 install pydantic
 
-13.) pip3 install orjson
-
-14.) pip3 install pydantic
-
-15.) cd /home/USER/documents/openClimbingMap/server/app/
+13.) cd /home/USER/documents/openClimbingMap/server/app/
      python main.py
 -> Beispielabfragen ausprobieren
 
-16.) sudo raspi-config 
+14.) sudo raspi-config 
 SSH aktivieren
 
-17.) setup SSH Verbindung: ip a 
+15.) setup SSH Verbindung: ip a 
 unter drittens wlan0 inet ist die ip zu finden
 
-18.) cd openClimbingMap/server/
+16.) cd openClimbingMap/server/
 
-19.) uvicorn app.main:app --host 0.0.0.0 --port 8000 oder uvicorn app.main:app --reload
+17.) uvicorn app.main:app --host 0.0.0.0 --port 8000 oder uvicorn app.main:app --reload
 
 
 ##nutzendes Gerät
