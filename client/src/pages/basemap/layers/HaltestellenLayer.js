@@ -8,7 +8,7 @@ import { Circle as CircleStyle, Fill, Stroke } from "ol/style";
 export const createHaltestelleLayer = () => {
   const vectorSource = new VectorSource({
     format: new GeoJSON(),
-    url: "http://localhost:8080/geoserver/testuebung/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=testuebung%3Ahaltestellen_schweiz_gesamt&outputFormat=application%2Fjson",
+    url: "http://localhost:8000/haltestellen",
     strategy: bboxStrategy,
   });
 

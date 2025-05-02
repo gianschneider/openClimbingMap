@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import "./weather.css";
 
 // Funktion zur Zuordnung der Icons basierend auf dem Pictocode aus der CSV
 export const getWeatherIcon = (pictocode) => {

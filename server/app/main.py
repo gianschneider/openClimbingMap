@@ -252,3 +252,45 @@ async def get_klettergebiete():
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Fehler beim Abrufen der Klettergebiete: {str(e)}",
         )
+    
+@app.get("/haltestellen")
+async def get_haltestellen():
+    geoserver_url = "http://localhost:8080/geoserver/testuebung/ows"
+    params = {
+        "service": "WFS",
+        "version": "1.0.0",
+        "request": "GetFeature",
+        "typeName": "testuebung:haltestellen_schweiz_gesamt",
+        "outputFormat": "application/json",
+    }
+
+    try:
+        response = requests.get(geoserver_url, params=params)
+        response.raise_for_status()  # Fehler bei HTTP-Statuscodes abfangen
+        return response.json()  # JSON-Daten an das Frontend zurückgeben
+    except requests.exceptions.RequestException as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Fehler beim Abrufen der Haltestellen: {str(e)}",
+        )
+
+@app.get("/naturschutzgebiete")
+async def get_naturschutzgebiete():
+    geoserver_url = "http://localhost:8080/geoserver/ne/ows"
+    params = {
+        "service": "WFS",
+        "version": "1.0.0",
+        "request": "GetFeature",
+        "typeName": "ne:Naturschutzgebiete",
+        "outputFormat": "application/json",
+    }
+
+    try:
+        response = requests.get(geoserver_url, params=params)
+        response.raise_for_status()  # Fehler bei HTTP-Statuscodes abfangen
+        return response.json()  # JSON-Daten an das Frontend zurückgeben
+    except requests.exceptions.RequestException as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Fehler beim Abrufen der Naturschutzgebiete: {str(e)}",
+        )

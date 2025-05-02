@@ -8,20 +8,18 @@ import MaplibrePage from "./pages/maplibre/MaplibrePage.jsx";
 import SpatialAnalysisPage from "./pages/spatialanalysis/SpatialAnalysisPage.jsx";
 import GeoTIFFPage from "./pages/geotiff/GeoTIFFPage.jsx";
 import BasemapPage from "./pages/basemap/BasemapPage.jsx";
-import WeatherPage from "./pages/weather/WeatherPage.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <HashRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<Navigate to="/openlayers" replace />} />
+        <Route path="/" element={<Navigate to="/basemap" replace />} />
         <Route path="openlayers" element={<OpenlayersPage />} />
         <Route path="maplibre" element={<MaplibrePage />} />
         <Route path="spatialanalysis" element={<SpatialAnalysisPage />} />
         <Route path="geotiff" element={<GeoTIFFPage />} />
         <Route path="basemap" element={<BasemapPage />} />
-        <Route path="weather" element={<WeatherPage />} />
       </Routes>
     </HashRouter>
   </StrictMode>
