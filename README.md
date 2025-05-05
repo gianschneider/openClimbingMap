@@ -1,11 +1,17 @@
 # GDI_Project
 Server Client Projekt für eine Geodateninfrastruktur Webportal im Rahmen des Moduls 4230
 
-- **Frontend:** React.js, OpenLayers
-- **Backend:** FastAPI, GeoServer
+- **Frontend:** React.js, OpenLayers, MUI
+- **Backend:** Python-Bibliotheken: (Requests, psycopg2, pydantic, fastapi, uvicorn), GeoServer, PostgreSQL, PostGIS
 
 GitHub Pages: https://gianschneider.github.io/openClimbingMap
 
+## Requirements
+
+- [Git](https://git-scm.com/)
+- IDE wie [Visual Studio Code](https://code.visualstudio.com/)
+- [Anaconda Distribution](https://www.anaconda.com/products/distribution) oder [Miniconda](https://docs.conda.io/en/latest/miniconda.html)
+- Node.js und npm ([https://docs.npmjs.com/downloading-and-installing-node-js-and-npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm))
 
 ## Repository lokal klonen
 Mit Git in einem Terminal das GitHub Repository *openClimbingMap* in ein lokales Verzeichnis klonen.
