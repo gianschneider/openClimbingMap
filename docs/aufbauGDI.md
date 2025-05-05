@@ -14,7 +14,7 @@ Im Backend laufen alle zentralen Prozesse der Datenverarbeitung und -bereitstell
 
 ### PostGIS
 
-Die Geodaten – darunter Informationen zu Klettergebieten, Haltestellen und Naturschutzgebieten – werden in einer PostGIS-Datenbank gespeichert. PostGIS erweitert das relationale Datenbanksystem PostgreSQL um umfangreiche Funktionen zur Verarbeitung räumlicher Daten. Damit können geografische Objekte effizient gespeichert, abgefragt und analysiert werden. Diese robuste Datenbasis bildet das Fundament der Anwendung und sorgt für hohe Flexibilität und Erweiterbarkeit, insbesondere wenn zukünftig zusätzliche Datenquellen integriert werden sollen.
+Die Geodaten – darunter Datensätze zu Klettergebieten, Haltestellen und Naturschutzgebieten – werden in einer PostGIS-Datenbank gespeichert. PostGIS erweitert das relationale Datenbanksystem PostgreSQL um umfangreiche Funktionen zur Verarbeitung räumlicher Daten. Damit können geografische Objekte effizient gespeichert, abgefragt und analysiert werden. Diese robuste Datenbasis bildet das Fundament der Anwendung und sorgt für hohe Flexibilität und Erweiterbarkeit, insbesondere wenn zukünftig zusätzliche Datenquellen integriert werden sollen.
 
 ### GeoServer
 
@@ -38,7 +38,7 @@ Das Frontend der Anwendung setzt auf moderne Webtechnologien, die eine reaktive,
 
 ### Material UI (MUI)
 
-Für das visuelle Erscheinungsbild sorgt Material UI (MUI), ein modernes UI-Framework, das auf den Designprinzipien von Google Material Design basiert. MUI bietet eine breite Palette an vorgefertigten Komponenten wie Buttons, Dialoge oder Tabellen, die sich optisch konsistent und responsiv in die Anwendung integrieren lassen. Dies erleichtert nicht nur die Gestaltung, sondern sorgt auch für eine positive Nutzererfahrung auf verschiedenen Endgeräten.
+Für das visuelle Erscheinungsbild sorgt Material UI [(MUI)](https://mui.com/), ein modernes UI-Framework, das auf den Designprinzipien von Google Material Design basiert. MUI bietet eine breite Palette an vorgefertigten Komponenten wie Buttons, Dialoge oder Tabellen, die sich optisch konsistent und responsiv in die Anwendung integrieren lassen. Dies erleichtert nicht nur die Gestaltung, sondern sorgt auch für eine positive Nutzererfahrung auf verschiedenen Endgeräten.
 
 ### Open Layers
 
