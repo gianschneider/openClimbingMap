@@ -18,11 +18,15 @@ Im folgenden Abschnitt werden für Verbesserungs- und Erweiterungsvorschläge be
 
 ### Datenvisualisierung
 
-- Die Daten der Klettergebiete könnten informationsbringender dargestellt werden, als durch Punkte. Eine Möglichkeit ist, die Anzahl und Schwierigkeiten der Routen als Balkendiagramme darzustellen. Diese passen sich dynamisch an die Zoomstufe an. So kann schneller ein passendes Klettergebiet gefunden werden ohne sich durch alle Punkte durchzuklicken. Ein Beispiel ist in folgendem Mockup dargestellt.
+- Die Daten der Klettergebiete könnten informationsbringender dargestellt werden, als durch Punkte. Eine Möglichkeit ist, die Anzahl und Schwierigkeiten der Routen als Balkendiagramme darzustellen. Diese passen sich dynamisch an die Zoomstufe an. So kann schneller ein passendes Klettergebiet gefunden werden, ohne sich durch alle Punkte durchzuklicken. Ein Beispiel ist in folgendem Mockup dargestellt.
+- Es könnten Bilder in die Datenbank gespeichert werden, um die Routen und Sektoren der Klettergebiete darzustellen.
+- Es könnten 3D-Darstellungen der Kletterrouten innerhalb eines 3D-Viewers implementiert werden. Mit den AR-Möglichkeiten eines Smartphones könnten diese mit der Realität in Übereinstimmung gebracht werden. So könnten vor Ort die Routen durch die Smartphonekamera in 3D-Dargestellt werden. Dieses Feature ist komplex und müsste gnügend robust implementiert werden, damit es genutzt wird.
 
 ![datendarstellung](bilder/alternative-datendarstellung.png)
 
--
+### Parkplätze, ÖV und Routing
+
+- Um den Zugang zu einem Klettergebiet aufzuzeigen, könnte ein Routing implementiert werden. Die zwei gängisten Möglichkeiten zu einem Klettergebiet zu gelangen sind mit dem Auto, dem ÖV und zu Fuss. Meist ist eine Kombination von zwei Möglichkeiten das Mittel der Wahl. Dieses Routing könnte beispielsweise vom aktuellen Standort oder von einer Adresse nach Wahl erfolgen.
 
 [↑](#top)
 
