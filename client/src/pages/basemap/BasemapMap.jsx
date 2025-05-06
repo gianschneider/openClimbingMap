@@ -83,8 +83,38 @@ function BasemapMap() {
       }),
     });
 
-    // Maßstabsbalken hinzufügen
-    const scaleControl = new ScaleLine();
+    // Alternative Implementierung mit direktem Styling
+    const scaleControl = new ScaleLine({
+      units: "metric",
+      bar: true,
+      steps: 4,
+      minWidth: 140,
+      className: "ol-scale-line",
+    });
+
+    // Nach dem Erstellen des Controls den DOM-Knoten anpassen
+    scaleControl.once("change:units", () => {
+      // Warte kurz, damit das DOM-Element verfügbar ist
+      setTimeout(() => {
+        const scaleElement = document.querySelector(".ol-scale-line-inner");
+        if (scaleElement) {
+          scaleElement.style.borderLeft = "2px solid #000";
+          scaleElement.style.borderRight = "2px solid #000";
+          scaleElement.style.borderBottom = "2px solid #000";
+          scaleElement.style.borderTop = "none";
+          scaleElement.style.color = "#000";
+          scaleElement.style.margin = "0";
+          scaleElement.style.padding = "0";
+          scaleElement.style.backgroundImage =
+            "linear-gradient(to right, #000 20%, #fff 20%, #fff 40%, #000 40%, #000 60%, #fff 60%, #fff 80%, #000 80%)";
+          scaleElement.style.backgroundRepeat = "repeat-x";
+          scaleElement.style.backgroundSize = "100% 100%";
+          scaleElement.style.height = "10px";
+          scaleElement.style.lineHeight = "1.5em";
+        }
+      }, 100);
+    });
+
     map.addControl(scaleControl);
     mapRef.current = map;
 
