@@ -15,35 +15,6 @@
     height: 80vh; /* Reduzierte Höhe für kleinere Bildschirme */
   }
 }
-
-#map .ol-scale-line {
-  position: absolute; /* Absolut positionieren */
-  bottom: 10px; /* Abstand vom unteren Rand */
-  left: 10px; /* Abstand vom linken Rand */
-  z-index: 1000; /* Sicherstellen, dass der Maßstab sichtbar ist */
-  background-color: white; /* Hintergrundfarbe für bessere Sichtbarkeit */
-  padding: 5px; /* Innenabstand für den Maßstab */
-  border-radius: 5px; /* Abgerundete Ecken */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Schatten für bessere Sichtbarkeit */
-  width: auto; /* Breite automatisch anpassen */
-  max-width: 200px; /* Maximale Breite des Maßstabs */
-}
-.ol-scale-bar {
-  background-color: #ffffff; /* Hintergrundfarbe des Balkens */
-  border: 1px solid #000000; /* Rahmenfarbe des Balkens */
-  height: 10px; /* Höhe des Balkens */
-  display: flex;
-  /* transform: rotate(90deg);
-  transform-origin: bottom left; Drehpunkt setzen */
-  align-items: center;
-  justify-content: center;
-}
-
-.ol-scale-bar-inner {
-  background-color: #000000; /* Farbe der inneren Balken */
-  height: 100%; /* Höhe der inneren Balken */
-}
-
 .basemap-logo {
   position: absolute;
   top: -28px; /* Abstand vom oberen Rand */
