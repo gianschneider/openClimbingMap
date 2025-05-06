@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+import { ScaleLine } from "ol/control"; // Importiere die ScaleLine-Komponente
+
 import "./BasemapPage.css";
 import Map from "ol/Map.js";
 import View from "ol/View.js";
@@ -81,6 +83,15 @@ function BasemapMap() {
       }),
     });
 
+    // Maßstab hinzufügen
+    const scaleLineControl = new ScaleLine({
+      units: "metric", // Einheit: metrisch
+      bar: true, // Zeige Balkenmaßstab
+      steps: 4, // Anzahl der Schritte im Balkenmaßstab
+      text: true, // Zeige Text (z. B. "100 m")
+      minWidth: 100, // Minimale Breite des Maßstabs
+    });
+    map.addControl(scaleLineControl); // Maßstab zur Karte hinzufügen
     mapRef.current = map;
 
     const overlay = new Overlay({
