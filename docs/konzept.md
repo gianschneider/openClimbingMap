@@ -18,13 +18,15 @@ Zur technischen Umsetzung des Frontends wurde zuvor ein Mockup für das User-Int
 
 ![mockup2](bilder/mockups.png)
 
-**_ die wichtigsten Abweichungen bezüglich dem Endprodukt:_**
+** Die wichtigsten Abweichungen bezüglich dem Endprodukt**
 
-- die Balken oben und unten im Mockup wurden entfernt, um der Karte mehr Displayfläche zu ermöglichen
-- die Buttons sind alle rechts angeordnet, um eine einhändige Bedinung zu ermöglichen
+- Die Balken oben und unten im Mockup wurden entfernt, um mehr Displayfläche für die Karte zu ermöglichen.
+- Die Buttons sind alle rechts angeordnet, um eine einhändige Bedienung zu ermöglichen.
 - Um der App einen Wiedererkennungswert zu geben, wurde links eine Kletterwand mit Piktogramm eingefügt.
 
 ### Visualisierungsideen
+
+Als Inspiration für das Design diente die Swisstopo App von der Swisstopo. Diese App ist sehr intuitiv zu bedienen und ästehtisch ansprechend gestaltet.
 
 [↑](#top)
 
