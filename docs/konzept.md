@@ -16,7 +16,7 @@ Das folgende Schema visualisiert den Aufbau der Geodateninfrastruktur in der Kon
 
 Zur technischen Umsetzung des Frontends wurde zuvor ein Mockup für das User-Interface designed. Die Anordnung und Darstellung der Buttons erhielt viel Aufmerksamkeit. Eine Smartphone-App wird nur genutzt, wenn sie intuitiv, einfach und schnell zu nutzen ist. Diese Überlegungen verhindern Mehraufwand während der Frontendentwicklung aufgrund von veränderten Designentscheidungen. Dennoch weicht das Frontend teils stark vom Mockup ab, weil während der Entwicklung festgestellt das nicht alles im Mockup optimal ist. Die nachfolgenden Abbildungen zeigen das Mockup.
 
-![mockup2](bilder/mockups.png)
+![mockups](bilder/mockups.png)
 
 ** Die wichtigsten Abweichungen bezüglich dem Endprodukt**
 
