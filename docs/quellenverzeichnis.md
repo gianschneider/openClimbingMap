@@ -6,7 +6,7 @@
 
 Folgend sind in alle Quellen für diese Arbeit in mehrere Kategorien unterteilt und aufgelistet.
 
-In dieser Arbeit wurde künstliche Intelligenz (KI), namentlich ChatGPT, zur Generierung einzelner Programmier-Codes sowie zur Überarbeitung von einzelnen Textabschnitten verwendet. Keine Sätze oder Abschnitte in der GitHub-Page wurden jedoch eins zu eins von der KI geschrieben und kopiert.
+In dieser Arbeit wurde künstliche Intelligenz (KI), namentlich ChatGPT, zur Generierung einzelner Programmier-Codes sowie zur Überarbeitung von einzelnen Textabschnitten verwendet. 
 
 ### Internetquellen und Literatur
 
@@ -27,23 +27,25 @@ In dieser Arbeit wurde künstliche Intelligenz (KI), namentlich ChatGPT, zur Gen
 | -------------------- | ------ |
 | xx                   | [xx]() |
 
-| Nominatim API | [https://nominatim.org/release-docs/develop/api/Search/](https://nominatim.org/release-docs/develop/api/Search/) |
+| Meteoblue API | [https://docs.meteoblue.com/en/weather-apis/introduction/overview
+](https://docs.meteoblue.com/en/weather-apis/introduction/overview
+) |
 | Natural Earth Data | [https://www.naturalearthdata.com/](https://www.naturalearthdata.com/) |
 
-### Libraries
+### Bibliotheken
 
-<div id="libraries"></div>
+<div id="bibliotheken"></div>
 
 #### Python
 
 | Name der Bibiliothek / Library | Link zur Dokumentation                                                                                   |
 | ------------------------------ | -------------------------------------------------------------------------------------------------------- |
 | Requests                       | [https://pypi.org/project/requests/](https://pypi.org/project/requests/)                                 |
-| JSON                           | [https://docs.python.org/3/library/json.html](https://docs.python.org/3/library/json.html)               |
-| CSV                            | [https://docs.python.org/3/library/csv.html](https://docs.python.org/3/library/csv.html)                 |
-| BeautifulSoup                  | [https://beautiful-soup-4.readthedocs.io/en/latest/](https://beautiful-soup-4.readthedocs.io/en/latest/) |
+| FastAPI                        | [https://fastapi.tiangolo.com/](https://fastapi.tiangolo.com/)                                           |
 | psycopg2                       | [https://pypi.org/project/psycopg2/](https://pypi.org/project/psycopg2/)                                 |
-| Selenium                       | [https://pypi.org/project/psycopg2/](https://pypi.org/project/psycopg2/)                                 |
+| pydantic                       | [https://docs.pydantic.dev/latest/](https://docs.pydantic.dev/latest/)                                   |
+| uvicorn                        | [https://www.uvicorn.org/](https://www.uvicorn.org/)                                                     |
+
 
 #### JavaScript
 
@@ -51,7 +53,7 @@ In dieser Arbeit wurde künstliche Intelligenz (KI), namentlich ChatGPT, zur Gen
 | ------------------------------ | ---------------------------------------------------------------------- |
 | React                          | [https://react.dev/](https://react.dev/)                               |
 | MUI-Material                   | [https://mui.com/](https://mui.com/)                                   |
-| Axios                          | [https://axios-http.com/docs/intro](https://axios-http.com/docs/intro) |
+| node package manager           | [https://www.npmjs.com/](https://www.npmjs.com/)                       |
 | OpenLayers                     | [https://openlayers.org/](https://openlayers.org/)                     |
 
 [↑](#top)
