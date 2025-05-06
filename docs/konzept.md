@@ -2,13 +2,14 @@
 
 <a id="top"></a>
 
-Dieser Abschnitt beschäftigt sich mit der konzeption und der Gestaltung von openClimbingMap. Diese Überlegungen wurden vor der Datenbeschaffung und der Entwicklung des Frontends diskutiert.
+Dieser Abschnitt beschäftigt sich mit der Konzeption und der Gestaltung von openClimbingMap. Diese Überlegungen wurden vor der Datenbeschaffung und der Entwicklung des Frontends diskutiert.
 
 ### Aufbau Geodateninfrastruktur (GDI)
 
 <div id="gdi"></div>
 
 Das folgende Schema visualisiert den Aufbau der Geodateninfrastruktur in der Konzeptionsphase. Während der Front- und Backendentwicklung wurde diese jedoch agil an die Umstände angepasst. Je nachdem gab es unerwartete Herausforderungen oder einfachere Möglichkeiten, um das Ziel zu erreichen. Die finale Architektur der GDI ist [hier](#gdi-final) sichtbar.
+
 ![GDI Konzept](bilder/GDI_Architektur_konzept.png)
 
 ### Mockup
@@ -17,7 +18,11 @@ Zur technischen Umsetzung des Frontends wurde zuvor ein Mockup für das User-Int
 
 ![mockup2](bilder/mockups.png)
 
-**_Abweichungen bezüglich Endprodukt:_**
+**_ die wichtigsten Abweichungen bezüglich dem Endprodukt:_**
+
+- die Balken oben und unten im Mockup wurden entfernt, um der Karte mehr Displayfläche zu ermöglichen
+- die Buttons sind alle rechts angeordnet, um eine einhändige Bedinung zu ermöglichen
+- Um der App einen Wiedererkennungswert zu geben, wurde links eine Kletterwand mit Piktogramm eingefügt.
 
 ### Visualisierungsideen
 
