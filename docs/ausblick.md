@@ -10,6 +10,8 @@ Im folgenden Abschnitt werden für Verbesserungs- und Erweiterungsvorschläge be
 
 - Die App könnte in zwei Nutzungspfade aufgeteilt werden. Die dargestellten Elemente werden auf den jeweiligen Nutzungspfad optimiert. Statt Kompromisse einzugehen, weil alle Funktionen auf einer Seite dargestellt werden, kann eine optimale Darstellung erreicht werden. Die Nutzungspfade sind einerseits «Klettergebiete erkunden» und «Klettergebiet erfassen». Der jeweilige Nutzungspfad könnte zu Beginn einer Session gewählt werden.
 
+- Die App ist zurzeit sehr auf die Schweiz bezogen. Um die App im globalen Massstab beliebt zu machen, würden einige Änderungen nötig. Beispielsweise könnten auf lokale Landeskarte genutzt werden oder eine globale Karte wie openStreeMap. Das Backend müsste aufgrund grösserer Datenabfragen und grösserer Datenmengen performanter designed werden. Auch sollten Mechanismen zur Datensicherheit implementiert werden.
+
 <div id="allgemein"></div>
 
 ### Datenvisualisierung
