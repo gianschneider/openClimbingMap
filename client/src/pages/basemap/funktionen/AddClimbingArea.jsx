@@ -87,8 +87,35 @@ function AddClimbingArea({ mapRef }) {
   const [errorRoutes, setErrorRoutes] = useState("");
 
   const difficulties = [
-    "5a", "5b", "5c", "6a", "6a+", "6b", "6b+", "6c", "6c+", "7a", "7a+", "7b", "7b+", "7c", "7c+",
-    "8a", "8a+", "8b", "8b+", "8c", "8c+", "9a", "9a+", "9b", "9b+", "9c",
+    "5a",
+    "5a+",
+    "5b",
+    "5b+",
+    "5c",
+    "5c+",
+    "6a",
+    "6a+",
+    "6b",
+    "6b+",
+    "6c",
+    "6c+",
+    "7a",
+    "7a+",
+    "7b",
+    "7b+",
+    "7c",
+    "7c+",
+    "8a",
+    "8a+",
+    "8b",
+    "8b+",
+    "8c",
+    "8c+",
+    "9a",
+    "9a+",
+    "9b",
+    "9b+",
+    "9c",
   ];
 
   useEffect(() => {
@@ -206,9 +233,7 @@ function AddClimbingArea({ mapRef }) {
               />
             </label>
             {error && (
-              <div style={{ marginLeft: "130px", color: "red", fontSize: "10px" }}>
-                {error}
-              </div>
+              <div style={{ marginLeft: "130px", color: "red", fontSize: "10px" }}>{error}</div>
             )}
           </div>
 
@@ -244,7 +269,7 @@ function AddClimbingArea({ mapRef }) {
           {/* Schwierigkeit */}
           <label style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
             <span style={{ flex: "0 0 130px", textAlign: "left" }}>Schwierigkeit</span>
-            <div style={{ flex: 1, display: "flex", alignItems: "center", gap: "10px" }}>
+            <div style={{ flex: 1, display: "flex", alignItems: "center", gap: "2px" }}>
               <CustomDropdown
                 options={difficulties}
                 value={difficultyRange[0] !== null ? difficulties[difficultyRange[0]] : ""}
@@ -367,7 +392,10 @@ function AddClimbingArea({ mapRef }) {
                         );
 
                         // Übernimmt die umgewandelten Koordinaten in das Formular
-                        setCoordinates([lv95Coordinates[0].toFixed(2), lv95Coordinates[1].toFixed(2)]); // [Easting, Northing]
+                        setCoordinates([
+                          lv95Coordinates[0].toFixed(2),
+                          lv95Coordinates[1].toFixed(2),
+                        ]); // [Easting, Northing]
 
                         // Höhe abrufen und setzen
                         const height = await fetchHeight(
