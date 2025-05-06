@@ -17,7 +17,7 @@ Das Frontend besteht aus einer One-Page-Applikation im Smartphone-Layout, die me
 ### Funktionen:
 
 #### 1. **Filterung von Klettergebieten**
-- Die Darstellung der Klettergebiete auf der Basemap wird auf jene Gebiete beschränkt, die den eingegebenen Suchparametern entsprechen. (Dieser Abschnitt wird genauer erläutert, sobald die Funktion implementiert ist.)
+- Die Darstellung der Klettergebiete auf der Basemap wird auf jene Gebiete beschränkt, die den eingegebenen Suchparametern entsprechen.Diese Filterparameter umfassen die Disziplin (Sportklettern oder Alpinklettern), die über Checkboxen ein- oder abgewählt werden können. Mit einem Doppelslider lassen sich die Minimal- und Maximalwerte für die Höhe über Meer, die Anzahl Routen und die Schwierigkeitsstufe einstellen. Diese Suchfunktionen werden anschliessend als Einschränkungen genutzt, um die gewünschten Klettergebiete darzustellen.
 
 <div style="text-align: center;">
   <video width="400" controls>
