@@ -5,8 +5,7 @@ function NavButton({ path, children }) {
     <NavLink
       to={path}
       style={({ isActive }) => ({
-        display: "inline-block",
-        margin: ".5em 1em",
+        margin: "0.5em 1em",
         color: isActive ? "dodgerblue" : "black",
       })}
     >
@@ -17,15 +16,16 @@ function NavButton({ path, children }) {
 
 function Header() {
   return (
-    <>
+    <header>
       <h1>openClimbingMap</h1>
-      <h2>
+      <nav>
         <NavButton path="basemap">
-          <img src="./sportclimbing-pictogramm.png" className="logo" alt="OpenLayers logo" />
+          <img src="./sportclimbing-pictogramm.png" className="logo" alt="BaseMap logo" />
           BaseMap
         </NavButton>
-      </h2>
-    </>
+      </nav>
+    </header>
   );
 }
+
 export default Header;

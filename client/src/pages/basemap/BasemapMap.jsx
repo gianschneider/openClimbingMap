@@ -142,7 +142,10 @@ function BasemapMap() {
           // Popup für Haltestellen
           const properties = feature.getProperties();
           const cleanedProperties = Object.fromEntries(
-            Object.entries(properties).map(([key, value]) => [key.trim().replace(/\uFEFF/g, ""), value])
+            Object.entries(properties).map(([key, value]) => [
+              key.trim().replace(/\uFEFF/g, ""),
+              value,
+            ])
           );
 
           // Zugriff auf den bereinigten Schlüssel
@@ -256,9 +259,7 @@ function BasemapMap() {
         onClick={zoomToUserLocation}
       />
       {/* Filter Button */}
-      <img
-        onClick={toggleFilter}
-      />
+      <img onClick={toggleFilter} />
       {/* Sport Climbing Logo */}
       <img
         src="./sportclimbing-pictogramm.png"
