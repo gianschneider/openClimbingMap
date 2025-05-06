@@ -25,9 +25,11 @@ In dieser Arbeit wurde künstliche Intelligenz (KI), namentlich ChatGPT, zur Gen
 
 | Name der Datenquelle | Link   |
 | -------------------- | ------ |
-| xx                   | [xx]() |
+| WMS swisstopo        | [https://www.geo.admin.ch/de/wms-verfuegbare-dienste-und-daten](https://www.geo.admin.ch/de/wms-verfuegbare-dienste-und-daten) |
 | Meteoblue API        | [https://docs.meteoblue.com/en/weather-apis/introduction/overview](https://docs.meteoblue.com/en/weather-apis/introduction/overview)     |
-| Natural Earth Data   | [https://www.naturalearthdata.com/](https://www.naturalearthdata.com/) |
+| ÖV-Haltestellen      | [https://www.bav.admin.ch/bav/de/home/allgemeine-themen/fachthemen/geoinformation/geobasisdaten/haltestellen-des-oeffentlichen-verkehrs.html](https://www.bav.admin.ch/bav/de/home/allgemeine-themen/fachthemen/geoinformation/geobasisdaten/haltestellen-des-oeffentlichen-verkehrs.html) |
+| Naturschutzgebiete   | [xx]() |
+| Klettergebiete SAC   | [https://www.sac-cas.ch/de/huetten-und-touren/sac-tourenportal/?discipline=climbing](https://www.sac-cas.ch/de/huetten-und-touren/sac-tourenportal/?discipline=climbing) |
 
 ### Bibliotheken
 
