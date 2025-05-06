@@ -119,7 +119,7 @@ function BasemapMap() {
         // Auch das äußere Element (den Container) anpassen
         const scaleContainer = document.querySelector(".ol-scale-line");
         if (scaleContainer) {
-          scaleContainer.style.bottom = "5px"; // Weiter nach unten setzen (näher am Rand)
+          scaleContainer.style.bottom = "-10px"; // Weiter nach unten setzen (näher am Rand)
           scaleContainer.style.left = "10px"; // Position von links beibehalten
         }
       }, 100);
