@@ -8,17 +8,6 @@ Folgend sind in alle Quellen für diese Arbeit in mehrere Kategorien unterteilt 
 
 In dieser Arbeit wurde künstliche Intelligenz (KI), namentlich ChatGPT, zur Generierung einzelner Programmier-Codes sowie zur Überarbeitung von einzelnen Textabschnitten verwendet. 
 
-### Internetquellen und Literatur
-
-<div id="literatur"></div>
-
-| Name der Quelle         | Link                                                                                                                                                                 |
-| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| UEFA Ranking der Länder | [https://www.uefa.com/nationalassociations/uefarankings/country/?year=2024](https://www.uefa.com/nationalassociations/uefarankings/country/?year=2024)               |
-| Schweizer Super League  | [https://sfl.ch/de/de](https://sfl.ch/de/de)                                                                                                                         |
-| Ionos - Web-Scraping    | [https://www.ionos.de/digitalguide/websites/web-entwicklung/was-ist-web-scraping/](https://www.ionos.de/digitalguide/websites/web-entwicklung/was-ist-web-scraping/) |
-| Unic - UI und UX        | [https://www.unic.com/de/magazin/was-ist-user-experience-ux-was-user-interface-ui](https://www.unic.com/de/magazin/was-ist-user-experience-ux-was-user-interface-ui) |
-
 ### Datenquellen
 
 <div id="datenquellen"></div>
