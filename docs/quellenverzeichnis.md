@@ -26,7 +26,7 @@ In dieser Arbeit wurde künstliche Intelligenz (KI), namentlich ChatGPT, zur Gen
 | Name der Datenquelle | Link   |
 | -------------------- | ------ |
 | xx                   | [xx]() |
-| Meteoblue API        | [https://docs.meteoblue.com/en/weather-apis/introduction/overview](https://docs.meteoblue.com/en/weather-apis/introduction/overview) |
+| Meteoblue API        | [https://docs.meteoblue.com/en/weather-apis/introduction/overview](https://docs.meteoblue.com/en/weather-apis/introduction/overview)     |
 | Natural Earth Data   | [https://www.naturalearthdata.com/](https://www.naturalearthdata.com/) |
 
 ### Bibliotheken
