@@ -88,7 +88,8 @@ function BasemapMap() {
       units: "metric",
       bar: true,
       steps: 4,
-      minWidth: 30,
+      minWidth: 40,
+      maxhight: 1,
       text: false, // Text anzeigen
       className: "ol-scale-line",
     });
@@ -97,6 +98,7 @@ function BasemapMap() {
     scaleControl.once("change:units", () => {
       // Warte kurz, damit das DOM-Element verfügbar ist
       setTimeout(() => {
+        // Stil für den inneren Teil (schwarz-weißer Balken)
         const scaleElement = document.querySelector(".ol-scale-line-inner");
         if (scaleElement) {
           scaleElement.style.borderLeft = "none";
@@ -110,8 +112,15 @@ function BasemapMap() {
             "linear-gradient(to right, #000 20%, #fff 20%, #fff 40%, #000 40%, #000 60%, #fff 60%, #fff 80%, #000 80%)";
           scaleElement.style.backgroundRepeat = "repeat-x";
           scaleElement.style.backgroundSize = "100% 100%";
-          scaleElement.style.height = "5px";
+          scaleElement.style.height = "3px";
           scaleElement.style.lineHeight = "1.5em";
+        }
+
+        // Auch das äußere Element (den Container) anpassen
+        const scaleContainer = document.querySelector(".ol-scale-line");
+        if (scaleContainer) {
+          scaleContainer.style.bottom = "5px"; // Weiter nach unten setzen (näher am Rand)
+          scaleContainer.style.left = "10px"; // Position von links beibehalten
         }
       }, 100);
     });
