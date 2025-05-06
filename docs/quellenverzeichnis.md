@@ -6,18 +6,7 @@
 
 Folgend sind in alle Quellen für diese Arbeit in mehrere Kategorien unterteilt und aufgelistet.
 
-In dieser Arbeit wurde künstliche Intelligenz (KI), namentlich ChatGPT, zur Generierung einzelner Programmier-Codes sowie zur Überarbeitung von einzelnen Textabschnitten verwendet. Keine Sätze oder Abschnitte in der GitHub-Page wurden jedoch eins zu eins von der KI geschrieben und kopiert.
-
-### Internetquellen und Literatur
-
-<div id="literatur"></div>
-
-| Name der Quelle         | Link                                                                                                                                                                 |
-| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| UEFA Ranking der Länder | [https://www.uefa.com/nationalassociations/uefarankings/country/?year=2024](https://www.uefa.com/nationalassociations/uefarankings/country/?year=2024)               |
-| Schweizer Super League  | [https://sfl.ch/de/de](https://sfl.ch/de/de)                                                                                                                         |
-| Ionos - Web-Scraping    | [https://www.ionos.de/digitalguide/websites/web-entwicklung/was-ist-web-scraping/](https://www.ionos.de/digitalguide/websites/web-entwicklung/was-ist-web-scraping/) |
-| Unic - UI und UX        | [https://www.unic.com/de/magazin/was-ist-user-experience-ux-was-user-interface-ui](https://www.unic.com/de/magazin/was-ist-user-experience-ux-was-user-interface-ui) |
+In dieser Arbeit wurde künstliche Intelligenz (KI), namentlich ChatGPT, zur Generierung einzelner Programmier-Codes sowie zur Überarbeitung von einzelnen Textabschnitten verwendet. 
 
 ### Datenquellen
 
@@ -25,25 +14,26 @@ In dieser Arbeit wurde künstliche Intelligenz (KI), namentlich ChatGPT, zur Gen
 
 | Name der Datenquelle | Link   |
 | -------------------- | ------ |
-| xx                   | [xx]() |
+| WMS swisstopo        | [https://www.geo.admin.ch/de/wms-verfuegbare-dienste-und-daten](https://www.geo.admin.ch/de/wms-verfuegbare-dienste-und-daten) |
+| Meteoblue API        | [https://docs.meteoblue.com/en/weather-apis/introduction/overview](https://docs.meteoblue.com/en/weather-apis/introduction/overview)     |
+| ÖV-Haltestellen      | [https://www.bav.admin.ch/bav/de/home/allgemeine-themen/fachthemen/geoinformation/geobasisdaten/haltestellen-des-oeffentlichen-verkehrs.html](https://www.bav.admin.ch/bav/de/home/allgemeine-themen/fachthemen/geoinformation/geobasisdaten/haltestellen-des-oeffentlichen-verkehrs.html) |
+| Naturschutzgebiete   | [xx]() |
+| Klettergebiete SAC   | [https://www.sac-cas.ch/de/huetten-und-touren/sac-tourenportal/?discipline=climbing](https://www.sac-cas.ch/de/huetten-und-touren/sac-tourenportal/?discipline=climbing) |
 
-| Nominatim API | [https://nominatim.org/release-docs/develop/api/Search/](https://nominatim.org/release-docs/develop/api/Search/) |
-| Natural Earth Data | [https://www.naturalearthdata.com/](https://www.naturalearthdata.com/) |
+### Bibliotheken
 
-### Libraries
-
-<div id="libraries"></div>
+<div id="bibliotheken"></div>
 
 #### Python
 
 | Name der Bibiliothek / Library | Link zur Dokumentation                                                                                   |
 | ------------------------------ | -------------------------------------------------------------------------------------------------------- |
 | Requests                       | [https://pypi.org/project/requests/](https://pypi.org/project/requests/)                                 |
-| JSON                           | [https://docs.python.org/3/library/json.html](https://docs.python.org/3/library/json.html)               |
-| CSV                            | [https://docs.python.org/3/library/csv.html](https://docs.python.org/3/library/csv.html)                 |
-| BeautifulSoup                  | [https://beautiful-soup-4.readthedocs.io/en/latest/](https://beautiful-soup-4.readthedocs.io/en/latest/) |
+| FastAPI                        | [https://fastapi.tiangolo.com/](https://fastapi.tiangolo.com/)                                           |
 | psycopg2                       | [https://pypi.org/project/psycopg2/](https://pypi.org/project/psycopg2/)                                 |
-| Selenium                       | [https://pypi.org/project/psycopg2/](https://pypi.org/project/psycopg2/)                                 |
+| pydantic                       | [https://docs.pydantic.dev/latest/](https://docs.pydantic.dev/latest/)                                   |
+| uvicorn                        | [https://www.uvicorn.org/](https://www.uvicorn.org/)                                                     |
+
 
 #### JavaScript
 
@@ -51,7 +41,7 @@ In dieser Arbeit wurde künstliche Intelligenz (KI), namentlich ChatGPT, zur Gen
 | ------------------------------ | ---------------------------------------------------------------------- |
 | React                          | [https://react.dev/](https://react.dev/)                               |
 | MUI-Material                   | [https://mui.com/](https://mui.com/)                                   |
-| Axios                          | [https://axios-http.com/docs/intro](https://axios-http.com/docs/intro) |
+| node package manager           | [https://www.npmjs.com/](https://www.npmjs.com/)                       |
 | OpenLayers                     | [https://openlayers.org/](https://openlayers.org/)                     |
 
 [↑](#top)

@@ -1,11 +1,17 @@
 # GDI_Project
 Server Client Projekt für eine Geodateninfrastruktur Webportal im Rahmen des Moduls 4230
 
-- **Frontend:** React.js, OpenLayers
-- **Backend:** FastAPI, GeoServer
+- **Frontend:** React.js, OpenLayers, MUI
+- **Backend:** Python-Bibliotheken: (Requests, psycopg2, pydantic, fastapi, uvicorn), GeoServer, PostgreSQL, PostGIS
 
 GitHub Pages: https://gianschneider.github.io/openClimbingMap
 
+## Requirements
+
+- [Git](https://git-scm.com/)
+- IDE wie [Visual Studio Code](https://code.visualstudio.com/)
+- [Anaconda Distribution](https://www.anaconda.com/products/distribution) oder [Miniconda](https://docs.conda.io/en/latest/miniconda.html)
+- Node.js und npm ([https://docs.npmjs.com/downloading-and-installing-node-js-and-npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm))
 
 ## Repository lokal klonen
 Mit Git in einem Terminal das GitHub Repository *openClimbingMap* in ein lokales Verzeichnis klonen.
@@ -61,3 +67,55 @@ uvicorn app.main:app --reload
 
 ## API Dokumentation
 Fast API kommt mit vorinstallierter Swagger UI. Wenn der Fast API Backen Server läuft, kann auf die Dokumentation der API über Swagger UI auf http://localhost:8000/docs verfügbar.
+
+## Backend
+Diese Anleitung richtet sich an die Inbetriebnahme des Backends auf dem Raspberry 4:
+
+1.) Raspi starten und einrichten, d.h. Internetverbindung aufbauen
+
+2.) Bash öffnen und zu gewünschtem Root-Verzeichnis navigieren (cd /home/USER/documents)
+
+3.) git clone https://github.com/gianschneider/openClimbingMap.git
+
+4.) python -m venv backend
+
+5.) source backend/bin/activate
+
+6.) sudo apt-get install python3-dev
+
+7.) pip install --upgrade setuptools
+
+8.) pip3 install fastapi
+
+9.) pip3 install uvicorn
+
+10.) pip3 install requests
+
+11.) pip3 install psycopg2
+
+12.) pip3 install pydantic
+
+13.) cd /home/USER/documents/openClimbingMap/server/app/
+     python main.py
+-> Beispielabfragen ausprobieren
+
+14.) sudo raspi-config 
+SSH aktivieren
+
+15.) setup SSH Verbindung: ip a 
+unter drittens wlan0 inet ist die ip zu finden
+
+16.) cd openClimbingMap/server/
+
+17.) uvicorn app.main:app --host 0.0.0.0 --port 8000 oder uvicorn app.main:app --reload
+
+
+##nutzendes Gerät
+
+Auf nutzendem Gerät: cmd öffnen und eingeben:
+ssh pi@10.175.27.25
+password = password
+
+
+## Verwendung
+Öffne deinen Browser und gehe zu `http://localhost:5173`.

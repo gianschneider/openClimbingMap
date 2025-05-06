@@ -15,7 +15,7 @@ import { createKlettergebieteLayer } from "./layers/KlettergebieteLayer";
 import { createNaturschutzgebieteLayer } from "./layers/NaturschutzgebieteLayer";
 import { createHaltestelleLayer } from "./layers/HaltestellenLayer";
 import { handleNaturschutzgebieteToggle } from "./funktionen/layereinschalten";
-import { getWeatherDataForTwoDays, getWeatherIcon } from "../weather/Weather";
+import { getWeatherDataForTwoDays, getWeatherIcon } from "./funktionen/Weather";
 import SearchResults from "./funktionen/search-funktion";
 import { Style, Fill, Stroke } from "ol/style";
 import AddClimbingArea from "./funktionen/AddClimbingArea";
