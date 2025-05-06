@@ -2,7 +2,7 @@
 
 <a id="top"></a>
 
-Diesees Kapitel behandelt die ersten Ideen des Aufbaus und der Gestaltung von openClimbingMap. Die Konzeption erfolgte vor der Datenbeschaffung und der Entwicklung des Frontend.
+Dieser Abschnitt beschäftigt sich mit der konzeption und der Gestaltung von openClimbingMap. Diese Überlegungen wurden vor der Datenbeschaffung und der Entwicklung des Frontends diskutiert.
 
 ### Aufbau Geodateninfrastruktur (GDI)
 
