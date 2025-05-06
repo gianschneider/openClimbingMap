@@ -342,3 +342,73 @@
   transform: scale(1.1);
   opacity: 1.1;
 }
+
+.double_range_slider_box {
+  position: relative;
+  width: 100%;
+  height: 40px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.double_range_slider {
+  width: 90%; /* Volle Breite */
+  height: 10px;
+  position: relative;
+  background-color: #dddddd;
+  border-radius: 20px;
+  margin: 0; /* Kein zusätzlicher Rand */
+}
+
+.range_track {
+  height: 100%;
+  position: absolute;
+  border-radius: 20px;
+  background-color: #95d564;
+  left: 0; /* Entferne den Offset */
+  right: 0; /* Entferne den Offset */
+}
+
+.range_input {
+  position: absolute;
+  width: 100%; /* Volle Breite */
+  height: 10px;
+  background: none;
+  pointer-events: none;
+  -webkit-appearance: none;
+  left: 0; /* Entferne den Offset */
+}
+
+.range_input::-webkit-slider-thumb {
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #0e5f59;
+  pointer-events: auto;
+  -webkit-appearance: none;
+  position: relative;
+  top: -4px;
+}
+
+.minvalue,
+.maxvalue {
+  position: absolute;
+  padding: 3px 10px;
+  background: #0e5f59;
+  border-radius: 1rem;
+  color: white;
+  font-size: 1rem;
+  bottom: -35px; /* Position unter dem Slider */
+  transform: translateX(-50%); /* Zentriert unter dem Thumb */
+  transition: left 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  white-space: nowrap; /* Verhindert Zeilenumbruch */
+}
+
+.minvalue {
+  left: 0%; /* Startposition für min value */
+}
+
+.maxvalue {
+  left: 100%; /* Startposition für max value */
+}

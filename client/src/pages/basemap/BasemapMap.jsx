@@ -19,6 +19,7 @@ import { getWeatherDataForTwoDays, getWeatherIcon } from "../weather/Weather";
 import SearchResults from "./funktionen/search-funktion";
 import { Style, Fill, Stroke } from "ol/style";
 import AddClimbingArea from "./funktionen/AddClimbingArea";
+import FilterFunktion from "./funktionen/filter-funktion";
 
 function BasemapMap() {
   const mapRef = useRef(null);
@@ -37,6 +38,11 @@ function BasemapMap() {
   const [isInfoMenuOpen, setIsInfoMenuOpen] = useState(false); //  State für das Info-Menü
   const [isImpressumOpen, setIsImpressumOpen] = useState(false);
   const [isAddClimbingAreaOpen, setIsAddClimbingAreaOpen] = useState(false); // State für das Klettergebiet erfassen-Menü
+  const [isFilterOpen, setIsFilterOpen] = useState(false); // State für das Filter-Fenster
+
+  const toggleFilter = () => {
+    setIsFilterOpen((prev) => !prev);
+  };
 
   useEffect(() => {
     proj4.defs(
@@ -251,10 +257,7 @@ function BasemapMap() {
       />
       {/* Filter Button */}
       <img
-        src="/radar.jpg"
-        alt="Filter"
-        className="filter-button"
-        onClick={() => console.log("button clicked")}
+        onClick={toggleFilter}
       />
       {/* Sport Climbing Logo */}
       <img
@@ -581,6 +584,7 @@ function BasemapMap() {
           </div>
         </div>
       )}{" "}
+      <FilterFunktion isFilterOpen={isFilterOpen} toggleFilter={toggleFilter} />
     </div>
   );
 }

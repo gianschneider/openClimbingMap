@@ -234,21 +234,15 @@ async def add_klettergebiet(klettergebiet: Klettergebiet):
 
 @app.get("/klettergebiete")
 async def get_klettergebiete():
-    geoserver_url = "http://localhost:8080/geoserver/testuebung/ows"
-    params = {
-        "service": "WFS",
-        "version": "1.0.0",
-        "request": "GetFeature",
-        "typeName": "testuebung:klettergebiete",
-        "outputFormat": "application/json",
-    }
-
+    geoserver_url = "http://localhost:8080/geoserver/ne/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=ne:Klettergebiete&outputFormat=application/json"
+    
     try:
-        response = requests.get(geoserver_url, params=params)
-        response.raise_for_status()  # Fehler bei HTTP-Statuscodes abfangen
-        return response.json()  # JSON-Daten an das Frontend zurückgeben
+        response = requests.get(geoserver_url)
+        response.raise_for_status()
+        return response.json()
     except requests.exceptions.RequestException as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Fehler beim Abrufen der Klettergebiete: {str(e)}",
         )
+
