@@ -18,7 +18,7 @@ Zur technischen Umsetzung des Frontends wurde zuvor ein Mockup für das User-Int
 
 ![mockups](bilder/mockups.png)
 
-** Die wichtigsten Abweichungen bezüglich dem Endprodukt**
+#### Die wichtigsten Abweichungen bezüglich dem Endprodukt
 
 - Die Balken oben und unten im Mockup wurden entfernt, um mehr Displayfläche für die Karte zu ermöglichen.
 - Die Buttons sind alle rechts angeordnet, um eine einhändige Bedienung zu ermöglichen.
