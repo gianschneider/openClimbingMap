@@ -3,40 +3,48 @@
   position: absolute;
   bottom: 30px;
   left: 10px;
-  max-width: 60px; /* Von 100px auf 60px geändert */
+  max-width: 120px;
   background: white;
   padding: 2px;
   border-radius: 2px;
   border: none;
   z-index: 1500;
-  overflow: visible; /* Wichtig: auf 'visible' ändern, damit Text sichtbar ist */
-  font-size: 10px; /* Von 8px auf 10px vergrößert */
+  overflow: visible; /* Geändert auf visible, damit die Beschriftung angezeigt wird */
 }
 
 /* Der wichtige Teil für den schwarz-weißen Balken */
 .ol-scale-line-inner {
   border: none;
-  color: #000;
+  color: #000; /* Text sichtbar machen */
   margin: 0;
-  padding: 2px 0 0 0; /* Abstand oben für den Text */
-  background-image: linear-gradient(
-    to right,
-    #000 20%,
-    #fff 20%,
-    #fff 40%,
-    #000 40%,
-    #000 60%,
-    #fff 60%,
-    #fff 80%,
-    #000 80%
-  );
+  padding: 0 0 6px 0; /* Padding unten für die Beschriftung */
+  background-image: linear-gradient(to right, #000 50%, #fff 50%, #fff 100%);
   background-repeat: repeat-x;
   background-size: 100% 100%;
-  height: 6px; /* Von 5px auf 6px erhöht */
-  line-height: 1.5em;
-  max-width: 60px; /* Von 30px auf 60px vergrößert */
-  width: auto; /* Lasse die Breite automatisch bestimmen */
-} /* Anpassung der Position für kleine Bildschirme */
+  background-position: 0 0; /* Hintergrundbild am oberen Rand */
+  height: 18px; /* Höhe erhöht, um Platz für Text zu schaffen */
+  line-height: 18px; /* Zeilenhöhe angepasst */
+  max-width: 120px;
+  width: auto;
+  font-size: 10px; /* Kleine, aber lesbare Schriftgröße */
+  text-indent: 0; /* Text-Indent zurücksetzen */
+  text-align: center; /* Text zentrieren */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Neuer Stil, um den Balken vom Text zu trennen */
+.ol-scale-line-inner::before {
+  content: "";
+  display: block;
+  height: 6px;
+  width: 100%;
+  background-image: inherit;
+  background-color: #fff;
+  background-size: inherit;
+  background-repeat: inherit;
+  margin-bottom: 4px; /* Abstand zwischen Balken und Text */
+}
 @media (max-width: 768px) {
   .ol-scale-line {
     bottom: 45px; /* Auch hier nach unten angepasst */

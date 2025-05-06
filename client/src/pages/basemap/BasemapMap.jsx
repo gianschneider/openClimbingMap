@@ -89,7 +89,7 @@ function BasemapMap() {
       bar: true,
       steps: 4,
       minWidth: 30,
-      text: true, // Text anzeigen
+      text: false, // Text anzeigen
       className: "ol-scale-line",
     });
 
