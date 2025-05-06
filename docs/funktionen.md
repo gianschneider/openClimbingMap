@@ -20,7 +20,10 @@ Das Frontend besteht aus einer One-Page-Applikation im Smartphone-Layout, die me
 - Die Darstellung der Klettergebiete auf der Basemap wird auf jene Gebiete beschränkt, die den eingegebenen Suchparametern entsprechen. (Dieser Abschnitt wird genauer erläutert, sobald die Funktion implementiert ist.)
 
 <div style="text-align: center;">
-  <img src="bilder/Filterfunktion.jpg">
+  <video width="400" controls>
+    <source src="videos/filter.mp4" type="video/mp4">
+    Dein Browser unterstützt das Video-Tag nicht.
+  </video>
 </div>
 
 ---
