@@ -4,14 +4,14 @@
 
 <div id="erweiterungsmöglichkeiten"></div>
 
-Im folgenden Abschnitt werden für jede Seite und Funktion Verbesserungs- und Erweiterungsvorschläge genannt, welche Vorteile für die User Experience (User Erfahrung) bieten oder die Funktionen der FootballMap erweitern. Die Ideen sind der Wichtigkeit nach geordnet (von oben nach unten).
+Im folgenden Abschnitt werden für Verbesserungs- und Erweiterungsvorschläge beschrieben, mit welchen die App verbessert werden könnte. Diese können Vorteile für die User Experience bringen, oder die Funktionen der openClimbingMap erweitern. Die Ideen sind der Wichtigkeit nach geordnet (von oben nach unten).
 
 ### Allgemein
 
 <div id="allgemein"></div>
 
 - **_Frontend:_**
-  **_Umsetzung Backend:_**
+- **_Umsetzung Backend:_**
 - **_Backend:_**
 
 ### Startpage
