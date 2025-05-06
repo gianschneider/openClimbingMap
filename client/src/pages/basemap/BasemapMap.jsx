@@ -83,6 +83,9 @@ function BasemapMap() {
       }),
     });
 
+    // Maßstabsbalken hinzufügen
+    const scaleControl = new ScaleLine();
+    map.addControl(scaleControl);
     mapRef.current = map;
 
     const overlay = new Overlay({
