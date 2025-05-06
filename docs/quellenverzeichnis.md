@@ -20,7 +20,7 @@ In dieser Arbeit wurde künstliche Intelligenz (KI), namentlich ChatGPT und Copi
 | Naturschutzgebiete*   | [https://map.geo.admin.ch/](https://map.geo.admin.ch/) |
 | Klettergebiete SAC   | [https://www.sac-cas.ch/de/huetten-und-touren/sac-tourenportal/?discipline=climbing](https://www.sac-cas.ch/de/huetten-und-touren/sac-tourenportal/?discipline=climbing) |
 
-* Die Naturschutzgebiete bestehen aus den Layern Jagdbanngebiete, Wildtierschutzgebiete, Wildruhezonen und Naturschutzgebiete und wurden von derselben Webseite bezogen.
+*Die Naturschutzgebiete bestehen aus den Layern Jagdbanngebiete, Wildtierschutzgebiete, Wildruhezonen und Naturschutzgebiete und wurden von derselben Webseite bezogen.
 
 ### Bibliotheken
 
