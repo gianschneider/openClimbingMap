@@ -42,11 +42,11 @@ export const getWeatherIcon = (pictocode) => {
   }
 };
 
-export const getWeatherDataForTwoDays = async (lat, lon, asl) => {
+export const getWeatherDataForTwoDays = async (lat, lon, alt) => {
   try {
     // URL mit den übergebenen Werten erstellen
     const key = "ZCSK1YekVagxq5fN"; // API-Schlüssel
-    const url = `https://my.meteoblue.com/packages/basic-day?apikey=${key}&lat=${lat}&lon=${lon}&asl=${asl}&format=json`;
+    const url = `https://my.meteoblue.com/packages/basic-day?apikey=${key}&lat=${lat}&lon=${lon}&alt=${alt}&format=json`;
     console.log(url); // Debugging: URL ausgeben
     // Daten abrufen
     const response = await fetch(url);

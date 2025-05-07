@@ -193,12 +193,33 @@ async def add_klettergebiet(klettergebiet: Klettergebiet):
         conn = db_pool.getconn()
         cur = conn.cursor()
 
+        # Prüfen, ob das Klettergebiet in einem Naturschutzgebiet liegt
+        check_query = sql.SQL(
+            """
+            SELECT COUNT(*)
+            FROM "Naturschutzgebiete"
+            WHERE ST_Intersects(
+                geom,
+                ST_SetSRID(ST_MakePoint(%s, %s), 2056)
+            )
+            """
+        )
+        cur.execute(check_query, (klettergebiet.X, klettergebiet.Y))
+        result = cur.fetchone()
+
+        if result[0] > 0:
+            # Nachricht und Statuscode an das Frontend senden
+            raise HTTPException(
+                status_code=400,
+                detail="Das Klettergebiet liegt in einem Naturschutzgebiet und kann nicht hinzugefügt werden."
+            )
+
         # SQL-Insert-Anweisung
         insert_query = sql.SQL(
             """
             INSERT INTO "Klettergebiete" ("Name", "X", "Y", "Hoehe", "Disziplin", "Routen", "Schwierigkeit", "geom")
             VALUES (%s, %s, %s, %s, %s, %s, %s, ST_SetSRID(ST_MakePoint(%s, %s), 2056))
-        """
+            """
         )
 
         # Werte einfügen
@@ -225,7 +246,7 @@ async def add_klettergebiet(klettergebiet: Klettergebiet):
         print(e)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Fehler beim Speichern des Klettergebiets: {str(e)}",
+            detail=f"Das Klettergebiet liegt in einem Naturschutzgebiet und kann nicht hinzugefügt werden.",
         )
     finally:
         if conn:
@@ -234,7 +255,7 @@ async def add_klettergebiet(klettergebiet: Klettergebiet):
 
 @app.get("/klettergebiete")
 async def get_klettergebiete():
-    geoserver_url = "http://localhost:8080/geoserver/ne/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=ne:Klettergebiete&outputFormat=application/json"
+    geoserver_url = "http://localhost:8080/geoserver/ne/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=ne%3AKlettergebiete&outputFormat=application%2Fjson"
     
     try:
         response = requests.get(geoserver_url)

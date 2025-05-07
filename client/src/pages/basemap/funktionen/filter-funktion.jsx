@@ -6,8 +6,14 @@ const FilterFunktion = ({ isFilterOpen, toggleFilter, applyFilter }) => {
     AlpinesKlettern: true,
   });
 
-  const [routeRange, setRouteRange] = useState([0, 50]); // Bereich für die Anzahl der Routen (min, max),
+  const [routeRange, setRouteRange] = useState([0, 100]); // Bereich für die Anzahl der Routen (min, max),
   const [altitudeRange, setAltitudeRange] = useState([200, 3000]); // Bereich für die Höhe über Meer (min, max)
+  const difficulties = [
+    "5a", "5a+", "5b", "5b+", "5c", "5c+", "6a", "6a+", "6b", "6b+", "6c", "6c+",
+    "7a", "7a+", "7b", "7b+", "7c", "7c+", "8a", "8a+", "8b", "8b+", "8c", "8c+",
+    "9a", "9a+", "9b", "9b+", "9c", "9c+",
+  ];
+  const [difficultyRange, setDifficultyRange] = useState([0, difficulties.length - 1]); // Bereich für die Schwierigkeitsgrade
 
   const handleCheckboxChange = (discipline) => {
     setSelectedDisciplines((prev) => ({
@@ -25,8 +31,33 @@ const FilterFunktion = ({ isFilterOpen, toggleFilter, applyFilter }) => {
   };
 
   const handleApplyFilter = () => {
-    console.log("Anwenden-Button gedrückt"); // Debugging
+    const disciplines = Object.keys(selectedDisciplines).filter(
+      (discipline) => selectedDisciplines[discipline]
+    );
+    const minRoutes = routeRange[0];
+    const maxRoutes = routeRange[1];
+    const minAltitude = altitudeRange[0];
+    const maxAltitude = altitudeRange[1];
+
+    applyFilter({
+      disciplines,
+      minRoutes,
+      maxRoutes,
+      minAltitude,
+      maxAltitude,
+    });
+
     toggleFilter(); // Filterfenster schließen
+  };
+
+  const handleResetFilter = () => {
+    setSelectedDisciplines({
+      Sportklettern: true,
+      AlpinesKlettern: true,
+    });
+    setRouteRange([0, 100]);
+    setAltitudeRange([200, 3000]);
+    setDifficultyRange([0, difficulties.length - 1]); // Optional, falls Schwierigkeit im GUI bleibt
   };
 
   return (
@@ -187,23 +218,89 @@ const FilterFunktion = ({ isFilterOpen, toggleFilter, applyFilter }) => {
                 </div>
               </div>
             </div>
+
+            {/* Titel für Schwierigkeit */}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "20px", marginBottom: "10px" }}>
+              <span style={{ textAlign: "left", flex: 1 }}>Schwierigkeit</span>
+            </div>
+
+            {/* Slider für Schwierigkeit */}
+            <div className="double_range_slider_box">
+              <div className="double_range_slider">
+                <div
+                  className="range_track"
+                  style={{
+                    left: `${(difficultyRange[0] / (difficulties.length - 1)) * 100}%`,
+                    right: `${100 - (difficultyRange[1] / (difficulties.length - 1)) * 100}%`,
+                  }}
+                ></div>
+                <input
+                  type="range"
+                  min="0"
+                  max={difficulties.length - 1}
+                  value={difficultyRange[0]}
+                  onChange={(e) => handleSliderChange(e, 0, setDifficultyRange, difficultyRange)}
+                  className="range_input"
+                />
+                <input
+                  type="range"
+                  min="0"
+                  max={difficulties.length - 1}
+                  value={difficultyRange[1]}
+                  onChange={(e) => handleSliderChange(e, 1, setDifficultyRange, difficultyRange)}
+                  className="range_input"
+                />
+                <div
+                  className="minvalue"
+                  style={{
+                    left: `${(difficultyRange[0] / (difficulties.length - 1)) * 100}%`,
+                  }}
+                >
+                  {difficulties[difficultyRange[0]]}
+                </div>
+                <div
+                  className="maxvalue"
+                  style={{
+                    left: `${(difficultyRange[1] / (difficulties.length - 1)) * 100}%`,
+                  }}
+                >
+                  {difficulties[difficultyRange[1]]}
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Filter anwenden */}
-          <button
-            onClick={handleApplyFilter}
-            style={{
-              marginTop: "20px", // Erhöhe den Abstand zum Slider
-              padding: "10px 20px",
-              backgroundColor: "#01940b",
-              color: "white",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-            }}
-          >
-            Anwenden
-          </button>
+          {/* Filter anwenden und Reset-Button */}
+          <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
+            <button
+              onClick={handleApplyFilter}
+              style={{
+                padding: "10px 20px",
+                backgroundColor: "#01940b", // Grün
+                color: "white",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer",
+                width: "48%", // Gleiche Breite wie der Reset-Button
+              }}
+            >
+              Anwenden
+            </button>
+            <button
+              onClick={handleResetFilter}
+              style={{
+                padding: "10px 20px",
+                backgroundColor: "rgb(0, 0, 0)", // Schwarz
+                color: "white",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer",
+                width: "48%", // Gleiche Breite wie der Anwenden-Button
+              }}
+            >
+              Reset
+            </button>
+          </div>
         </div>
       )}
     </>
