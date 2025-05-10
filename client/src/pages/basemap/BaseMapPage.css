@@ -411,7 +411,7 @@
 }
 
 .double_range_slider {
-  width: 90%; /* Volle Breite */
+  width: 70%; /* Volle Breite */
   height: 10px;
   position: relative;
   background-color: #dddddd;
@@ -449,7 +449,19 @@
   top: -4px;
 }
 
-.minvalue,
+.minvalue {
+  position: absolute;
+  padding: 3px 10px;
+  background: #0e5f59;
+  border-radius: 1rem;
+  color: white;
+  font-size: 1rem;
+  bottom: -35px; /* Position unter dem Slider */
+  transform: translateX(-100%); /* Verschiebt die Zahl ganz nach links */
+  transition: left 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  white-space: nowrap; /* Verhindert Zeilenumbruch */
+}
+
 .maxvalue {
   position: absolute;
   padding: 3px 10px;
@@ -458,15 +470,7 @@
   color: white;
   font-size: 1rem;
   bottom: -35px; /* Position unter dem Slider */
-  transform: translateX(-50%); /* Zentriert unter dem Thumb */
+  transform: translateX(0); /* Verschiebt die Zahl ganz nach rechts */
   transition: left 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
   white-space: nowrap; /* Verhindert Zeilenumbruch */
-}
-
-.minvalue {
-  left: 0%; /* Startposition für min value */
-}
-
-.maxvalue {
-  left: 100%; /* Startposition für max value */
 }

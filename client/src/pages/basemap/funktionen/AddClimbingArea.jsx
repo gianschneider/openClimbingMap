@@ -83,7 +83,8 @@ function AddClimbingArea({ mapRef }) {
   const [altitude, setAltitude] = useState("");
   const [type, setType] = useState("Sportklettern");
   const [existingNames, setExistingNames] = useState([]);
-  const [error, setError] = useState("");
+  const [errorName, setErrorName] = useState(""); // Fehler für den Namen
+  const [errorNaturschutzgebiet, setErrorNaturschutzgebiet] = useState(""); // Fehler für Naturschutzgebiet
   const [errorRoutes, setErrorRoutes] = useState("");
 
   const difficulties = [
@@ -135,14 +136,14 @@ function AddClimbingArea({ mapRef }) {
     setName(inputName);
 
     if (existingNames.includes(inputName)) {
-      setError("Dieser Name existiert bereits!");
+      setErrorName("Dieser Name existiert bereits!");
     } else {
-      setError("");
+      setErrorName("");
     }
   };
 
   const handleSubmit = async () => {
-    if (error || errorRoutes || !coordinates) {
+    if (errorName || errorRoutes || !coordinates) {
       alert("Bitte beheben Sie die Fehler, bevor Sie fortfahren.");
       return;
     }
@@ -171,26 +172,20 @@ function AddClimbingArea({ mapRef }) {
       if (response.ok) {
         const data = await response.json();
         alert(data.message); // Erfolgsmeldung anzeigen
+        setErrorNaturschutzgebiet(""); // Fehler für Naturschutzgebiet zurücksetzen
       } else {
         const errorData = await response.json();
         console.error("Fehler vom Backend:", errorData);
-        alert(`Fehler: ${errorData.detail}`);
+
+        // Fehler für Naturschutzgebiet setzen
+        if (errorData.detail.includes("Naturschutzgebiet")) {
+          setErrorNaturschutzgebiet(errorData.detail);
+        }
       }
     } catch (error) {
       console.error("Fehler beim Senden der Anfrage:", error);
       alert("Fehler beim Senden der Anfrage. Bitte überprüfen Sie die Verbindung.");
     }
-
-    // Reset der Felder nach dem Speichern
-    setName("");
-    setRoutes("");
-    setDifficultyRange([null, null]);
-    setCoordinates(null);
-    setAltitude("");
-    setType("Sportklettern");
-    setError("");
-    setErrorRoutes("");
-    setIsOpen(false);
   };
 
   return (
@@ -218,6 +213,23 @@ function AddClimbingArea({ mapRef }) {
         >
           <h3 style={{ textAlign: "center" }}>Klettergebiet erfassen</h3>
 
+          {/* Fehleranzeige für Naturschutzgebiet */}
+          {errorNaturschutzgebiet && (
+            <div
+              style={{
+                marginBottom: "20px",
+                color: "red",
+                fontSize: "14px",
+                textAlign: "center",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              ⚠️ {errorNaturschutzgebiet}
+            </div>
+          )}
+
           {/* Name */}
           <div style={{ marginBottom: "10px" }}>
             <label style={{ display: "flex", alignItems: "center", marginBottom: "5px" }}>
@@ -232,8 +244,8 @@ function AddClimbingArea({ mapRef }) {
                 }}
               />
             </label>
-            {error && (
-              <div style={{ marginLeft: "130px", color: "red", fontSize: "10px" }}>{error}</div>
+            {errorName && (
+              <div style={{ marginLeft: "130px", color: "red", fontSize: "10px" }}>{errorName}</div>
             )}
           </div>
 
@@ -441,7 +453,8 @@ function AddClimbingArea({ mapRef }) {
                 setCoordinates(null);
                 setAltitude("");
                 setType("Sportklettern");
-                setError("");
+                setErrorName("");
+                setErrorNaturschutzgebiet("");
                 setErrorRoutes("");
               }}
               style={{
