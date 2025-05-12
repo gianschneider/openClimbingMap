@@ -290,17 +290,10 @@ async def get_haltestellen():
 
 @app.get("/naturschutzgebiete")
 async def get_naturschutzgebiete():
-    geoserver_url = "http://localhost:8080/geoserver/ne/ows"
-    params = {
-        "service": "WFS",
-        "version": "1.0.0",
-        "request": "GetFeature",
-        "typeName": "ne:Naturschutzgebiete",
-        "outputFormat": "application/json",
-    }
+    geoserver_url = "http://localhost:8080/geoserver/ne/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=ne%3ANaturschutzgebiete&outputFormat=application%2Fjson"
 
     try:
-        response = requests.get(geoserver_url, params=params)
+        response = requests.get(geoserver_url)
         response.raise_for_status()  # Fehler bei HTTP-Statuscodes abfangen
         return response.json()  # JSON-Daten an das Frontend zurückgeben
     except requests.exceptions.RequestException as e:

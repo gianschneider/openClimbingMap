@@ -8,7 +8,7 @@ import { Fill, Stroke } from "ol/style";
 export const createNaturschutzgebieteLayer = () => {
   const vectorSource = new VectorSource({
     format: new GeoJSON(),
-    url: "http://localhost:8000/naturschutzgebiete", // Backend-Endpunkt für Naturschutzgebiete
+    url: "http://localhost:8080/geoserver/ne/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=ne%3ANaturschutzgebiete&maxFeatures=50&outputFormat=application%2Fjson", // Backend-Endpunkt für Naturschutzgebiete
     strategy: bboxStrategy, // Lädt nur Features innerhalb der aktuellen Bounding-Box
   });
 

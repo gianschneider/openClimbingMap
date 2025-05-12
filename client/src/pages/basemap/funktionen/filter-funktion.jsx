@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 
+let filterParameters = {}; // Globale Variable, um die Filterparameter zu speichern
+
+export const getFilterParameters = () => filterParameters; // Funktion, um die Parameter zu exportieren
+
 const FilterFunktion = ({ isFilterOpen, toggleFilter, applyFilter }) => {
   const [selectedDisciplines, setSelectedDisciplines] = useState({
     Sportklettern: true,
     AlpinesKlettern: true,
   });
 
-  const [routeRange, setRouteRange] = useState([0, 100]); // Bereich für die Anzahl der Routen (min, max),
+  const [routeRange, setRouteRange] = useState([0, 100]); // Bereich für die Anzahl der Routen (min, max)
   const [altitudeRange, setAltitudeRange] = useState([200, 3000]); // Bereich für die Höhe über Meer (min, max)
   const difficulties = [
     "5a", "5a+", "5b", "5b+", "5c", "5c+", "6a", "6a+", "6b", "6b+", "6c", "6c+",
@@ -31,23 +35,35 @@ const FilterFunktion = ({ isFilterOpen, toggleFilter, applyFilter }) => {
   };
 
   const handleApplyFilter = () => {
-    const disciplines = Object.keys(selectedDisciplines).filter(
-      (discipline) => selectedDisciplines[discipline]
-    );
+    // Disziplinen umbenennen
+    const disciplines = Object.keys(selectedDisciplines)
+      .filter((discipline) => selectedDisciplines[discipline])
+      .map((discipline) => {
+        if (discipline === "Sportklettern") return "Klettern";
+        if (discipline === "AlpinesKlettern") return "Alpinklettern";
+        return discipline;
+      });
+
     const minRoutes = routeRange[0];
     const maxRoutes = routeRange[1];
     const minAltitude = altitudeRange[0];
     const maxAltitude = altitudeRange[1];
 
-    applyFilter({
+    // Speichere die Parameter in der globalen Variable
+    filterParameters = {
       disciplines,
       minRoutes,
       maxRoutes,
       minAltitude,
       maxAltitude,
-    });
+    };
 
-    toggleFilter(); // Filterfenster schließen
+    console.log("Gespeicherte Filterparameter:", filterParameters); // Debugging
+
+    // Wende die Filter an, indem die applyFilter-Funktion aufgerufen wird
+    applyFilter(filterParameters);
+
+    toggleFilter(); // Schließe das Filterfenster
   };
 
   const handleResetFilter = () => {

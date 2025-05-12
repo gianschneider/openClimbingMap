@@ -46,6 +46,26 @@ function BasemapMap() {
     setIsFilterOpen((prev) => !prev);
   };
 
+  const applyFilter = (filters) => {
+    if (mapRef.current) {
+      // Entferne den alten Klettergebiete-Layer
+      const oldLayer = mapRef.current
+        .getLayers()
+        .getArray()
+        .find((layer) => layer.get("name") === "Klettergebiete");
+      if (oldLayer) {
+        mapRef.current.removeLayer(oldLayer);
+      }
+
+      // Erstelle den neuen Klettergebiete-Layer basierend auf den Filtern
+      const klettergebieteLayer = createKlettergebieteLayer(filters);
+      klettergebieteLayer.set("name", "Klettergebiete");
+
+      // Füge den neuen Layer zur Karte hinzu
+      mapRef.current.addLayer(klettergebieteLayer);
+    }
+  };
+
   useEffect(() => {
     proj4.defs(
       "EPSG:2056",
@@ -629,7 +649,7 @@ function BasemapMap() {
           </div>
         </div>
       )}{" "}
-      <FilterFunktion isFilterOpen={isFilterOpen} toggleFilter={toggleFilter} />
+      <FilterFunktion isFilterOpen={isFilterOpen} toggleFilter={toggleFilter} applyFilter={applyFilter}/>
     </div>
   );
 }
