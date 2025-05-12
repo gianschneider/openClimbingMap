@@ -51,6 +51,10 @@ Für das visuelle Erscheinungsbild sorgt Material UI [(MUI)](https://mui.com/), 
 ### Geodienste des Bundes
 Ergänzend zu den eigenen Datenquellen bindet die Webanwendung auch offizielle Geodienste des Bundes direkt in die Kartenanwendung ein, also der WMS-Dienst der swisstopo. Dazu zählen unter anderem Hintergrundkarten und der sogenannte Geocover-Dienst. Diese Dienste liefern qualitativ hochwertige, stets aktuelle Kartengrundlagen, die das eigene Datenangebot sinnvoll ergänzen. Die Einbindung erfolgt direkt im Frontend, sodass keine zusätzliche Serverlast entsteht und die Nutzer dennoch auf zuverlässige, amtliche Kartendaten zugreifen können. Damit wird eine professionelle und vertrauenswürdige Kartendarstellung sichergestellt, ohne dass eigene Ressourcen für die Bereitstellung dieser Inhalte benötigt werden.
 
+### Wetterdienst
+
+Die Anwendung nutzt den externen Wetterdienst [meteoblue](https://docs.meteoblue.com/en/weather-apis/introduction/overview), um aktuelle Wetterdaten für die Klettergebiete bereitzustellen. Diese werden über eine API eingebunden und im Frontend kontextbezogen angezeigt, um eine fundierte Tourenplanung zu ermöglichen.
+
 [↑](#top)
 
 <div style="display: flex; justify-content: space-between;">
