@@ -2,7 +2,7 @@
 
 # GDI-Projekt - openClimbingMap
 
-Willkommen auf der GitHub-Page der Geodateninfarastruktur openClimbingMap. Hier findest du alles über die vorhandenen Funktionen und die Informationen über die Entwicklung der Smartphone-App.
+Willkommen auf der GitHub-Page der Geodateninfarastruktur openClimbingMap. Hier findest du alles über die vorhandenen Funktionen und Informationen über die Entwicklung der Smartphone-App.
 
 #### Projektteam
 

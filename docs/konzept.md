@@ -14,7 +14,7 @@ Das folgende Schema visualisiert den Aufbau der Geodateninfrastruktur in der Kon
 
 ### Mockup
 
-Zur technischen Umsetzung des Frontends wurde zuvor ein Mockup für das User-Interface designed. Die Anordnung und Darstellung der Buttons erhielt viel Aufmerksamkeit. Eine Smartphone-App wird nur genutzt, wenn sie intuitiv, einfach und schnell zu nutzen ist. Diese Überlegungen verhindern Mehraufwand während der Frontendentwicklung aufgrund von veränderten Designentscheidungen. Dennoch weicht das Frontend teils stark vom Mockup ab, weil während der Entwicklung festgestellt das nicht alles im Mockup optimal ist. Die nachfolgenden Abbildungen zeigen das Mockup.
+Zur technischen Umsetzung des Frontends wurde zuvor ein Mockup für das User-Interface designed. Die Anordnung und Darstellung der Buttons erhielt viel Aufmerksamkeit. Eine Smartphone-App wird nur genutzt, wenn sie intuitiv, einfach und schnell zu nutzen ist. Diese Überlegungen verhindern Mehraufwand während der Frontendentwicklung aufgrund von veränderten Designentscheidungen. Dennoch weicht das Frontend teils stark vom Mockup ab, weil während der Entwicklung festgestellt wurde, dass nicht alles im Mockup optimal konzipiert wurde. Die nachfolgenden Abbildungen zeigen das Mockup.
 
 ![mockups](bilder/mockups.png)
 
@@ -26,7 +26,7 @@ Zur technischen Umsetzung des Frontends wurde zuvor ein Mockup für das User-Int
 
 ### Visualisierungsideen
 
-Als Inspiration für das Design diente die Swisstopo App von der Swisstopo. Diese App ist sehr intuitiv zu bedienen und ästehtisch ansprechend gestaltet.
+Als Inspiration für das Design diente die Swisstopo App der Swisstopo. Diese App ist sehr intuitiv zu bedienen und ästhetisch ansprechend gestaltet.
 
 [↑](#top)
 

@@ -6,7 +6,7 @@ Eine vollständige Geodateninfrastruktur (GDI) besteht aus dem Backend, dem Fron
 
 <div id="gdi-final"></div>
 
-![GDI Architektur Schema](bilder/gdiAufbau.jpg)
+![GDI Architektur Schema](bilder/gdi-aufbau.jpg)
 
 ## Backend
 
@@ -36,7 +36,7 @@ Als Brücke zwischen Frontend und Backend fungiert [FastAPI](https://fastapi.tia
 
 ### Node package manager (npm)
 
-[npm](https://www.npmjs.com/) ist ein zentrales Werkzeug zur Verwaltung von Abhängigkeiten und Modulen im Projekt. Es erleichtert das Installieren, Aktualisieren und Verwalten von Softwarepaketen, die für die Entwicklung des Frontends – einschließlich [React](https://react.dev/) und [OpenLayers](https://openlayers.org/) – benötigt werden. Durch npm lassen sich externe Bibliotheken effizient integrieren und aktuell halten, was die Entwicklungsgeschwindigkeit erhöht und die langfristige Wartbarkeit verbessert. Darüber hinaus ermöglicht es eine einfache Strukturierung und Reproduzierbarkeit der Entwicklungsumgebung.
+[npm](https://www.npmjs.com/) ist ein zentrales Werkzeug zur Verwaltung von Abhängigkeiten und Modulen im Projekt. Es erleichtert das Installieren, Aktualisieren und Verwalten von Softwarepaketen, die für die Entwicklung des Frontends – einschliesslich [React](https://react.dev/) und [OpenLayers](https://openlayers.org/) – benötigt werden. Durch npm lassen sich externe Bibliotheken effizient integrieren und aktuell halten, was die Entwicklungsgeschwindigkeit erhöht und die langfristige Wartbarkeit verbessert. Darüber hinaus ermöglicht es eine einfache Strukturierung und Reproduzierbarkeit der Entwicklungsumgebung.
 
 ### Material UI (MUI)
 

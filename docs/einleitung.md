@@ -7,7 +7,7 @@ Diese GitHub-Page widmet sich der Geodateninfrastruktur „openClimbingMap“. D
 Mit der openClimbingMap kannst du:
 
 - **Klettergebiete finden:** Finde bestehende Klettergebiete basierend auf deinem Standort oder spezifischen Suchkriterien.
-- **Neue Gebiete hinzufügen:** Erfasse neue Klettergebiete mit detaillierten Informationen wie Schwierigkeitsgrad, Anzahl der Routen und geografischen Koordinaten und mache sie so anderen zugänglich.
+- **Neue Gebiete hinzufügen:** Erfasse neue Klettergebiete mit detaillierten Informationen wie den Schwierigkeitsgrad, die Anzahl der Routen und die geografischen Koordinaten und mache sie so anderen zugänglich.
 - **Wetterdaten abrufen:** Erhalte aktuelle Wetterinformationen für das ausgewählte Klettergebiet.
 - **Interaktive Karten nutzen:** Nutze eine benutzerfreundliches Layermenu, um Gebiete zu visualisieren und zu analysieren.
 
