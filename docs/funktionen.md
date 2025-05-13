@@ -71,6 +71,8 @@ Das Frontend besteht aus einer One-Page-Applikation im Smartphone-Layout, die me
   <img src="bilder/zoom.jpg" style="max-width: 45%; height: auto;">
 </div>
 
+![Ansicht der Haltestellen](bilder/Haltestellen.png)
+
 ---
 
 #### 4. **Klettergebiet erfassen**
