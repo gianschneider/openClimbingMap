@@ -28,7 +28,7 @@ Im folgenden Abschnitt werden für Verbesserungs- und Erweiterungsvorschläge be
 
 ### Parkplätze, ÖV und Routing
 
-- Um den Zugang zu einem Klettergebiet aufzuzeigen, wird zurzeit ein Routing implementiert. Die zwei gängisten Möglichkeiten um zu einem Klettergebiet zu gelangen, sind mit Auto, ÖV, Fahrrad und zu Fuss. Meist ist eine Kombination von zwei Möglichkeiten das Mittel der Wahl. Dieses Routing könnte beispielsweise vom aktuellen Standort oder von einer Adresse nach Wahl bis zum gewünschten Klettergebiet erfolgen. Einige Möglichkeiten werden getestet. Geeignet scheint die Routes API von Google, die jedoch kostenpflichtig ist. Alternativ könnte openRoutesService genutzt werden. Es unterstützt das Routing von Auto, Velo und zu Fuss, jedoch kein ÖV.
+- Um den Zugang zu einem Klettergebiet aufzuzeigen, wird zurzeit ein Routing implementiert. Die zwei gängisten Möglichkeiten um zu einem Klettergebiet zu gelangen, sind mit Auto, ÖV, Fahrrad und zu Fuss. Meist ist eine Kombination von zwei Möglichkeiten das Mittel der Wahl. Dieses Routing könnte beispielsweise vom aktuellen Standort oder von einer Adresse nach Wahl bis zum gewünschten Klettergebiet erfolgen. Einige Möglichkeiten werden getestet. Geeignet scheint die Routes API von Google, die jedoch kostenpflichtig ist. Alternativ könnte openRoutesService genutzt werden. Es unterstützt kostenlos das Routing von Auto, Velo und zu Fuss, jedoch kein ÖV.
 
 [↑](#top)
 
