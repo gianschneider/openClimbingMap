@@ -59,6 +59,8 @@ Das Frontend besteht aus einer One-Page-Applikation im Smartphone-Layout, die me
   - Naturschutzgebiete (WFS-Dienst vom GeoServer)
   - ÖV-Haltestellen (WFS-Dienst vom GeoServer)
 
+#### Funktionsweise Layer-Button
+
 <div style="text-align: center;">
   <video width="400" controls>
     <source src="videos/Hintergrund.mp4" type="video/mp4">
@@ -66,13 +68,11 @@ Das Frontend besteht aus einer One-Page-Applikation im Smartphone-Layout, die me
   </video>
 </div>
 
+#### Ansicht der Haltestellen
+
 <div style="display: flex; justify-content: center; gap: 20px;">
   <img src="bilder/Haltestellen.png" style="max-width: 45%; height: auto;">
 </div>
-
-![Ansicht der Haltestellen](bilder/Haltestellen.png)
-
----
 
 #### 4. **Klettergebiet erfassen**
 
