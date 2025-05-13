@@ -18,8 +18,9 @@ Das Frontend besteht aus einer One-Page-Applikation im Smartphone-Layout, die me
 ### Funktionen:
 
 #### 1. **Filterung von Klettergebieten**
+
 - Die Darstellung der Klettergebiete auf der Basemap wird auf jene Gebiete beschränkt, die den eingegebenen Filterparametern entsprechen. Diese Filterparameter umfassen die Disziplin (Sportklettern oder Alpinklettern), die über Checkboxen ein- oder abgewählt werden können. Mit einem Doppelslider lassen sich die Minimal- und Maximalwerte für die Höhe über Meer, die Anzahl Routen und die Schwierigkeitsstufe einstellen. Diese Suchfunktionen werden anschliessend als Filterkriterien genutzt, um nur die gewünschten Klettergebiete darzustellen.
-Mit dem Button *Anwenden* wird die Filterfunktion ausgeführt, und mit dem Button *Reset* werden die Ausgangsparameter wiederhergestellt.
+  Mit dem Button _Anwenden_ wird die Filterfunktion ausgeführt, und mit dem Button _Reset_ werden die Ausgangsparameter wiederhergestellt.
 
 <div style="text-align: center;">
   <video width="400" controls>
@@ -31,6 +32,7 @@ Mit dem Button *Anwenden* wird die Filterfunktion ausgeführt, und mit dem Butto
 ---
 
 #### 2. **Info-Button**
+
 - Unter diesem Button werden wichtige Informationen zur App in einem eigenen Fenster angezeigt:
   - Nutzung der Anwendung
   - Verfügbare Funktionen
@@ -46,7 +48,9 @@ Mit dem Button *Anwenden* wird die Filterfunktion ausgeführt, und mit dem Butto
 ---
 
 #### 3. **Layer-Button**
+
 - Ermöglicht das Wechseln zwischen drei verschiedenen Hintergrundkarten:
+
   1. Swisstopo farbig
   2. Luftbild
   3. Geocover (Gesteinskarte)
@@ -62,17 +66,25 @@ Mit dem Button *Anwenden* wird die Filterfunktion ausgeführt, und mit dem Butto
   </video>
 </div>
 
+<div style="display: flex; justify-content: center; gap: 20px;">
+  <img src="bilder/Haltestellen.png" style="max-width: 45%; height: auto;">
+  <img src="bilder/zoom.jpg" style="max-width: 45%; height: auto;">
+</div>
+
 ---
 
 #### 4. **Klettergebiet erfassen**
+
 - Beim Klicken auf den entsprechenden Button öffnet sich ein Eingabefenster zur Erfassung der Attribute eines neuen Klettergebiets.
 
 - Validierung:
+
   - Doppelte Namen werden verhindert.
   - Negative Routenanzahlen sind nicht erlaubt.
   - Warnung, falls sich das Gebiet innerhalb eines Naturschutzgebiets befindet.
 
 - Eingabemöglichkeiten:
+
   1. Disziplin und Schwierigkeitsgrad: Auswahl über Dropdown-Menüs.
   2. Koordinaten:
      - Manuell als LV95-Koordinaten.
@@ -81,9 +93,9 @@ Mit dem Button *Anwenden* wird die Filterfunktion ausgeführt, und mit dem Butto
   3. Höhe: Automatisiert über eine API von Swisstopo bezogen.
 
 - Buttons im Eingabefenster:
-  - *Hinzufügen*: Überträgt die eingegebenen Daten via FastAPI-Schnittstelle in die PostgreSQL/PostGIS-Datenbank und das neue Klettergebiet wird auf der Karte dargestellt.
-  - *Reset*: Setzt alle Eingabefelder auf ihren Ursprungszustand zurück.
-  - *Abbrechen*: Schliesst das Eingabefenster ohne zu speichern.
+  - _Hinzufügen_: Überträgt die eingegebenen Daten via FastAPI-Schnittstelle in die PostgreSQL/PostGIS-Datenbank und das neue Klettergebiet wird auf der Karte dargestellt.
+  - _Reset_: Setzt alle Eingabefelder auf ihren Ursprungszustand zurück.
+  - _Abbrechen_: Schliesst das Eingabefenster ohne zu speichern.
 
 <div style="text-align: center;">
   <video width="400" controls>
@@ -95,6 +107,7 @@ Mit dem Button *Anwenden* wird die Filterfunktion ausgeführt, und mit dem Butto
 ---
 
 #### 5. **Navigation zur eigenen Position**
+
 - Beim Klicken auf den Emlid-Button wird zur aktuellen Position des Nutzers auf der Karte gezoomt.
 
 <div style="text-align: center;">
@@ -107,6 +120,7 @@ Mit dem Button *Anwenden* wird die Filterfunktion ausgeführt, und mit dem Butto
 ---
 
 #### 6. **Suchfunktion**
+
 - Beim Eintippen eines Begriffs im Suchfeld wird die GeoJSON-Datenliste (vom GeoServer) gefiltert.
 - Funktionalität:
   - Nur Klettergebiete, deren Name mit dem eingegebenen Begriff beginnt, bleiben sichtbar.
