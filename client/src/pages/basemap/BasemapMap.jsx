@@ -163,23 +163,93 @@ function BasemapMap() {
         const properties = feature.getProperties();
         const coordinates = feature.getGeometry().getCoordinates();
 
-        console.log("Feature properties:", properties); // Debug-Ausgabe
-
-        // Layer anhand der Quelle unterscheiden
-        if (klettergebieteLayer.getSource().hasFeature(feature)) {
-          // Popup für Klettergebiete
-          try {
-            const lonLat = transform(coordinates, "EPSG:2056", "EPSG:4326");
-            const altitude = properties.hoehe || "N/A";
-
-            // Wetterdaten abrufen mit lat, lon und asl
-            const weatherData = await getWeatherDataForTwoDays(lonLat[1], lonLat[0], altitude);
-
-            const content = Object.entries(properties)
-              .filter(([key]) => !["geometry", "X", "Y"].includes(key))
+        // Prüfe, ob es ein Cluster ist
+        if (properties.features && Array.isArray(properties.features)) {
+          const features = properties.features;
+          if (features.length === 1) {
+            // Einzelnes Klettergebiet im Cluster
+            const props = features[0].getProperties();
+            const lonLat = features[0].getGeometry().getCoordinates();
+            const wgsCoords = transform(lonLat, "EPSG:2056", "EPSG:4326");
+            const content = Object.entries(props)
+              .filter(([key]) => !["geometry", "X", "Y", "x", "y", "lon", "lat", "coordinates"].includes(key))
               .map(([key, value]) => `<strong>${key}:</strong> ${value}`)
               .join("<br>");
+            try {
+              const weatherData = await getWeatherDataForTwoDays(wgsCoords[1], wgsCoords[0]);
+              const weatherContent = weatherData
+                ? weatherData
+                    .map(
+                      (day, index) => `
+                      <div class="weather-section">
+                        <strong>${index === 0 ? "Heute" : "Morgen"}:</strong><br>
+                        <span class="weather-icon">${getWeatherIcon(day.pictocode)}</span><br>
+                        Temperatur: ${Math.round(day.temperature)}°C<br>
+                        Niederschlag: ${Math.round(day.precipitation)} mm
+                      </div>`
+                    )
+                    .join("")
+                : "<br><strong>Wetter:</strong> Daten nicht verfügbar";
+              popupContentRef.current.innerHTML = content + weatherContent;
+            } catch (error) {
+              popupContentRef.current.innerHTML = content + "<br><strong>Wetterdaten konnten nicht geladen werden.</strong>";
+            }
+            overlay.setPosition(coordinates);
+          } else {
+            // Mehrere Gebiete im Cluster: Liste der Namen anzeigen
+            let html = "<b>Gebiete in diesem Cluster:</b><ul>";
+            features.forEach((f, idx) => {
+              const name = f.get("Name") || f.get("name") || `Gebiet ${idx + 1}`;
+              html += `<li><a href="#" data-idx="${idx}">${name}</a></li>`;
+            });
+            html += "</ul>";
+            popupContentRef.current.innerHTML = html;
+            overlay.setPosition(coordinates);
 
+            // Klick-Handler für die Namen
+            popupContentRef.current.onclick = async (e) => {
+              if (e.target.tagName === "A") {
+                e.preventDefault();
+                const idx = e.target.getAttribute("data-idx");
+                const props = features[idx].getProperties();
+                const lonLat = features[idx].getGeometry().getCoordinates();
+                const wgsCoords = transform(lonLat, "EPSG:2056", "EPSG:4326");
+                const content = Object.entries(props)
+                  .filter(([key]) => !["geometry", "X", "Y", "x", "y", "lon", "lat", "coordinates"].includes(key))
+                  .map(([key, value]) => `<strong>${key}:</strong> ${value}`)
+                  .join("<br>");
+                try {
+                  const weatherData = await getWeatherDataForTwoDays(wgsCoords[1], wgsCoords[0]);
+                  const weatherContent = weatherData
+                    ? weatherData
+                        .map(
+                          (day, index) => `
+                          <div class="weather-section">
+                            <strong>${index === 0 ? "Heute" : "Morgen"}:</strong><br>
+                            <span class="weather-icon">${getWeatherIcon(day.pictocode)}</span><br>
+                            Temperatur: ${Math.round(day.temperature)}°C<br>
+                            Niederschlag: ${Math.round(day.precipitation)} mm
+                          </div>`
+                        )
+                        .join("")
+                    : "<br><strong>Wetter:</strong> Daten nicht verfügbar";
+                  popupContentRef.current.innerHTML = content + weatherContent;
+                } catch (error) {
+                  popupContentRef.current.innerHTML = content + "<br><strong>Wetterdaten konnten nicht geladen werden.</strong>";
+                }
+              }
+            };
+          }
+        } else {
+          // Kein Cluster, echtes Einzel-Feature
+          const lonLat = feature.getGeometry().getCoordinates();
+          const wgsCoords = transform(lonLat, "EPSG:2056", "EPSG:4326");
+          const content = Object.entries(properties)
+            .filter(([key]) => !["geometry", "X", "Y", "x", "y", "lon", "lat", "coordinates"].includes(key))
+            .map(([key, value]) => `<strong>${key}:</strong> ${value}`)
+            .join("<br>");
+          try {
+            const weatherData = await getWeatherDataForTwoDays(wgsCoords[1], wgsCoords[0]);
             const weatherContent = weatherData
               ? weatherData
                   .map(
@@ -193,33 +263,10 @@ function BasemapMap() {
                   )
                   .join("")
               : "<br><strong>Wetter:</strong> Daten nicht verfügbar";
-
             popupContentRef.current.innerHTML = content + weatherContent;
-            overlay.setPosition(coordinates);
           } catch (error) {
-            console.error("Error retrieving weather data:", error);
-            popupContentRef.current.innerHTML =
-              "<strong>Fehler beim Abrufen der Wetterdaten.</strong>";
-            overlay.setPosition(coordinates);
+            popupContentRef.current.innerHTML = content + "<br><strong>Wetterdaten konnten nicht geladen werden.</strong>";
           }
-        } else if (haltestelleLayer.getSource().hasFeature(feature)) {
-          // Popup für Haltestellen
-          const properties = feature.getProperties();
-          const cleanedProperties = Object.fromEntries(
-            Object.entries(properties).map(([key, value]) => [
-              key.trim().replace(/\uFEFF/g, ""),
-              value,
-            ])
-          );
-
-          // Zugriff auf den bereinigten Schlüssel
-          const name = cleanedProperties["name"];
-          popupContentRef.current.innerHTML = `
-            <strong>${name || "Unbekannt"} (${properties.verkehrs_1 || "N/A"})</strong>`;
-          overlay.setPosition(coordinates);
-        } else {
-          // Fallback für unbekannte Features
-          popupContentRef.current.innerHTML = `<strong>Unbekanntes Feature</strong>`;
           overlay.setPosition(coordinates);
         }
       } else {
