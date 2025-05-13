@@ -8,11 +8,9 @@ In diesem Abschnitt werden die Funktionen und Interaktionen der openClimbingMap 
 <div id="startpage"></div>
 Das Frontend besteht aus einer One-Page-Applikation im Smartphone-Layout, die mehrere Funktionen bietet, wie die Auswahl der Hintergrundkarte, das Zoomen auf den aktuellen Standort, die Erfassung neuer Gebiete und die Filterung der Klettergebiete. Die Klettergebiete werden als Punkte dargestellt. Beim Klicken auf ein Klettergebiet öffnet sich ein Pop-up-Fenster mit Detailinformationen (Name, Höhe, Disziplin, Anzahl der Routen, Schwierigkeit). Zusätzlich werden die Wetterdaten für den Standort des Klettergebiets angezeigt. Die Klettergebiete und deren Attribute werden über einen WFS-Dienst vom GeoServer bereitgestellt, während die Wetterdaten über die API der meteoblue AG abgerufen werden.
 
-<div style="text-align: center;">
-  <img src="bilder/Klettergebiet.jpg">
-</div>
-<div style="text-align: center;">
-  <img src="bilder/zoom.jpg">
+<div style="display: flex; justify-content: center; gap: 20px;">
+  <img src="bilder/Klettergebiet.jpg" style="max-width: 45%; height: auto;">
+  <img src="bilder/zoom.jpg" style="max-width: 45%; height: auto;">
 </div>
 
 ---
