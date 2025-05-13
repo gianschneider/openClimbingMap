@@ -68,7 +68,6 @@ Das Frontend besteht aus einer One-Page-Applikation im Smartphone-Layout, die me
 
 <div style="display: flex; justify-content: center; gap: 20px;">
   <img src="bilder/Haltestellen.png" style="max-width: 45%; height: auto;">
-  <img src="bilder/zoom.jpg" style="max-width: 45%; height: auto;">
 </div>
 
 ![Ansicht der Haltestellen](bilder/Haltestellen.png)
