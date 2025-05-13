@@ -33,7 +33,7 @@ export const createHaltestelleLayer = () => {
     return new Style({
       image: new Icon({
         src: iconSrc,
-        scale: 0.25, // Auf 0.25 reduziert (halbe Größe des ursprünglichen Werts 0.5)
+        scale: 0.1, // Auf 0.25 reduziert (halbe Größe des ursprünglichen Werts 0.5)
         anchor: [0.5, 0.5], // Ankerpunkt in der Mitte des Icons
         anchorXUnits: "fraction",
         anchorYUnits: "fraction",
