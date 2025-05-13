@@ -59,18 +59,22 @@ Das Frontend besteht aus einer One-Page-Applikation im Smartphone-Layout, die me
   - Naturschutzgebiete (WFS-Dienst vom GeoServer)
   - ÖV-Haltestellen (WFS-Dienst vom GeoServer)
 
-#### Funktionsweise Layer-Button
+<div style="text-align: center;">
+  <h4>Funktionsweise Layer-Button</h4>
+</div>
 
-<div style="text-align: left;">
+<div style="text-align: center;">
   <video width="400" controls>
     <source src="videos/Hintergrund.mp4" type="video/mp4">
     Dein Browser unterstützt das Video-Tag nicht.
   </video>
 </div>
 
-#### Ansicht der Haltestellen
+<div style="text-align: center;">
+  <h4>Ansicht der Haltestellen</h4>
+</div>
 
-<div style="display: flex; justify-content: left; gap: 20px;">
+<div style="display: flex; justify-content: center; gap: 20px;">
   <img src="bilder/Haltestellen.png" style="max-width: 45%; height: auto;">
 </div>
 
