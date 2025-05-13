@@ -11,6 +11,9 @@ Das Frontend besteht aus einer One-Page-Applikation im Smartphone-Layout, die me
 <div style="text-align: center;">
   <img src="bilder/Klettergebiet.jpg">
 </div>
+<div style="text-align: center;">
+  <img src="bilder/zoom.jpg">
+</div>
 
 ---
 
