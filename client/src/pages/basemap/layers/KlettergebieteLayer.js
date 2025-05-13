@@ -46,9 +46,9 @@ export const createKlettergebieteLayer = () => {
     if (size > 1) {
       return new Style({
         image: new CircleStyle({
-          radius: 9 + Math.min(size, 20), // Größere Kreise für größere Cluster
-          fill: new Fill({ color: "rgba(255, 0, 0, 0.6)" }),
-          stroke: new Stroke({ color: "rgba(255, 255, 255, 0.6)", width: 2 }),
+          radius: 15 + Math.min(size, 20), // Größere Kreise für größere Cluster
+          fill: new Fill({ color: "rgba(255, 0, 0, 0.4)" }),
+          stroke: new Stroke({ color: "#fff", width: 2 }),
         }),
         text: new Text({
           text: size.toString(),
@@ -61,8 +61,8 @@ export const createKlettergebieteLayer = () => {
       return new Style({
         image: new CircleStyle({
           radius: 7,
-          fill: new Fill({ color: "rgba(255, 0, 0, 0.6)" }),
-          stroke: new Stroke({ color: "rgba(255, 255, 255, 0.6)", width: 2 }),
+          fill: new Fill({ color: "rgba(255, 255, 255, 0.6)" }),
+          stroke: new Stroke({ color: "rgba(255, 0, 0, 0.6)", width: 2 }),
         }),
       });
     }
