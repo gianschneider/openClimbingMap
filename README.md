@@ -94,8 +94,7 @@ Fast API kommt mit vorinstallierter Swagger UI. Wenn der FastAPI Backend Server 
 ## Optional: Backendinstallation auf einem Server
 Diese Anleitung richtet sich an die Inbetriebnahme des Backends auf einem (Linux-)Server.
 
-Server starten und einrichten, d.h. Internetverbindung aufbauen
-Bash öffnen und zu gewünschtem Root-Verzeichnis navigieren
+Server starten und einrichten, d.h. Internetverbindung aufbauen. Danach Bash öffnen und zu gewünschtem Root-Verzeichnis navigieren.
 ```
 cd /home/USER/documents
 ```
