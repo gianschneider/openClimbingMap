@@ -67,7 +67,7 @@ npm run dev
 
 ## Backend lokal installieren
 Öffne ein Terminal und wechsle in den *server* Ordner.
-1. Virtuelle Umgebung für Python mit allen Requirements in der `requirements.txt` Datei aufsetzen.
+Virtuelle Umgebung für Python mit allen Requirements in der `requirements.txt` Datei aufsetzen.
 
 ```shell
 # Requirements
@@ -78,7 +78,7 @@ conda config --add channels conda-forge
 conda create --name gdiproject python=3.10.9 --file app/requirements.txt
 ```
 
-2. Backend ausführen, virtuelle Umgebung starten und server *uvicorn* starten. Öffne http://localhost:8000/docs im Browser und verifiziere, ob das Backend läuft.
+Backend ausführen, virtuelle Umgebung starten und server *uvicorn* starten. Öffne http://localhost:8000/docs im Browser und verifiziere, ob das Backend läuft.
 ``` shell
 cd server
 # aktiviere die conda umgebung gdiproject
