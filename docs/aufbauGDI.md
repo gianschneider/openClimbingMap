@@ -16,7 +16,7 @@ Im Backend laufen alle zentralen Prozesse der Datenverarbeitung und -bereitstell
 
 Die Geodaten – darunter Datensätze zu Klettergebieten, Haltestellen und Naturschutzgebieten – werden in einer PostGIS-Datenbank gespeichert. PostGIS erweitert das relationale Datenbanksystem PostgreSQL um umfangreiche Funktionen zur Verarbeitung räumlicher Daten. Damit können geografische Objekte effizient gespeichert, abgefragt und analysiert werden. Diese robuste Datenbasis bildet das Fundament der Anwendung und sorgt für hohe Flexibilität und Erweiterbarkeit, insbesondere wenn zukünftig zusätzliche Datenquellen integriert werden sollen.
 
-#### UML-Diagramm Datenbank
+### UML-Diagramm Datenbank
 
 ![UML-Diagramm Datenbank](bilder/UML-Diagramm_Datenbank.png)
 
