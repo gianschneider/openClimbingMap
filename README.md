@@ -92,10 +92,9 @@ uvicorn app.main:app --reload
 Fast API kommt mit vorinstallierter Swagger UI. Wenn der FastAPI Backend Server läuft, kann auf die Dokumentation der API über Swagger UI auf http://localhost:8000/docs verfügbar.
 
 ## Optional: Backendinstallation auf einem Server
-Diese Anleitung richtet sich an die Inbetriebnahme des Backends auf einem Linux:
+Diese Anleitung richtet sich an die Inbetriebnahme des Backends auf einem (Linux-)Server.
 
-Raspi starten und einrichten, d.h. Internetverbindung aufbauen
-
+Server starten und einrichten, d.h. Internetverbindung aufbauen
 Bash öffnen und zu gewünschtem Root-Verzeichnis navigieren
 ```
 cd /home/USER/documents
