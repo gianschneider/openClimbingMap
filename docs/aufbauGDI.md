@@ -16,6 +16,10 @@ Im Backend laufen alle zentralen Prozesse der Datenverarbeitung und -bereitstell
 
 Die Geodaten – darunter Datensätze zu Klettergebieten, Haltestellen und Naturschutzgebieten – werden in einer PostGIS-Datenbank gespeichert. PostGIS erweitert das relationale Datenbanksystem PostgreSQL um umfangreiche Funktionen zur Verarbeitung räumlicher Daten. Damit können geografische Objekte effizient gespeichert, abgefragt und analysiert werden. Diese robuste Datenbasis bildet das Fundament der Anwendung und sorgt für hohe Flexibilität und Erweiterbarkeit, insbesondere wenn zukünftig zusätzliche Datenquellen integriert werden sollen.
 
+#### UML-Diagramm Datenbank
+
+![UML-Diagramm Datenbank](bilder/UML-Diagramm_Datenbank.png)
+
 ### GeoServer
 
 Zur Veröffentlichung der Geodaten kommt GeoServer zum Einsatz. Dieser Server stellt die Daten über standardisierte Schnittstellen wie WMS (Web Map Service) und WFS (Web Feature Service) bereit. Dadurch können die Inhalte nicht nur innerhalb der Webanwendung, sondern auch in anderen GIS-Systemen oder Webdiensten genutzt werden. GeoServer ermöglicht zudem die individuelle Gestaltung der Kartendarstellung und die gezielte Steuerung des Datenzugriffs, was ihn zu einem zentralen Werkzeug in der Datenbereitstellung macht.
@@ -49,6 +53,7 @@ Für das visuelle Erscheinungsbild sorgt Material UI [(MUI)](https://mui.com/), 
 [OpenLayers](https://openlayers.org/) wird eingesetzt, um die geografischen Daten in einer interaktiven Karte darzustellen, die Benutzerinteraktionen wie Zoomen, Verschieben und Klicken auf Elemente unterstützt. [OpenLayers](https://openlayers.org/) kann über seine umfangreichen Quellenoptionen direkt auf den Geoserver zugreifen, um räumliche Daten zu laden und anzuzeigen. Durch die Verwendung von WMS (Web Map Service) oder WFS (Web Feature Service), ermöglicht [OpenLayers](https://openlayers.org/) das Abrufen der bereitgestellten Geodaten auf dem Geoserver. Explizit wurden aus der Datenbank mehrere Views erstellt, welche auf dem Geoserver abgelegt sind.
 
 ### Geodienste des Bundes
+
 Ergänzend zu den eigenen Datenquellen bindet die Webanwendung auch offizielle Geodienste des Bundes direkt in die Kartenanwendung ein, also der WMS-Dienst der swisstopo. Dazu zählen unter anderem Hintergrundkarten und der sogenannte Geocover-Dienst. Diese Dienste liefern qualitativ hochwertige, stets aktuelle Kartengrundlagen, die das eigene Datenangebot sinnvoll ergänzen. Die Einbindung erfolgt direkt im Frontend, sodass keine zusätzliche Serverlast entsteht und die Nutzer dennoch auf zuverlässige, amtliche Kartendaten zugreifen können. Damit wird eine professionelle und vertrauenswürdige Kartendarstellung sichergestellt, ohne dass eigene Ressourcen für die Bereitstellung dieser Inhalte benötigt werden.
 
 ### Wetterdienst
