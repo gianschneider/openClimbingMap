@@ -16,7 +16,9 @@ Die openClimbingMap ermöglicht es, Klettergebiete einfach zu entdecken, neue Ge
 
 ### Ansicht der Startseite
 
-![Ansicht der Startseite](bilder/startseite.jpg)
+<div align="center">
+  <img src="bilder/startseite.jpg" alt="Ansicht der Startseite" style="max-width: 80%; height: auto;">
+</div>
 
 Dieses Projekt entstand im Rahmen des Vertiefungsmoduls 4230 „Geoinformatik & Raumanalyse I“ im Bachelorstudiengang Geomatik an der Fachhochschule Nordwestschweiz (FHNW). Das Thema konnte frei gewählt werden, musste jedoch eine räumlich-zeitliche Analyse beinhalten.
 
