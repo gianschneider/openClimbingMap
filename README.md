@@ -111,14 +111,3 @@ unter drittens wlan0 inet ist die ip zu finden
 16. cd openClimbingMap/server/
 
 17. uvicorn app.main:app --host 0.0.0.0 --port 8000 oder uvicorn app.main:app --reload
-
-
-##nutzendes Gerät
-
-Auf nutzendem Gerät: cmd öffnen und eingeben:
-ssh pi@10.175.27.25
-password = password
-
-
-## Verwendung
-Öffne deinen Browser und gehe zu `http://localhost:5173`.
