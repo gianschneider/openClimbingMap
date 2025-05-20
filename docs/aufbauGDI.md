@@ -14,7 +14,7 @@ Die folgenden Schemata zeigen die aufgebaute und verwendete Geodateninfrastruktu
     <div style="text-align: center;">GDI Architektur Schema</div>
   </div>
   <div>
-    <img src="bilder/ordnerstruktur.png" alt="Ordnerstruktur" style="max-width: 400px; height: auto;">
+    <img src="bilder/Ordnerstruktur.png" alt="Ordnerstruktur" style="max-width: 400px; height: auto;">
     <div style="text-align: center;">Ordnerstruktur der Anwendung</div>
   </div>
 </div>
