@@ -10,11 +10,11 @@ Die folgenden Schemata zeigen die aufgebaute und verwendete Geodateninfrastruktu
 
 <div style="display: flex; justify-content: center; align-items: flex-start; gap: 32px;">
   <div>
-    <img src="bilder/gdi-aufbau.jpg" alt="GDI Architektur Schema" style="max-width: 400px; height: auto;">
+    <img src="bilder/gdi-aufbau.jpg" alt="GDI Architektur Schema" style="height: 350px; max-width: 100%; object-fit: contain;">
     <div style="text-align: center;">GDI Architektur Schema</div>
   </div>
   <div>
-    <img src="bilder/Ordnerstruktur.png" alt="Ordnerstruktur" style="max-width: 400px; height: auto;">
+    <img src="bilder/Ordnerstruktur.png" alt="Ordnerstruktur" style="height: 350px; max-width: 100%; object-fit: contain;">
     <div style="text-align: center;">Ordnerstruktur der Anwendung</div>
   </div>
 </div>
