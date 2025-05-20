@@ -94,40 +94,35 @@ Fast API kommt mit vorinstallierter Swagger UI. Wenn der FastAPI Backend Server 
 ## Optional: Backendinstallation auf einem Server
 Diese Anleitung richtet sich an die Inbetriebnahme des Backends auf einem Linux:
 
-1. Raspi starten und einrichten, d.h. Internetverbindung aufbauen
+```
+Raspi starten und einrichten, d.h. Internetverbindung aufbauen
 
-2. Bash öffnen und zu gewünschtem Root-Verzeichnis navigieren (cd /home/USER/documents)
+# Bash öffnen und zu gewünschtem Root-Verzeichnis navigieren
+cd /home/USER/documents
 
-3. git clone https://github.com/gianschneider/openClimbingMap.git
+# Projekt klonen
+git clone https://github.com/gianschneider/openClimbingMap.git
 
-4. python -m venv backend
+# Environment erstellen und aktivieren
+python -m venv backend
+source backend/bin/activate
 
-5. source backend/bin/activate
+# Pakete installieren
+sudo apt-get install python3-dev
+pip install --upgrade setuptools
+pip3 install fastapi
+pip3 install uvicorn
+pip3 install requests
+pip3 install psycopg2
+pip3 install pydantic
 
-6. sudo apt-get install python3-dev
+# SSH aktivieren
+sudo raspi-config 
 
-7. pip install --upgrade setuptools
+# Setup SSH Verbindung (unter drittens wlan0 inet ist die ip zu finden)
+ip a 
 
-8. pip3 install fastapi
-
-9. pip3 install uvicorn
-
-10. pip3 install requests
-
-11. pip3 install psycopg2
-
-12. pip3 install pydantic
-
-13. cd /home/USER/documents/openClimbingMap/server/app/
-     python main.py
--> Beispielabfragen ausprobieren
-
-14. sudo raspi-config 
-SSH aktivieren
-
-15. setup SSH Verbindung: ip a 
-unter drittens wlan0 inet ist die ip zu finden
-
-16. cd openClimbingMap/server/
-
-17. uvicorn app.main:app --host 0.0.0.0 --port 8000 oder uvicorn app.main:app --reload
+# Backend starten
+cd openClimbingMap/server/
+uvicorn app.main:app --host 0.0.0.0 --port 8000 oder uvicorn app.main:app --reload
+```

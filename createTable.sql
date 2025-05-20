@@ -1,4 +1,4 @@
-CREATE TABLE Haltestellen (
+CREATE TABLE haltestellen_schweiz_gesamt (
     Name VARCHAR(100),
     Nummer INT,
     Transportunternehmen_Nummer INT,
@@ -12,4 +12,14 @@ CREATE TABLE Haltestellen (
     E INT,
     N INT,
     H INT
+);
+
+CREATE TABLE klettergebiete (
+    Name VARCHAR(100),
+    X DOUBLE PRECISION,
+    Y DOUBLE PRECISION,
+    Hoehe INT,
+    Disziplin VARCHAR(50),
+    Routen INT,
+    Schwierigkeit VARCHAR(50)
 );
