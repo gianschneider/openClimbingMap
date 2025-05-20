@@ -12,8 +12,7 @@ Die openClimbingMap ermöglicht es, Klettergebiete einfach zu entdecken, neue Ge
 - **Klettergebiete finden:** Standortbasiert oder über gezielte Suche und Filterfunktion nach bestehenden Klettergebieten suchen.
 - **Neue Gebiete erfassen:** Neue Kletterspots inklusive relevanter Informationen wie Schwierigkeitsgrad, Routenanzahl und Koordinaten hinzufügen und öffentlich zugänglich machen.
 - **Wetterdaten anzeigen:** Aktuelle Wetterinformationen für das ausgewählte Klettergebiet abrufen.
-
-**Interaktive Karten nutzen:** Über ein benutzerfreundliches Layermenü verschiedene Hintergrundkarten auswählen und weitere Features visualisieren.
+- **Interaktive Karten nutzen:** Über ein benutzerfreundliches Layermenü verschiedene Hintergrundkarten auswählen und weitere Features visualisieren.
 
 ### Ansicht der Startseite
 
