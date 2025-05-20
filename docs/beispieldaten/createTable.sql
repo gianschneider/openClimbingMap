@@ -13,3 +13,13 @@ CREATE TABLE Haltestellen (
     N INT,
     H INT
 );
+
+CREATE TABLE klettergebiete (
+    Name VARCHAR(100),
+    X DOUBLE PRECISION,
+    Y DOUBLE PRECISION,
+    Hoehe INT,
+    Disziplin VARCHAR(50),
+    Routen INT,
+    Schwierigkeit VARCHAR(50)
+);

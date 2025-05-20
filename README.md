@@ -38,13 +38,13 @@ Sobald in der Software pgAdmin 4 eine Serververbindung mit den vorhin definierte
 
 Hier sind nachfolgend die sql-Dateien, um die Tabellen zu erstellen und mit Beispiel-Daten zu befüllen:
 
-- [Tabelle erstellen]()
-- [Daten einlesen]()
+- [Tabelle erstellen](docs/beispieldaten/createTable.sql)
+- [Daten einlesen](docs/beispieldaten/fillData.sql)
 
 ## Geoserver
 Diese Datenbankdaten werden in einem nächsten Schritt in Geoserver veröffentlicht. Von hier bezieht unser Projekt anschliessend die Geodaten.
 
-In einem ersten Schnitt muss man Geoserver lokal installieren. Eine Anleitung findest du [hier](). Danach kann du dich auf `http://localhost:8080/geoserver` anmelden. Erstelle anschliessend einen neuen Arbeitsbereich namens `GDI_openclimbingmap` sowie einen neuen Datenspeicher namens `ocm`. Den Datenspeicher verknüpftst du mit der zuvor erstellten Datenbank. Gib dazu die selbstdefinierten Werte für `user`, `port`, `password` und den Namen der Datenbank ein, um die Verbindung herzustellen.
+In einem ersten Schnitt muss man Geoserver lokal installieren. Eine Anleitung findest du [hier](docs/anleitungen/Geoserverinstalation.pdf). Danach kann du dich auf `http://localhost:8080/geoserver` anmelden. Erstelle anschliessend einen neuen Arbeitsbereich namens `GDI_openclimbingmap` sowie einen neuen Datenspeicher namens `ocm`. Den Datenspeicher verknüpftst du mit der zuvor erstellten Datenbank. Gib dazu die selbstdefinierten Werte für `user`, `port`, `password` und den Namen der Datenbank ein, um die Verbindung herzustellen.
 
 Jetzt kannst du neue Layer hinzufügen. Gehe dazu auf `Layer`, dann auf `Neuen Layer hinzufügen`. Wähle deine erstellten Arbeitsbereich aus. Nun siehst du alle Tabellen, welche auf deiner Datenbank sind. Mit `Publizieren` kannst du den Layer hinzufügen. Dafür muss noch das Koordinatensystem (EPSG:2056) und das begrenzende Rechteck berechnet werden.
 
