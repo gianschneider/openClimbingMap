@@ -16,7 +16,7 @@ Die openClimbingMap ermöglicht es, Klettergebiete einfach zu entdecken, neue Ge
 
 ### Ansicht der Startseite
 
-<div align="center">
+<div align="center" style="margin-bottom: 32px;">
   <img src="bilder/startseite.jpg" alt="Ansicht der Startseite" style="max-width: 80%; height: auto;">
 </div>
 
