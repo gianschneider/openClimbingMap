@@ -8,11 +8,10 @@ Diese GitHub-Seite präsentiert die openClimbingMap – eine interaktive, open-s
 Die openClimbingMap ermöglicht es, Klettergebiete einfach zu entdecken, neue Gebiete mit relevanten Informationen zu erfassen und sich mit anderen über Kletterorte auszutauschen. Ziel ist es, eine gemeinschaftlich gepflegte Geodatenbasis zu schaffen – inspiriert vom Konzept von OpenStreetMap.
 
 ### Was kann die App?
-**Klettergebiete finden:** Standortbasiert oder über gezielte Suche und Filterfunktion nach bestehenden Klettergebieten suchen.
 
-**Neue Gebiete erfassen:** Neue Kletterspots inklusive relevanter Informationen wie Schwierigkeitsgrad, Routenanzahl und Koordinaten hinzufügen und öffentlich zugänglich machen.
-
-**Wetterdaten anzeigen:** Aktuelle Wetterinformationen für das ausgewählte Klettergebiet abrufen.
+- **Klettergebiete finden:** Standortbasiert oder über gezielte Suche und Filterfunktion nach bestehenden Klettergebieten suchen.
+- **Neue Gebiete erfassen:** Neue Kletterspots inklusive relevanter Informationen wie Schwierigkeitsgrad, Routenanzahl und Koordinaten hinzufügen und öffentlich zugänglich machen.
+- **Wetterdaten anzeigen:** Aktuelle Wetterinformationen für das ausgewählte Klettergebiet abrufen.
 
 **Interaktive Karten nutzen:** Über ein benutzerfreundliches Layermenü verschiedene Hintergrundkarten auswählen und weitere Features visualisieren.
 
