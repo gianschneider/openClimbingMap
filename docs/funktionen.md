@@ -32,16 +32,33 @@ Das Frontend besteht aus einer One-Page-Applikation im Smartphone-Layout, die me
 
 ---
 
-#### 2. **Info-Button**
+#### 2. **Klettergebiet erfassen**
 
-- Unter diesem Button werden wichtige Informationen zur App in einem eigenen Fenster angezeigt:
-  - Nutzung der Anwendung
-  - Verfügbare Funktionen
-  - Allgemeine Informationen zum Klettersport, einschliesslich einer Legende zu den Schwierigkeitsgraden der Routen in den Klettergebieten.
+- Beim Klicken auf den entsprechenden Button öffnet sich ein Eingabefenster zur Erfassung der Attribute eines neuen Klettergebiets.
+
+- Validierung:
+
+  - Doppelte Namen werden verhindert.
+  - Negative Routenanzahlen sind nicht erlaubt.
+  - Warnung, falls sich das Gebiet innerhalb eines Naturschutzgebiets befindet.
+
+- Eingabemöglichkeiten:
+
+  1. Disziplin und Schwierigkeitsgrad: Auswahl über Dropdown-Menüs.
+  2. Koordinaten:
+     - Manuell als LV95-Koordinaten.
+     - Automatisch via GPS-Position (umgerechnet in LV95 / EPSG:2056).
+     - Durch Klicken auf einen Punkt auf der Karte.
+  3. Höhe: Automatisiert über eine API von Swisstopo bezogen.
+
+- Buttons im Eingabefenster:
+  - _Hinzufügen_: Überträgt die eingegebenen Daten via FastAPI-Schnittstelle in die PostgreSQL/PostGIS-Datenbank und das neue Klettergebiet wird auf der Karte dargestellt.
+  - _Reset_: Setzt alle Eingabefelder auf ihren Ursprungszustand zurück.
+  - _Abbrechen_: Schliesst das Eingabefenster ohne zu speichern.
 
 <div style="text-align: center;">
   <video width="400" controls>
-    <source src="videos/Info.mp4" type="video/mp4">
+    <source src="videos/Erfassen.mp4" type="video/mp4">
     Dein Browser unterstützt das Video-Tag nicht.
   </video>
 </div>
@@ -79,33 +96,19 @@ Das Frontend besteht aus einer One-Page-Applikation im Smartphone-Layout, die me
   <img src="bilder/Haltestellen.png" style="max-width: 45%; height: auto;">
 </div>
 
-#### 4. **Klettergebiet erfassen**
+---
 
-- Beim Klicken auf den entsprechenden Button öffnet sich ein Eingabefenster zur Erfassung der Attribute eines neuen Klettergebiets.
+#### 4. **Suchfunktion**
 
-- Validierung:
-
-  - Doppelte Namen werden verhindert.
-  - Negative Routenanzahlen sind nicht erlaubt.
-  - Warnung, falls sich das Gebiet innerhalb eines Naturschutzgebiets befindet.
-
-- Eingabemöglichkeiten:
-
-  1. Disziplin und Schwierigkeitsgrad: Auswahl über Dropdown-Menüs.
-  2. Koordinaten:
-     - Manuell als LV95-Koordinaten.
-     - Automatisch via GPS-Position (umgerechnet in LV95 / EPSG:2056).
-     - Durch Klicken auf einen Punkt auf der Karte.
-  3. Höhe: Automatisiert über eine API von Swisstopo bezogen.
-
-- Buttons im Eingabefenster:
-  - _Hinzufügen_: Überträgt die eingegebenen Daten via FastAPI-Schnittstelle in die PostgreSQL/PostGIS-Datenbank und das neue Klettergebiet wird auf der Karte dargestellt.
-  - _Reset_: Setzt alle Eingabefelder auf ihren Ursprungszustand zurück.
-  - _Abbrechen_: Schliesst das Eingabefenster ohne zu speichern.
+- Beim Eintippen eines Begriffs im Suchfeld wird die GeoJSON-Datenliste (vom GeoServer) gefiltert.
+- Funktionalität:
+  - Nur Klettergebiete, deren Name mit dem eingegebenen Begriff beginnt, bleiben sichtbar.
+  - Ergebnisse erscheinen in einer Liste.
+  - Bei Klicken auf ein Ergebnis wird auf das entsprechende Gebiet gezoomt.
 
 <div style="text-align: center;">
   <video width="400" controls>
-    <source src="videos/Erfassen.mp4" type="video/mp4">
+    <source src="videos/Suchen.mp4" type="video/mp4">
     Dein Browser unterstützt das Video-Tag nicht.
   </video>
 </div>
@@ -125,17 +128,16 @@ Das Frontend besteht aus einer One-Page-Applikation im Smartphone-Layout, die me
 
 ---
 
-#### 6. **Suchfunktion**
+#### 6. **Info-Button**
 
-- Beim Eintippen eines Begriffs im Suchfeld wird die GeoJSON-Datenliste (vom GeoServer) gefiltert.
-- Funktionalität:
-  - Nur Klettergebiete, deren Name mit dem eingegebenen Begriff beginnt, bleiben sichtbar.
-  - Ergebnisse erscheinen in einer Liste.
-  - Bei Klicken auf ein Ergebnis wird auf das entsprechende Gebiet gezoomt.
+- Unter diesem Button werden wichtige Informationen zur App in einem eigenen Fenster angezeigt:
+  - Nutzung der Anwendung
+  - Verfügbare Funktionen
+  - Allgemeine Informationen zum Klettersport, einschliesslich einer Legende zu den Schwierigkeitsgraden der Routen in den Klettergebieten.
 
 <div style="text-align: center;">
   <video width="400" controls>
-    <source src="videos/Suchen.mp4" type="video/mp4">
+    <source src="videos/Info.mp4" type="video/mp4">
     Dein Browser unterstützt das Video-Tag nicht.
   </video>
 </div>
