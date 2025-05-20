@@ -8,15 +8,12 @@ Die folgenden Schemata zeigen die aufgebaute und verwendete Geodateninfrastruktu
 
 <div id="gdi-final"></div>
 
-<div style="display: flex; justify-content: center; align-items: flex-start; gap: 32px; width: 100%;">
-  <div style="flex: 1; max-width: 50%;">
-    <img src="bilder/gdi-aufbau.jpg" alt="GDI Architektur Schema" style="width: 100%; height: auto; object-fit: contain;">
-    <div style="text-align: center;">GDI Architektur Schema</div>
-  </div>
-  <div style="flex: 1; max-width: 50%;">
-    <img src="bilder/Ordnerstruktur.png" alt="Ordnerstruktur" style="width: 100%; height: auto; object-fit: contain;">
-    <div style="text-align: center;">Ordnerstruktur der Anwendung</div>
-  </div>
+<div align="center">
+  <img src="bilder/gdi-aufbau.jpg" alt="GDI Architektur Schema" style="max-width: 600px; width: 100%; height: auto; object-fit: contain;">
+  <div style="text-align: center;">GDI Architektur Schema</div>
+  <br>
+  <img src="bilder/Ordnerstruktur.png" alt="Ordnerstruktur" style="max-width: 600px; width: 100%; height: auto; object-fit: contain;">
+  <div style="text-align: center;">Ordnerstruktur der Anwendung</div>
 </div>
 
 ## Backend
