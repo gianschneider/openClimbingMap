@@ -97,17 +97,21 @@ Diese Anleitung richtet sich an die Inbetriebnahme des Backends auf einem Linux:
 ```
 Raspi starten und einrichten, d.h. Internetverbindung aufbauen
 
-# Bash öffnen und zu gewünschtem Root-Verzeichnis navigieren
+Bash öffnen und zu gewünschtem Root-Verzeichnis navigieren
+```
 cd /home/USER/documents
-
-# Projekt klonen
+```
+Projekt klonen
+```
 git clone https://github.com/gianschneider/openClimbingMap.git
-
-# Environment erstellen und aktivieren
+```
+Environment erstellen und aktivieren
+```
 python -m venv backend
 source backend/bin/activate
-
-# Pakete installieren
+```
+Pakete installieren
+```
 sudo apt-get install python3-dev
 pip install --upgrade setuptools
 pip3 install fastapi
@@ -115,14 +119,17 @@ pip3 install uvicorn
 pip3 install requests
 pip3 install psycopg2
 pip3 install pydantic
-
-# SSH aktivieren
+```
+SSH aktivieren
+```
 sudo raspi-config 
-
-# Setup SSH Verbindung (unter drittens wlan0 inet ist die ip zu finden)
+```
+Setup SSH Verbindung (unter drittens wlan0 inet ist die ip zu finden)
+```
 ip a 
-
-# Backend starten
+```
+Backend starten
+```
 cd openClimbingMap/server/
 uvicorn app.main:app --host 0.0.0.0 --port 8000 oder uvicorn app.main:app --reload
 ```
